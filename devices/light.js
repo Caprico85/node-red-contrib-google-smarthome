@@ -45,7 +45,7 @@ module.exports = function(RED) {
                 return;
             }
 
-            this.states = this.clientConn.register(this, 'light-onoff', config.name, this);
+            this.states = this.clientConn.register(this, 'light-onoff', config.name);
 
             this.status({fill: "yellow", shape: "dot", text: "Ready"});
 
@@ -255,7 +255,7 @@ module.exports = function(RED) {
                 return;
             }
 
-            this.states = this.clientConn.register(this, 'light-dimmable', config.name, this);
+            this.states = this.clientConn.register(this, 'light-dimmable', config.name);
 
             this.status({fill: "yellow", shape: "dot", text: "Ready"});
 
@@ -492,7 +492,7 @@ module.exports = function(RED) {
                 return;
             }
 
-            this.states = this.clientConn.register(this, 'light-temperature', config.name, this);
+            this.states = this.clientConn.register(this, 'light-temperature', config.name);
 
             this.status({fill: "yellow", shape: "dot", text: "Ready"});
 
@@ -762,7 +762,7 @@ module.exports = function(RED) {
                 return;
             }
 
-            this.states = this.clientConn.register(this, 'light-hsv', config.name, this);
+            this.states = this.clientConn.register(this, 'light-hsv', config.name);
 
             this.status({fill: "yellow", shape: "dot", text: "Ready"});
 
@@ -1080,7 +1080,7 @@ module.exports = function(RED) {
                 return;
             }
 
-            this.states = this.clientConn.register(this, 'light-rgb', config.name, this);
+            this.states = this.clientConn.register(this, 'light-rgb', config.name);
 
             this.status({fill: "yellow", shape: "dot", text: "Ready"});
 
@@ -1348,7 +1348,7 @@ module.exports = function(RED) {
                 return;
             }
 
-            this.states = this.clientConn.register(this, 'light-rgb-temp', config.name, this);
+            this.states = this.clientConn.register(this, 'light-rgb-temp', config.name);
 
             this.status({fill: "yellow", shape: "dot", text: "Ready"});
 
@@ -1649,7 +1649,7 @@ module.exports = function(RED) {
                 return;
             }
 
-            this.states = this.clientConn.register(this, 'light', config.name, this);
+            this.states = this.clientConn.register(this, 'light', config.name);
 
             this.status({fill: "yellow", shape: "dot", text: "Ready"});
 

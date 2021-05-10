@@ -44,7 +44,7 @@ module.exports = function(RED) {
                 return;
             }
 
-            this.clientConn.register(this, 'scene', config.name, this);
+            this.clientConn.register(this, 'scene', config.name);
 
             this.status({fill: "yellow", shape: "dot", text: "Ready"});
 

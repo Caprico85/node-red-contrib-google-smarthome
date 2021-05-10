@@ -213,7 +213,7 @@ module.exports = function(RED) {
                 this.debug(".constructor: Toggles disabled");
             }
 
-            this.states = this.clientConn.register(this, 'media', config.name, this);
+            this.states = this.clientConn.register(this, 'media', config.name);
 
             if (error_msg.length == 0) {
                 this.status({fill: "yellow", shape: "dot", text: "Ready"});

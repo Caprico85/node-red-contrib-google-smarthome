@@ -46,7 +46,7 @@ module.exports = function(RED) {
                 return;
             }
 
-            this.states = this.clientConn.register(this, 'switch', config.name, this);
+            this.states = this.clientConn.register(this, 'switch', config.name);
 
             this.status({fill: "yellow", shape: "dot", text: "Ready"});
 

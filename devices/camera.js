@@ -67,7 +67,7 @@ module.exports = function(RED) {
                 this.protocols.push('progressive_mp4');
             }
 
-            this.states = this.clientConn.register(this, 'camera', config.name, this);
+            this.states = this.clientConn.register(this, 'camera', config.name);
 
             this.status({fill: "yellow", shape: "dot", text: "Ready"});
 
