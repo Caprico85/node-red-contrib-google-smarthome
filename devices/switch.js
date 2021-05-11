@@ -58,7 +58,7 @@ module.exports = function(RED) {
          * called to register device
          *
          */
-        registerDevice(client, name, me) {
+        registerDevice(client, name) {
             let states = {
                 online: true,
                 on: false
@@ -73,7 +73,7 @@ module.exports = function(RED) {
                         defaultNames: ["Node-RED Switch"],
                         name: name
                     },
-                    roomHint: me.room_hint,
+                    roomHint: this.room_hint,
                     willReportState: true,
                     attributes: {
                     },
