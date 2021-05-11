@@ -1,0 +1,37 @@
+name: Lint
+
+on:
+    workflow_dispatch:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+#    - name: whitespace-linter
+#      uses: nosborn/github-action-whitespace-linter@v1
+#      with:
+#        files: '*.js,*/*.js'
+
+#    - name: Markdown Linting Action
+#      uses: avto-dev/markdown-lint@v1.1.0
+#      with:
+#        args: '*.md'
+        
+#    - name: Standard
+#      uses: goto-bus-stop/standard-action@v1
+#      with:
+#        annotate: true
+#      env:
+#        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+#    - name: W ES Lint
+#      uses: avgar/awesome-lint@1.0.0
+ 
+#    - name: Automatic Whitespace Linter
+#      uses: HexRabbit/whitespace-lint@v0.0.1
+#      with:
+#        github_token: ${{secrets.GITHUB_TOKEN}}
+
+    - name: ESLint
+      uses: bradennapier/eslint-plus-action@v3.4.2
