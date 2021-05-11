@@ -12,6 +12,7 @@ jobs:
       with:
         node-version: 12
         registry-url: https://registry.npmjs.org/
+    - run: npm i
 #    - name: whitespace-linter
 #      uses: nosborn/github-action-whitespace-linter@v1
 #      with:
