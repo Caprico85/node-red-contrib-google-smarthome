@@ -81,7 +81,7 @@ module.exports = function(RED) {
                 return {};
             }
 
-            let device = client.registerDevice(client, name, client);
+            let device = client.registerDevice(client, name);
             let states = device.states;
 
             if (this.app.registerDevice(client, device)) {
