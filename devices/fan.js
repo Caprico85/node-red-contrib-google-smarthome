@@ -46,7 +46,7 @@ module.exports = function(RED) {
                 return;
             }
 
-            this.states = this.clientConn.register(this, 'fan-onoff', config.name, this);
+            this.states = this.clientConn.register(this, 'fan-onoff', config.name);
 
             this.status({fill: "yellow", shape: "dot", text: "Ready"});
 

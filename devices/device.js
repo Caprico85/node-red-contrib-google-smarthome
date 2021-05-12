@@ -594,7 +594,7 @@ module.exports = function (RED) {
             }
 
             // GoogleSmartHomeNode -> (client.registerDevice -> DeviceNode.registerDevice), app.registerDevice
-            this.states = this.clientConn.register(this, 'device', config.name, this);
+            this.states = this.clientConn.register(this, 'device', config.name);
 
             if (error_msg.length == 0) {
                 this.updateStatusIcon();
