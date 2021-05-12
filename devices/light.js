@@ -1711,8 +1711,8 @@ module.exports = function(RED) {
             };
 
             device.states = states;
-            this.updateAttributesForTraits(this, device);
-            this.updateStatesForTraits(this, device);
+            this.updateAttributesForTraits(device);
+            this.updateStatesForTraits(device);
 
             return device;
         }
@@ -2180,7 +2180,8 @@ module.exports = function(RED) {
             return traits;
         }
 
-        updateAttributesForTraits(me, device) {
+        updateAttributesForTraits(device) {
+            let me = this;
             let attributes = device.properties.attributes;
             if (me.is_dimmable) {
                 attributes['commandOnlyBrightness'] = false;
@@ -2202,7 +2203,8 @@ module.exports = function(RED) {
             }
         }
 
-        updateStatesForTraits(me, device) {
+        updateStatesForTraits(device) {
+            let me = this;
             let states = device.states;
             if (me.is_dimmable) {
                 states['brightness'] = 50;

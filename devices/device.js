@@ -655,8 +655,8 @@ module.exports = function (RED) {
                 }
             };
 
-            this.updateAttributesForTraits(this, device);
-            this.updateStatesForTraits(this, device);
+            this.updateAttributesForTraits(device);
+            this.updateStatesForTraits(device);
 
             this.debug(".registerDevice: device = " + JSON.stringify(device));
 
@@ -664,7 +664,8 @@ module.exports = function (RED) {
             return device;
         }
 
-        updateAttributesForTraits(me, device) {
+        updateAttributesForTraits(device) {
+            let me = this;
             let attributes = device.properties.attributes;
 
             if (me.trait.apps) {
@@ -938,7 +939,8 @@ module.exports = function (RED) {
             }
         }
 
-        updateStatesForTraits(me, device) {
+        updateStatesForTraits(device) {
+            let me = this;
             let states = device.states;
 
             if (me.trait.apps) {
