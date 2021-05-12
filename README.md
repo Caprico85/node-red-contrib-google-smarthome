@@ -1,46 +1,48 @@
 # WARNING: Beta code! (But we're getting there :-)
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Prerequisites](#prerequisites)
-- [Setup Instructions](#setup-instructions)
-- [Nodes in this package](#nodes-in-this-package)
-  - [General Information](#general-information)
-  - [Google Device node](#--Google-device-node-a-general-node-supporting-all-Google-device-types-and-all-Google-device-traits)
-  - [Light On/Off](#--light-onoff-a-light-that-can-be-switched-on-and-off-only)
-  - [Dimmable Light](#--dimmable-light)
-  - [Color Temperature Light](#--color-temperature-light)
-  - [Color (HSV) Light](#--color-hsv-light)
-  - [Color (RGB) Light](#--color-rgb-light)
-  - [Color (RGB/Temp) Light](#--color-rgbtemp-light)
-  - [Camera](#--camera)
-  - [Audio/Video Receiver](#--audiovideo-receiver)
-  - [Remote Control](#--remote-control)
-  - [Set-Top Box](#--set-top-box)
-  - [Sound Bar](#--sound-bar)
-  - [Speaker](#--speaker)
-  - [Streaming Box](#--streaming-box)
-  - [Streaming Sound Bar](#--streaming-sound-bar)
-  - [Streaming Stick](#--streaming-stick)
-  - [Television](#--television)
-  - [Outlet](#--outlet)
-  - [Thermostat](#--thermostat)
-  - [Window](#--window)
-  - [Scene](#--scene)
-  - [Vacuum](#--vacuum)
-  - [Fan](#--fan)
-  - [Kitchen Hood](#--kitchen-hood)
-  - [Fireplace](#--fireplace)
-  - [Sensor](#--sensor)
-  - [Shutter](#--shutter)
-  - [Switch](#--switch)
-  - [Management](#--management)
-- [The config node](#the-config-node)
-- [Troubleshooting](#troubleshooting)
-- [Credits](#credits)
-- [Copyright and license](#copyright-and-license)
+
+* [Introduction](#introduction)
+* [Prerequisites](#prerequisites)
+* [Setup Instructions](#setup-instructions)
+* [Nodes in this package](#nodes-in-this-package)
+  * [General Information](#general-information)
+  * [Google Device node](#--Google-device-node-a-general-node-supporting-all-Google-device-types-and-all-Google-device-traits)
+  * [Light On/Off](#--light-onoff-a-light-that-can-be-switched-on-and-off-only)
+  * [Dimmable Light](#--dimmable-light)
+  * [Color Temperature Light](#--color-temperature-light)
+  * [Color (HSV) Light](#--color-hsv-light)
+  * [Color (RGB) Light](#--color-rgb-light)
+  * [Color (RGB/Temp) Light](#--color-rgbtemp-light)
+  * [Camera](#--camera)
+  * [Audio/Video Receiver](#--audiovideo-receiver)
+  * [Remote Control](#--remote-control)
+  * [Set-Top Box](#--set-top-box)
+  * [Sound Bar](#--sound-bar)
+  * [Speaker](#--speaker)
+  * [Streaming Box](#--streaming-box)
+  * [Streaming Sound Bar](#--streaming-sound-bar)
+  * [Streaming Stick](#--streaming-stick)
+  * [Television](#--television)
+  * [Outlet](#--outlet)
+  * [Thermostat](#--thermostat)
+  * [Window](#--window)
+  * [Scene](#--scene)
+  * [Vacuum](#--vacuum)
+  * [Fan](#--fan)
+  * [Kitchen Hood](#--kitchen-hood)
+  * [Fireplace](#--fireplace)
+  * [Sensor](#--sensor)
+  * [Shutter](#--shutter)
+  * [Switch](#--switch)
+  * [Management](#--management)
+* [The config node](#the-config-node)
+* [Troubleshooting](#troubleshooting)
+* [Credits](#credits)
+* [Copyright and license](#copyright-and-license)
 
 ---
+
 ## Introduction
 
 A collection of Node-RED nodes to control your smart home devices via Google Assistant or the Google Home App.
@@ -49,6 +51,7 @@ What this module does NOT:
 It does not directly interface with devices made by Google, for example Nest thermostats 
 
 ---
+
 ## Prerequisites
 
 1. You are going to need a 'real' SSL certificate e.g. from [Let’s Encrypt](https://letsencrypt.org/).
@@ -59,6 +62,7 @@ only the functions needed by Google.
 `[warn] [node-red-contrib-google-smarthome/google-smarthome] SyntaxError: Unexpected token ( (line:30)`
 
 ---
+
 ## Setup Instructions
 
 #### Create and set up project in Actions Console
@@ -146,6 +150,7 @@ If you want to use login with username/password instead, skip this section.
 1. Start using the Google Assistant.
 
 ---
+
 ## Nodes in this package
 ### General information
 1. If `online` is set to `false` for a node, Google SmartHome is not going to be able to control the node. It will also show as `offline` in the Google Home app.
@@ -277,6 +282,7 @@ and the following Google [traits](https://developers.google.com/assistant/smarth
 * Volume
 
 #### - Light On/Off (a light that can be switched on and off only)
+
 `topic` can be `on`, `online` or something else.
 
 If `topic` is `on` then `payload` must be boolean and tells the state of the light.
@@ -298,6 +304,7 @@ If `topic` is something else then `payload` must be an object and tells all the 
         }
 
 #### - Dimmable Light
+
 `topic` can be `on`, `online`, `brightness` or something else.
 
 If `topic` is `on` then `payload` must be boolean and tells the state of the light.
@@ -325,6 +332,7 @@ If `topic` is something else then `payload` must be an object and tells all the 
         }
 
 #### - Color Temperature Light
+
 `topic` can be `on`, `online`, `brightness`, `temperature` or something else.
 
 If `topic` is `on` then `payload` must be boolean and tells the state of the light.
@@ -363,6 +371,7 @@ Example flow:
         [{"id":"43870b89.3a30f4","type":"mqtt in","z":"1fdba310.d04cad","name":"","topic":"home/lamp/power","qos":"2","datatype":"auto","broker":"","x":310,"y":1640,"wires":[["45ed43ce.a1c31c"]]},{"id":"e099c1c7.36ea5","type":"mqtt out","z":"1fdba310.d04cad","name":"","topic":"home/lamp/set-power","qos":"","retain":"","broker":"","x":1260,"y":1640,"wires":[]},{"id":"45ed43ce.a1c31c","type":"change","z":"1fdba310.d04cad","name":"topic = on","rules":[{"t":"set","p":"topic","pt":"msg","to":"on","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":540,"y":1640,"wires":[["d068a2c2.0e73a"]]},{"id":"295718c8.bc2448","type":"mqtt in","z":"1fdba310.d04cad","name":"","topic":"home/lamp/brightness","qos":"2","datatype":"auto","broker":"","x":320,"y":1680,"wires":[["a82a5960.98e028"]]},{"id":"a82a5960.98e028","type":"change","z":"1fdba310.d04cad","name":"topic = brightness","rules":[{"t":"set","p":"topic","pt":"msg","to":"brightness","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":570,"y":1680,"wires":[["d068a2c2.0e73a"]]},{"id":"90c6be23.e6b76","type":"function","z":"1fdba310.d04cad","name":"Split","func":"return [\n    { payload: msg.payload.on },\n    { payload: msg.payload.brightness },\n    { payload: msg.payload.temperature },\n];","outputs":3,"noerr":0,"initialize":"","finalize":"","x":1050,"y":1680,"wires":[["e099c1c7.36ea5"],["57b812df.521b7c"],["d5b88148.ecde9"]],"outputLabels":["on","brightness","temperature"]},{"id":"57b812df.521b7c","type":"mqtt out","z":"1fdba310.d04cad","name":"","topic":"home/lamp/set-brightness","qos":"","retain":"","broker":"","x":1270,"y":1680,"wires":[]},{"id":"d068a2c2.0e73a","type":"google-light-temperature","z":"1fdba310.d04cad","client":"","name":"Example Colortemp Light","topic":"example-colortemp-light","passthru":false,"x":830,"y":1680,"wires":[["90c6be23.e6b76"]]},{"id":"e99a1c80.cbf9b","type":"mqtt in","z":"1fdba310.d04cad","name":"","topic":"home/lamp/colortemp","qos":"2","datatype":"auto","broker":"","x":320,"y":1720,"wires":[["e2b08d53.e775"]]},{"id":"e2b08d53.e775","type":"change","z":"1fdba310.d04cad","name":"topic = temperature","rules":[{"t":"set","p":"topic","pt":"msg","to":"temperature","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":570,"y":1720,"wires":[["d068a2c2.0e73a"]]},{"id":"d5b88148.ecde9","type":"mqtt out","z":"1fdba310.d04cad","name":"","topic":"home/lamp/set-brightness","qos":"","retain":"","broker":"","x":1270,"y":1720,"wires":[]}]
 
 #### - Color (HSV) Light
+
 `topic` can be `on`, `online`, `brightness`, `hue`, `saturation`, `value` or something else.
 
 If `topic` is `on` then `payload` must be boolean and tells the state of the light.
@@ -408,6 +417,7 @@ If `topic` is something else then `payload` must be an object and tells all the 
         }
 
 #### - Color (RGB) Light
+
 `topic` can be `on`, `online`, `brightness`, `rgb` or something else.
 
 If `topic` is `on` then `payload` must be boolean and tells the state of the light.
@@ -443,6 +453,7 @@ If `topic` is something else then `payload` must be an object and tells all the 
         }
 
 #### - Color (RGB/Temp) Light
+
 `topic` can be `on`, `online`, `brightness`, `temperature`, `rgb` or something else.
 
 If `topic` is `on` then `payload` must be boolean and tells the state of the light.
@@ -484,6 +495,7 @@ If `topic` is something else then `payload` must be an object and tells all the 
         }
 
 #### - Camera
+
 `topic` can be `online` or something else.
 
 If `topic` is `online` then `payload` must be boolean and tells the online state of the camera.
@@ -503,6 +515,7 @@ Example flow:
         [{"id":"980e90e8.c7796","type":"mqtt in","z":"1fdba310.d04cad","name":"","topic":"home/camera/power","qos":"2","datatype":"auto","broker":"","x":530,"y":460,"wires":[["6637f52f.da97cc"]]},{"id":"6f5daaf0.f5dce4","type":"mqtt out","z":"1fdba310.d04cad","name":"","topic":"home/camera/set-power","qos":"","retain":"","broker":"","x":1340,"y":460,"wires":[]},{"id":"9eca40d3.9338b","type":"google-camera","z":"1fdba310.d04cad","client":"","name":"Example Camera","topic":"example","passthru":false,"x":940,"y":460,"wires":[["48723761.d78bb8"]]},{"id":"6637f52f.da97cc","type":"change","z":"1fdba310.d04cad","name":"topic = online","rules":[{"t":"set","p":"topic","pt":"msg","to":"online","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":740,"y":460,"wires":[["9eca40d3.9338b"]]},{"id":"48723761.d78bb8","type":"function","z":"1fdba310.d04cad","name":"Split","func":"return [\n    { payload: msg.payload.online },\n];","outputs":1,"noerr":0,"x":1130,"y":460,"wires":[["6f5daaf0.f5dce4"]],"outputLabels":["online"]}]
 
 #### - Outlet
+
 `topic` can be `on`, `online` or something else.
 
 If `topic` is `on` then `payload` must be boolean and tells the state of the outlet.
@@ -528,6 +541,7 @@ Example flow:
         [{"id":"980e90e8.c7796","type":"mqtt in","z":"1fdba310.d04cad","name":"","topic":"home/outlet/power","qos":"2","datatype":"auto","broker":"","x":530,"y":460,"wires":[["6637f52f.da97cc"]]},{"id":"6f5daaf0.f5dce4","type":"mqtt out","z":"1fdba310.d04cad","name":"","topic":"home/outlet/set-power","qos":"","retain":"","broker":"","x":1340,"y":460,"wires":[]},{"id":"9eca40d3.9338b","type":"google-outlet","z":"1fdba310.d04cad","client":"","name":"Example Outlet","topic":"example","passthru":false,"x":940,"y":460,"wires":[["48723761.d78bb8"]]},{"id":"6637f52f.da97cc","type":"change","z":"1fdba310.d04cad","name":"topic = on","rules":[{"t":"set","p":"topic","pt":"msg","to":"on","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":740,"y":460,"wires":[["9eca40d3.9338b"]]},{"id":"48723761.d78bb8","type":"function","z":"1fdba310.d04cad","name":"Split","func":"return [\n    { payload: msg.payload.on },\n];","outputs":1,"noerr":0,"x":1130,"y":460,"wires":[["6f5daaf0.f5dce4"]],"outputLabels":["on"]}]
 
 #### - Thermostat
+
 `topic` can be `thermostatTemperatureAmbient`, `thermostatTemperatureSetpoint` or something else.
 
 If `topic` is `thermostatTemperatureAmbient` then `payload` must be a float and indicates the current ambient (room) temperature.
@@ -559,6 +573,7 @@ Example flow:
         [{"id":"891efa41.8e8308","type":"google-thermostat","z":"1fdba310.d04cad","client":"","name":"Example Thermostat","topic":"example","passthru":false,"x":940,"y":740,"wires":[["cdfe8ddc.ab3c6"]]},{"id":"3086bc12.910434","type":"change","z":"1fdba310.d04cad","name":"topic = thermostatTemperatureAmbient","rules":[{"t":"set","p":"topic","pt":"msg","to":"thermostatTemperatureAmbient","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":650,"y":720,"wires":[["891efa41.8e8308"]]},{"id":"1344bd56.a60ac3","type":"change","z":"1fdba310.d04cad","name":"topic = thermostatTemperatureSetpoint","rules":[{"t":"set","p":"topic","pt":"msg","to":"thermostatTemperatureSetpoint","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":650,"y":760,"wires":[["891efa41.8e8308"]]},{"id":"cdfe8ddc.ab3c6","type":"function","z":"1fdba310.d04cad","name":"Split","func":"return [\n    { payload: msg.payload.thermostatTemperatureSetpoint },\n];\n\n// Google returns thermostat mode too, but we currently don't handle different thermostat modes","outputs":1,"noerr":0,"x":1130,"y":740,"wires":[["e2c467bd.2a2e58"]],"outputLabels":["thermostatTemperatureSetpoint"]},{"id":"5efccd01.2e28f4","type":"mqtt in","z":"1fdba310.d04cad","name":"","topic":"home/kitchen/current-temp","qos":"2","datatype":"auto","broker":"","x":350,"y":720,"wires":[["3086bc12.910434"]]},{"id":"62becde4.16ca84","type":"mqtt in","z":"1fdba310.d04cad","name":"","topic":"home/kitchen/target-temp","qos":"2","datatype":"auto","broker":"","x":350,"y":760,"wires":[["1344bd56.a60ac3"]]},{"id":"e2c467bd.2a2e58","type":"mqtt out","z":"1fdba310.d04cad","name":"","topic":"home/kitchen/set-target-temp","qos":"","retain":"","broker":"","x":1340,"y":740,"wires":[]}]
 
 #### - Window
+
 `topic` can be `openPercent`, `online` or something else.
 
 If `topic` is `openPercent` then `payload` must be integer and indicates the percentage that the window is opened
@@ -587,10 +602,12 @@ Example flow:
 
 
 #### - Scene
+
 Messages sent to this node is simply passed through. One cannot tell Google SmartHome to activate a scene, they tell us.
 
 
 #### - Vacuum
+
 `topic` can be `on`, `online` or something else.
 
 If `msg.topic` is `currentModeSettings.power` then `msg.payload` must be string and tells the mode of the vacuum. It
@@ -633,6 +650,7 @@ If `topic` is something else then `payload` must be an object and tells both the
 
 
 #### - Fan
+
 `topic` can be `on`, `online` or something else.
 
 If `topic` is `on` then `payload` must be boolean and and tells the state of the fan.
@@ -654,6 +672,7 @@ If `topic` is something else then `payload` must be an object and tells both the
         }
 
 #### - Kitchen Hood
+
 `topic` can be `on`, `online` or something else.
 
 If `topic` is `on` then `payload` must be boolean and and tells the state of the kitchen hood.
@@ -675,6 +694,7 @@ If `topic` is something else then `payload` must be an object and tells both the
         }
 
 #### - Fireplace
+
 `topic` can be `on`, `online` or something else.
 
 If `topic` is `on` then `payload` must be boolean and and tells the state of the fireplace.
@@ -696,6 +716,7 @@ If `topic` is something else then `payload` must be an object and tells both the
         }
 
 #### - Sensor
+
 `topic` can be `temperatureAmbientCelsius`, `humidityAmbientPercent` or something else.
 
 If `topic` is `temperatureAmbientCelsius` then `payload` must be a number that tells the sensor temperature (in celsius).
@@ -717,6 +738,7 @@ If `topic` is something else then `payload` must be an object, that tells the st
         }
 
 #### - Shutter
+
 `topic` can be `openPercent`, `online` or something else.
 
 If `topic` is `openPercent` then `payload` must be integer and indicates the percentage that the shutter is opened
@@ -740,6 +762,7 @@ If `topic` is something else then `payload` must be an object and tells both the
         }
         
 #### - Blind
+
 `topic` can be `openPercent`, `online` or something else.
 
 If `topic` is `openPercent` then `payload` must be integer and indicates the percentage that the blind is opened
@@ -763,6 +786,7 @@ If `topic` is something else then `payload` must be an object and tells both the
         }
         
 #### - Switch
+
 `topic` can be `on`, `online` or something else.
 
 If `topic` is `on` then `payload` must be boolean and tells the state of the switch.
@@ -934,6 +958,7 @@ Example flow:
 `request_sync` will request Google to sync to learn about new or changed devices. This usually happens automatically.
 
 ---
+
 ## The config node
 
 **Local Authentication**
@@ -976,34 +1001,37 @@ Example flow:
   `Private Key`: Full path to private key file, e.g. `privkey.pem` from Let's Encrypt.
 
 ---
+
 ## Troubleshooting
 
-- Some devices can be controlled via voice, but not via Google Home App. For example windows and sensors. These devices
+* Some devices can be controlled via voice, but not via Google Home App. For example windows and sensors. These devices
   only show a general page with their room assignments in the app, but they don't show their current state or buttons to
   control it. There is nothing we can do about it, this has to be implemented by Google. 
-- Some errors and possible solutions are listed at
+* Some errors and possible solutions are listed at
   [Possible errors](https://github.com/mikejac/node-red-contrib-google-smarthome/wiki/Possible-errors).
-- Look at Node-Red's debug panel for error messages.
-- Unlink and relink your account in the Google Home app. Meanwhile look for errors in the debug panel.
-- Restart your flows (using the `Restart Flows` option in the dropdown menu of the deploy button) while the debug panel
+* Look at Node-Red's debug panel for error messages.
+* Unlink and relink your account in the Google Home app. Meanwhile look for errors in the debug panel.
+* Restart your flows (using the `Restart Flows` option in the dropdown menu of the deploy button) while the debug panel
   is open to see error messages during initialization.
-- Go to [Actions on Google Console](https://console.actions.google.com), in tab *Test* choose *View logs in Google Cloud Platform*.
-- Check if your service is reachable from the outside. Use [reqbin.com](https://reqbin.com/) or a similar tool to
+* Go to [Actions on Google Console](https://console.actions.google.com), in tab *Test* choose *View logs in Google Cloud Platform*.
+* Check if your service is reachable from the outside. Use [reqbin.com](https://reqbin.com/) or a similar tool to
   send a GET request to https://example.com:3001/check (with your hostname and port). It must answer with status
   200 (OK) and the message "SUCCESS". Use https://www.ssllabs.com/ssltest/ to check your SSL certificate.
-- Check Node-RED's log output. Where you find this depends on how you installed Node-Red. Usually something like
+* Check Node-RED's log output. Where you find this depends on how you installed Node-Red. Usually something like
   `journalctl -u nodered`, `docker logs <container>` or a file in `/var/log`. 
-- Toggle "Enable Node debug" in the configuration node, connect a debug node to the output of the management node and
+* Toggle "Enable Node debug" in the configuration node, connect a debug node to the output of the management node and
   look for debug messages. In Node-Red UI choose 'Restart Flows' on the 'Deploy' button to see messages during
   initialization.
-- Go to [Actions on Google Console](https://console.actions.google.com), on tab *Test* click *Reset Test*. If this
+* Go to [Actions on Google Console](https://console.actions.google.com), on tab *Test* click *Reset Test*. If this
   doesn't do anything, click the *Settings* button, disable "On device testing", then enable it again.
-- Google might say that it cannot reach your device if that device did not update its state at least once after creation.
+* Google might say that it cannot reach your device if that device did not update its state at least once after creation.
 
 ---
+
 ## Test script
 
 **login_get**
+
 ``` bash
 #!/usr/bin/env bash
 . ./data
@@ -1012,6 +1040,7 @@ echo
 ```
 
 **login_post**
+
 ``` bash
 #!/usr/bin/env bash
 . ./data
@@ -1026,7 +1055,9 @@ CODE=${CODE%%&*}
 echo "CODE $CODE"
 echo "CODE=\"$CODE\"" > code
 ```
+
 **authorization_code**
+
 ``` bash
 #!/usr/bin/env bash
 . ./data
@@ -1048,6 +1079,7 @@ echo
 ```
 
 **refresh_token**
+
 ``` bash
 #!/usr/bin/env bash
 . ./data
@@ -1070,6 +1102,7 @@ echo
 ```
 
 **command_on**
+
 ``` bash
 #!/usr/bin/env bash
 . ./data
@@ -1086,6 +1119,7 @@ echo ""
 ```
 
 **disconnect**
+
 ``` bash
 #!/usr/bin/env bash
 . ./data
@@ -1102,6 +1136,7 @@ echo ""
 ```
 
 **data**
+
 ``` bash
 #!/usr/bin/env bash
 PROJECT_ID="PROJECT_ID_FILL_IT"
@@ -1119,9 +1154,12 @@ NODE_ID="1c188980.6d0c87"
 ```
 
 ---
+
 ## Credits
+
 Parts of this README and large parts of the code comes from Google.
 [Actions on Google: Smart Home sample using Node.js](https://github.com/actions-on-google/smart-home-nodejs) in particular has been of great value.
 
 ## Copyright and license
+
 Copyright 2018 - 2021 Michael Jacobsen under [the GNU General Public License version 3](LICENSE).
