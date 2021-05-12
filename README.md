@@ -1004,7 +1004,7 @@ Example flow:
 ## Test script
 
 **login_get**
-```
+``` bash
 #!/usr/bin/env bash
 . ./data
 curl "$BASE_URL/oauth?client_id=$GOOGLE_CLIENT_ID&response_type=code&state=$STATE_STRING&scope=$REQUESTED_SCOPES&user_locale=$LOCALE&redirect_uri=$REDIRECT_URI"
@@ -1012,7 +1012,7 @@ echo
 ```
 
 **login_post**
-```
+``` bash
 #!/usr/bin/env bash
 . ./data
 
@@ -1027,7 +1027,7 @@ echo "CODE $CODE"
 echo "CODE=\"$CODE\"" > code
 ```
 **authorization_code**
-```
+``` bash
 #!/usr/bin/env bash
 . ./data
 . ./code
@@ -1048,7 +1048,7 @@ echo
 ```
 
 **refresh_token**
-```
+``` bash
 #!/usr/bin/env bash
 . ./data
 . ./code
@@ -1070,7 +1070,7 @@ echo
 ```
 
 **command_on**
-```
+``` bash
 #!/usr/bin/env bash
 . ./data
 . ./code
@@ -1086,7 +1086,7 @@ echo ""
 ```
 
 **disconnect**
-```
+``` bash
 #!/usr/bin/env bash
 . ./data
 . ./code
@@ -1102,7 +1102,7 @@ echo ""
 ```
 
 **data**
-```
+``` bash
 #!/usr/bin/env bash
 PROJECT_ID="PROJECT_ID_FILL_IT"
 GOOGLE_CLIENT_ID=123456789012345678901
@@ -1120,7 +1120,8 @@ NODE_ID="1c188980.6d0c87"
 
 ---
 ## Credits
-Parts of this README and large parts of the code comes from Google. [Actions on Google: Smart Home sample using Node.js](https://github.com/actions-on-google/smart-home-nodejs) in particular has been of great value.
+Parts of this README and large parts of the code comes from Google.
+[Actions on Google: Smart Home sample using Node.js](https://github.com/actions-on-google/smart-home-nodejs) in particular has been of great value.
 
 ## Copyright and license
 Copyright 2018 - 2021 Michael Jacobsen under [the GNU General Public License version 3](LICENSE).
