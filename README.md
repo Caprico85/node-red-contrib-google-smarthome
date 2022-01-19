@@ -5,22 +5,24 @@
 **Deprecation note:** As of v0.2.0 all device nodes except the Google Device are deprecated and will be removed later. Please migrate to the Google Device node.
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Prerequisites](#prerequisites)
-- [Setup Instructions](#setup-instructions)
-- [Nodes in this package](#nodes-in-this-package)
-  - [General Information](#general-information)
-  - [Google Device node](#--google-device-node-a-general-node-supporting-all-google-device-types-and-all-google-device-traits)
-  - [Other device nodes](#--other-device-nodes)
-  - [Management](#--management)
-- [The config node](#the-config-node)
-- [Sending spoken notifications](#sending-spoken-notifications)
-- [Inviting other users](#inviting-other-users)
-- [Troubleshooting](#troubleshooting)
-- [Credits](#credits)
-- [Copyright and license](#copyright-and-license)
+
+* [Introduction](#introduction)
+* [Prerequisites](#prerequisites)
+* [Setup Instructions](#setup-instructions)
+* [Nodes in this package](#nodes-in-this-package)
+  * [General Information](#general-information)
+  * [Google Device node](#--google-device-node-a-general-node-supporting-all-google-device-types-and-all-google-device-traits)
+  * [Other device nodes](#--other-device-nodes)
+  * [Management](#--management)
+* [The config node](#the-config-node)
+* [Sending spoken notifications](#sending-spoken-notifications)
+* [Inviting other users](#inviting-other-users)
+* [Troubleshooting](#troubleshooting)
+* [Credits](#credits)
+* [Copyright and license](#copyright-and-license)
 
 ---
+
 ## Introduction
 
 A collection of Node-RED nodes to control your smart home devices via Google Assistant or the Google Home App.
@@ -35,6 +37,7 @@ What this module does NOT:
 - It is only for controlling devices. It does not let you implement your own conversations with Google Assistant.
 
 ---
+
 ## Prerequisites
 
 1. You are going to need a 'real' SSL certificate e.g. from [Let’s Encrypt](https://letsencrypt.org/).
@@ -44,18 +47,23 @@ only the functions needed by Google.
 3. This package requires NodeJS version 8.0.0 at a minimum.
 
 ---
+
 ## Setup Instructions
 
 Follow our [setup instructions](docs/setup_instructions.md).
 
 ---
+
 ## Nodes in this package
+
 ### General information
+
 1. If `online` is set to `false` for a node, Google SmartHome is not going to be able to control the node. It will also show as `offline` in the Google Home app.
 2. The nodes will do their best to convert incoming payload data to the required type. You can send a string of e.g. `ON` and it will be converted to `true`.
 3. Topics must be either as stated below or prepended with one or more `/`. E.g. `my/topic/on`. The nodes only looks for the part after the last `/`, if any.
 
 #### - Google device node (a general node supporting all Google device types and all Google device traits)
+
 This is a generic node, supporting the following Google [devices](https://developers.google.com/assistant/smarthome/guides):
 
 * Air conditioning unit
@@ -198,6 +206,7 @@ All other device nodes except the Google device are deprecated. Please use the G
 `request_sync` will request Google to sync to learn about new or changed devices. This usually happens automatically.
 
 ---
+
 ## The config node
 
 **Local Authentication**
@@ -291,10 +300,10 @@ Google Workspace account. If this is the case, you can share access to your smar
 ---
 ## Troubleshooting
 
-- Some devices can be controlled via voice, but not via Google Home App. For example windows and sensors. These devices
+* Some devices can be controlled via voice, but not via Google Home App. For example windows and sensors. These devices
   only show a general page with their room assignments in the app, but they don't show their current state or buttons to
   control it. There is nothing we can do about it, this has to be implemented by Google. 
-- Some errors and possible solutions are listed at
+* Some errors and possible solutions are listed at
   [Possible errors](https://github.com/mikejac/node-red-contrib-google-smarthome/wiki/Possible-errors).
 - Look at Node-Red's debug panel for error messages.
 - Unlink and relink your account in the Google Home app. Meanwhile, look for errors in the debug panel.
@@ -308,7 +317,7 @@ Google Workspace account. If this is the case, you can share access to your smar
   https://www.ssllabs.com/ssltest/ to check your SSL certificate.
 - Check Node-RED's log output. Where you find this depends on how you installed Node-Red. Usually something like
   `journalctl -u nodered`, `docker logs <container>` or a file in `/var/log`. 
-- Toggle "Enable Node debug" in the configuration node, connect a debug node to the output of the management node and
+* Toggle "Enable Node debug" in the configuration node, connect a debug node to the output of the management node and
   look for debug messages. In Node-Red UI choose 'Restart Flows' on the 'Deploy' button to see messages during
   initialization.
 - Go to [Actions on Google Console](https://console.actions.google.com), on tab *Test* click *Reset Test*. If this
@@ -320,9 +329,11 @@ Google Workspace account. If this is the case, you can share access to your smar
   screenshots
 
 ---
+
 ## Test script
 
 **login_get**
+
 ``` bash
 #!/usr/bin/env bash
 . ./data
@@ -331,6 +342,7 @@ echo
 ```
 
 **login_post**
+
 ``` bash
 #!/usr/bin/env bash
 . ./data
@@ -345,7 +357,9 @@ CODE=${CODE%%&*}
 echo "CODE $CODE"
 echo "CODE=\"$CODE\"" > code
 ```
+
 **authorization_code**
+
 ``` bash
 #!/usr/bin/env bash
 . ./data
@@ -367,6 +381,7 @@ echo
 ```
 
 **refresh_token**
+
 ``` bash
 #!/usr/bin/env bash
 . ./data
@@ -389,6 +404,7 @@ echo
 ```
 
 **command_on**
+
 ``` bash
 #!/usr/bin/env bash
 . ./data
@@ -405,6 +421,7 @@ echo ""
 ```
 
 **disconnect**
+
 ``` bash
 #!/usr/bin/env bash
 . ./data
@@ -421,6 +438,7 @@ echo ""
 ```
 
 **data**
+
 ``` bash
 #!/usr/bin/env bash
 PROJECT_ID="PROJECT_ID_FILL_IT"
@@ -438,9 +456,12 @@ NODE_ID="1c188980.6d0c87"
 ```
 
 ---
+
 ## Credits
+
 Parts of this README and large parts of the code comes from Google.
 [Actions on Google: Smart Home sample using Node.js](https://github.com/actions-on-google/smart-home-nodejs) in particular has been of great value.
 
 ## Copyright and license
+
 Copyright 2018 - 2021 Michael Jacobsen under [the GNU General Public License version 3](LICENSE).
