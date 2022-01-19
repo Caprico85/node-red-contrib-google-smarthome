@@ -69,5 +69,8 @@
       "name": "mikejac",
       "email": "michael@visbyjacobsen.dk"
     }
-  ]
+  ],
+  "devDependencies": {
+    "eslint": "^7.15.0"
+  }
 }
