@@ -376,7 +376,7 @@ module.exports = function (RED) {
             if (this.device_type != 'SCENE') {
                 this.trait.scene = false;
             }
-
+            
             // Sets required traits
             switch (this.device_type) {
                 case "AC_UNIT": // Air conditioning unit
@@ -636,15 +636,23 @@ module.exports = function (RED) {
                     this.trait.onoff = true;
                     break;
             }
+            
+            console.log('DINGENSKIRCHEN traits');
 
             let error_msg = '';
             if (this.trait.appselector) {
+                console.log('DINGENSKIRCHEN appselector');
                 if (this.appselector_type !== 'json') {
+                    console.log('DINGENSKIRCHEN appselector json davor');
                     this.available_applications = this.to_available_applications(this.loadJson('Applications', this.appselector_file.replace(/<id>/g, this.id), []));
+                    console.log('DINGENSKIRCHEN appselector json danach');
                 } else {
+                    console.log('DINGENSKIRCHEN appselector nicht json davor');
                     this.available_applications = this.to_available_applications(this.parseJson('Applications', this.appselector_file, []));
+                    console.log('DINGENSKIRCHEN appselector nicht json danach');
                 }
             } else {
+                console.log('DINGENSKIRCHEN nicht appselector');
                 this.available_applications = [];
                 this._debug(".constructor: AppSelector disabled");
             }
@@ -791,14 +799,20 @@ module.exports = function (RED) {
                     customData: this.clientConn.app.getCustomData()
                 }
             };
+            
+            console.log('DINGENSKIRCHEN traits ende');
 
             this.updateAttributesForTraits(this.device);
             this.updateStatesForTraits(this.device);
+            
+            console.log('DINGENSKIRCHEN bla');
 
             this._debug(".constructor: device = " + JSON.stringify(this.device));
 
             // GoogleSmartHomeNode -> (client.registerDevice -> DeviceNode.registerDevice), app.registerDevice
             this.clientConn.register(this, 'device');
+            
+            console.log('DINGENSKIRCHEN registriert');
 
             if (error_msg.length == 0) {
                 this.updateStatusIcon(false);
@@ -809,6 +823,8 @@ module.exports = function (RED) {
             this.on('input', this.onInput);
             this.on('close', this.onClose);
             this.clientConn.app.ScheduleRequestSync();
+            
+            console.log('DINGENSKIRCHEN Constructor zu Ende');
         }
 
         _debug(msg) {
@@ -3567,24 +3583,35 @@ module.exports = function (RED) {
         }
 
         loadJson(text, filename, defaultValue) {
+            console.log('DINGENSKIRCHEN loadJson text: ' + text);
+            console.log('DINGENSKIRCHEN loadJson filename: ' + filename);
+            console.log('DINGENSKIRCHEN loadJson defaultValue: ' + defaultValue);
             if (filename) {
                 this._debug('.loadJson: ' + text);
                 let full_filename;
                 if (!filename.startsWith(path.sep)) {
+                    console.log('DINGENSKIRCHEN loadJson ohne sep');
+                    console.log('DINGENSKIRCHEN loadJson cwd: ' + process.cwd());
                     const userDir = RED.settings.userDir;
+                    console.log('DINGENSKIRCHEN loadJson userDir: ' + userDir);
                     full_filename = path.join(userDir, filename);
+                    console.log('DINGENSKIRCHEN loadJson Pfad gebaut: full_filename');
                 } else {
+                    console.log('DINGENSKIRCHEN loadJson mit sep');
                     full_filename = filename;
                 }
+                console.log('DINGENSKIRCHEN loadJson full_filename: ' + full_filename);
                 this._debug('.loadJson: filename ' + full_filename);
 
                 try {
+                    console.log('DINGENSKIRCHEN loadJson vor laden');
                     let jsonFile = fs.readFileSync(
                         full_filename,
                         {
                             'encoding': 'utf8',
                             'flag': fs.constants.R_OK | fs.constants.W_OK | fs.constants.O_CREAT
                         });
+                    console.log('DINGENSKIRCHEN loadJson nach laden: ' + jsonFile);
 
                     if (jsonFile === '') {
                         this._debug('.loadJson: file ' + filename + ' is empty');
@@ -3597,6 +3624,7 @@ module.exports = function (RED) {
                     }
                 }
                 catch (err) {
+                    console.log('DINGENSKIRCHEN loadJson err: ' + err);
                     this._debug(".loadJson error " + text + ': ' + JSON.stringify(err));
                     this.error('Error on loading ' + text + ' filename ' + filename + ': ' + err.toString());
                     return defaultValue;

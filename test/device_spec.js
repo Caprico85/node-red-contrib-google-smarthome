@@ -21,13 +21,14 @@ const helper = require('node-red-node-test-helper');
 const device = require('../devices/device.js');
 const google_smarthome = require('../google-smarthome.js');
 
-
-helper.init(require.resolve('node-red'), {
-  userDir: '/tmp'
-});
+helper.init(require.resolve('node-red'));
 
 describe('Device Node', function () {
   beforeEach(function (done) {
+    // Ensure Node-RED userDir is set
+    if(typeof helper.settings().userDir == 'undefined')
+      helper.settings({ userDir: '/tmp' });
+    
     helper.startServer(done);
   });
 
@@ -63,7 +64,6 @@ describe('Device Node', function () {
         return;
         
 /*
-        
         d1.should.have.property('client');
         d1.should.have.property('clientConn');
         const clnt = helper.getNode(d1.client);
