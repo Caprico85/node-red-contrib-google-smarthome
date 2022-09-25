@@ -1,0 +1,37 @@
+name: Lint
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Lint Code Base
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          # Full git history is needed to get a proper list of changed files within `super-linter`
+          fetch-depth: 0
+      - name: Lint Code Base
+        uses: github/super-linter/slim@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Don't show ASCII opossum
+          SUPPRESS_POSSUM: true
+          # Only show errors, don't fail the workflow
+          DISABLE_ERRORS: true
+          # Exclude test folder
+          FILTER_REGEX_EXCLUDE: .*test/.*
+          # Set eslint rules file
+          JAVASCRIPT_ES_CONFIG_FILE: eslintrc.json
+          # Disable JS standard linter (as standardjs is not configurable)
+          VALIDATE_JAVASCRIPT_STANDARD: false
+          # Temporarily disable gitleaks, HTML and JSCPD linting for speed and cleaner output
+          VALIDATE_GITLEAKS: false
+          VALIDATE_HTML: false
+          VALIDATE_JSCPD: false
