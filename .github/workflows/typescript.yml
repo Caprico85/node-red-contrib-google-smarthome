@@ -1,0 +1,24 @@
+name: TypeScript Build
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: TypeScript Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+      - name: npm Install
+        run: npm ci
+      - name: TypeScript Build
+        uses: alexthemaster/action-build-typescript@v1.2.1

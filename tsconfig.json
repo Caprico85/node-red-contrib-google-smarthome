@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "module": "system",
+        "allowJs": true,
+        "outFile": "/tmp/tsc.js"
+    },
+    "include": [
+        "./*.js"
+    ]
+}
