@@ -21,4 +21,4 @@ jobs:
       - name: npm Install
         run: npm ci
       - name: TypeScript Build
-        uses: alexthemaster/action-build-typescript@v1.2.1
+        uses: alexthemaster/action-build-typescript@v1.3.1
