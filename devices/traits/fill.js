@@ -26,6 +26,14 @@ const Base = require('./base.js');
  * @see https://developers.google.com/assistant/smarthome/traits/fill
  */
 class Fill extends Base {
+    /**
+     * Returns the name of the trait as given by Google.
+     *
+     * @return {string}
+     */
+    getGoogleTraitName() {
+        return 'action.devices.traits.Fill'
+    }
 }
 
 module.exports = Fill;

@@ -23,6 +23,14 @@
  * Base class for all traits.
  */
 class Base {
+    /**
+     * Returns the name of the trait as given by Google.
+     *
+     * @return {string}
+     */
+    getGoogleTraitName() {
+        throw new Error('Not implemented');
+    }
 }
 
 module.exports = Base;

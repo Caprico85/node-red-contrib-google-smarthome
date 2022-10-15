@@ -26,6 +26,14 @@ const Base = require('./base.js');
  * @see https://developers.google.com/assistant/smarthome/traits/inputselector
  */
 class InputSelector extends Base {
+    /**
+     * Returns the name of the trait as given by Google.
+     *
+     * @return {string}
+     */
+    getGoogleTraitName() {
+        return 'action.devices.traits.InputSelector'
+    }
 }
 
 module.exports = InputSelector;

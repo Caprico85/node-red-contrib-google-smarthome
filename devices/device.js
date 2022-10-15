@@ -38,11 +38,14 @@ module.exports = function (RED) {
         constructor(config) {
             RED.nodes.createNode(this, config);
 
+            const me = this;
             this.device = {};
             this.client = config.client;
             this.name = config.name || config.id;
             this.nicknames = config.nicknames;
             this.clientConn = RED.nodes.getNode(this.client);
+            /** @type {Base[]} */
+            this.traitModules = [];
             this._debug(".constructor config " + JSON.stringify(config));
 
             if (!this.clientConn) {
@@ -361,6 +364,14 @@ module.exports = function (RED) {
                     this.trait.onoff = true;
                     break;
             }
+
+            // Load all enabled trait modules
+            Object.keys(this.trait).forEach(function (traitName) {
+                if(me.trait[traitName]) {
+                    const trait = require(path.join(__dirname, 'traits', traitName));
+                    me.traitModules.push(new trait);
+                }
+            });
 
             this.topicOut = config.topic;
             this.passthru = config.passthru;
@@ -2739,122 +2750,24 @@ module.exports = function (RED) {
             states['currentModeSettings'] = new_modes;
         }
 
+        /**
+         * Returns a list of all the Google traits this device supports.
+         *
+         * Example:
+         * [
+         *     'action.devices.traits.OnOff',
+         *     'action.devices.traits.Brightness'
+         * ]
+         *
+         * @returns {string[]}
+         */
         getTraits() {
-            const me = this;
-            const trait = me.trait;
             let traits = [];
 
-            if (trait.appselector) {
-                traits.push("action.devices.traits.AppSelector");
-            }
-            if (trait.armdisarm) {
-                traits.push("action.devices.traits.ArmDisarm");
-            }
-            if (trait.brightness) {
-                traits.push("action.devices.traits.Brightness");
-            }
-            if (trait.camerastream) {
-                traits.push("action.devices.traits.CameraStream");
-            }
-            if (trait.channel) {
-                traits.push("action.devices.traits.Channel");
-            }
-            if (trait.colorsetting) {
-                traits.push("action.devices.traits.ColorSetting");
-            }
-            if (trait.cook) {
-                traits.push("action.devices.traits.Cook");
-            }
-            if (trait.dispense) {
-                traits.push("action.devices.traits.Dispense");
-            }
-            if (trait.dock) {
-                traits.push("action.devices.traits.Dock");
-            }
-            if (trait.energystorage) {
-                traits.push("action.devices.traits.EnergyStorage");
-            }
-            if (trait.fanspeed) {
-                traits.push("action.devices.traits.FanSpeed");
-            }
-            if (trait.fill) {
-                traits.push("action.devices.traits.Fill");
-            }
-            if (trait.humiditysetting) {
-                traits.push("action.devices.traits.HumiditySetting");
-            }
-            if (trait.inputselector) {
-                traits.push("action.devices.traits.InputSelector");
-            }
-            if (trait.lighteffects) {
-                traits.push("action.devices.traits.LightEffects");
-            }
-            if (trait.locator) {
-                traits.push("action.devices.traits.Locator");
-            }
-            if (trait.lockunlock) {
-                traits.push("action.devices.traits.LockUnlock");
-            }
-            if (trait.mediastate) {
-                traits.push("action.devices.traits.MediaState");
-            }
-            if (trait.modes) {
-                traits.push("action.devices.traits.Modes");
-            }
-            if (trait.networkcontrol) {
-                traits.push("action.devices.traits.NetworkControl");
-            }
-            if (trait.objectdetection) {
-                traits.push("action.devices.traits.ObjectDetection");
-            }
-            if (trait.onoff) {
-                traits.push("action.devices.traits.OnOff");
-            }
-            if (trait.openclose) {
-                traits.push("action.devices.traits.OpenClose");
-            }
-            if (trait.reboot) {
-                traits.push("action.devices.traits.Reboot");
-            }
-            if (trait.rotation) {
-                traits.push("action.devices.traits.Rotation");
-            }
-            if (trait.runcycle) {
-                traits.push("action.devices.traits.RunCycle");
-            }
-            if (trait.sensorstate) {
-                traits.push("action.devices.traits.SensorState");
-            }
-            if (trait.scene) {
-                traits.push("action.devices.traits.Scene");
-            }
-            if (trait.softwareupdate) {
-                traits.push("action.devices.traits.SoftwareUpdate");
-            }
-            if (trait.startstop) {
-                traits.push("action.devices.traits.StartStop");
-            }
-            if (trait.statusreport) {
-                traits.push("action.devices.traits.StatusReport");
-            }
-            if (trait.temperaturecontrol) {
-                traits.push("action.devices.traits.TemperatureControl");
-            }
-            if (trait.temperaturesetting) {
-                traits.push("action.devices.traits.TemperatureSetting");
-            }
-            if (trait.timer) {
-                traits.push("action.devices.traits.Timer");
-            }
-            if (trait.toggles) {
-                traits.push("action.devices.traits.Toggles");
-            }
-            if (trait.transportcontrol) {
-                traits.push("action.devices.traits.TransportControl");
-            }
-            if (trait.volume) {
-                traits.push("action.devices.traits.Volume");
-            }
+            this.traitModules.forEach(function (traitModule) {
+                traits.push(traitModule.getGoogleTraitName());
+            });
+
             return traits;
         }
 
