@@ -29,10 +29,27 @@ module.exports = function (RED) {
     const LANGUAGES = ["da", "nl", "en", "fr", "de", "hi", "id", "it", "ja", "ko", "no", "pt-BR", "es", "sv", "th", "zh-TW"];
 
 
+    class Testklasse {
+        error(msg) {
+
+        }
+    }
+
+    /**
+     * @extends Testklasse
+     */
+    class Echtklasse {
+        constructor() {
+            this.error('Bla');
+        }
+    }
 
     /******************************************************************************************************************
      *
      *
+     */
+    /**
+     * @extends Testklasse
      */
     class DeviceNode {
         constructor(config) {
