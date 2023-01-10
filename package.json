@@ -49,9 +49,12 @@
     "@gravitysoftware/dnssd": "^0.5.x"
   },
   "devDependencies": {
+    "eslint": "^8.32.0",
+    "eslint-plugin-jsdoc": "^39.6.4",
     "mocha": "^10.2.0",
     "node-red": "^3.0.2",
-    "node-red-node-test-helper": "^0.3.0"
+    "node-red-node-test-helper": "^0.3.0",
+    "typescript": "^4.9.4"
   },
   "maintainers": [
     {
