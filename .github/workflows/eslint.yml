@@ -17,6 +17,8 @@ on:
     branches: [ "master" ]
   schedule:
     - cron: '26 0 * * 5'
+  workflow_dispatch:
+
 
 jobs:
   eslint:
@@ -37,7 +39,7 @@ jobs:
 
       - name: Run ESLint
         run: npx eslint .
-          --config .eslintrc.js
+          --config eslintrc.json
           --ext .js,.jsx,.ts,.tsx
           --format @microsoft/eslint-formatter-sarif
           --output-file eslint-results.sarif
