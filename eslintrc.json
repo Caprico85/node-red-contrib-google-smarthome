@@ -1,0 +1,22 @@
+{
+    "root": true,
+    "extends": "eslint:recommended",
+    "env": {
+        "browser": false,
+        "es6": true,
+        "node": true,
+        "amd": false,
+        "mocha": false,
+        "jasmine": false
+    },
+
+    "globals": {
+        "RED": true
+    },
+
+    "rules": {
+        "indent": ["error", 4, {
+            "SwitchCase": 1
+        }]
+    }
+}
