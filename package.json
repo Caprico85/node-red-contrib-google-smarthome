@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "eslint": "^8.33.0",
-    "eslint-plugin-jsdoc": "^39.6.8",
+    "eslint-plugin-jsdoc": "^39.8.0",
     "mocha": "^10.2.0",
     "node-red": "^3.0.2",
     "node-red-node-test-helper": "^0.3.0"
