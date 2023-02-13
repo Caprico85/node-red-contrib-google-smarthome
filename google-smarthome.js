@@ -304,14 +304,17 @@ module.exports = function (RED) {
             node.send(msg);
         }
 
-        /******************************************************************************************************************
+        /**
          * respond to inputs from NodeRED
          *
+         * @param {Object} msg
+         * @param {Function} send
+         * @param {Function} done
          */
-        onInput(msg) {
+        onInput(msg, send, done) {
             const node = this;
-            node._debug("MgmtNode(input)");
-
+            node._debug("MgmtNode(input)"); // TODO: Zeile raus
+// TODO: In den Logmeldungen das MgmtNode(input) umschreiben. So wie bei den anderen Logs mit Funktionsname. Überhaupt in der ganzen Klasse mal alles aus richtige Format (Klasse::Methode oder so)
             let topicArr = (msg.topic || '').split(node.topicDelim);
             let topic = topicArr[topicArr.length - 1];   // get last part of topic
             const topic_upper = topic.toUpperCase();
@@ -356,7 +359,7 @@ module.exports = function (RED) {
                     }
                     let states = this.clientConn.app.devices.getStates(deviceIds, onlyPersistent, useNames);
                     if (states) {
-                        this.send({
+                        send({
                             topic: topic,
                             payload: states
                         });
@@ -366,9 +369,10 @@ module.exports = function (RED) {
                         this.clientConn.app.devices.setStates(msg.payload);
                     }
                 }
+
+                done();
             } catch (err) {
-                node._debug("MgmtNode(input): error " + JSON.stringify(err));
-                RED.log.error(err);
+                done(err);
             }
         }
 

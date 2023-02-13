@@ -181,10 +181,17 @@ and the following Google [traits](https://developers.google.com/assistant/smarth
 * Transport control
 * Volume
 
+# TODO: Das importierbare Example erwähnen
+# TODO: Kann ich diesen Test-Flow zerlegen und als einzelne importierbare Flows listen?
+
 Example flow:
         See the flow used for the automated tests [here](test/sh/flows.json)
 
 #### - Management
+
+
+# TODO: Schreiben, dass man Nachrichten reinschieben kann, mit nur einem `topic`
+
 `topic` can be `restart_server`, `report_state` or `request_sync`.
 
 `payload` is not used for anything.
@@ -195,6 +202,8 @@ renewed and needs to be re-read by the web server.
 `report_state` will force an update of all states to Google. Mostly useful for debugging.
 
 `request_sync` will ask Google for a sync to learn about new or changed devices. This is usually done automatically.
+
+# TODO: get_state gibts auch.
 
 ---
 ## The config node
@@ -254,6 +263,8 @@ renewed and needs to be re-read by the web server.
                same port as Node-RED. If you are using Node-RED's built-in HTTPS encryption or have a httpAdminRoot set,
                you need to set a port. Don't create a forwarding rule for this port!
 
+
+# TODO: In die Troubleshooting-Sektion einen Hinweis, dass der Webserver regelmäßig wegen Zertifikatsupdates neugestartet werden muss
 
 **Advanced Settings**
 

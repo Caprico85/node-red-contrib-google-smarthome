@@ -2054,14 +2054,22 @@ module.exports = function (RED) {
             me.send(msg);
         }
 
-        /******************************************************************************************************************
+        /**
          * respond to inputs from NodeRED
          *
+         * @param {Object} msgi
+         * @param {Function} send
+         * @param {Function} done
          */
-        onInput(msgi) {
+        onInput(msgi, send, done) {
+            if(!send) send = this.send;
+            if(!done) done = function () {};
+
+
             const me = this;
             let msg = msgi;
             if (me.topic_filter && !(msg.topic || '').toString().startsWith(me.topicOut)) {
+                done();
                 return;
             }
             me._debug(".input: topic = " + msg.topic);
@@ -2077,7 +2085,7 @@ module.exports = function (RED) {
                 if (upper_topic === 'GETSTATE') {
                     let states = {};
                     me.cloneObject(states, me.states, me.state_types);
-                    me.send({
+                    send({
                         topic: msg.topic,
                         payload: states,
                         device_id: me.device.id
@@ -2642,10 +2650,10 @@ module.exports = function (RED) {
                     const differs = me.updateState(msg.payload || {});
 
                     if (differs) {
-                        if (msgi.stateOutput || false) {
+                        if (msgi.stateOutput) {
                             let states = {};
                             me.cloneObject(states, me.states, me.state_types);
-                            me.send({ topic: me.topicOut, payload: states });
+                            send({ topic: me.topicOut, payload: states });
                         }
                         me.clientConn.reportState(me.id);  // tell Google ...
                         if (me.persistent_state) {
@@ -2654,12 +2662,13 @@ module.exports = function (RED) {
                         me.updateStatusIcon(false);
                     }
                     if (me.passthru) {
-                        me.send(msgi);
+                        send(msgi);
                     }
+
+                    done();
                 }
             } catch (err) {
-                me._debug(".onInput error " + JSON.stringify(err));
-                me.error(err);
+                done(err);
             }
         }
 
@@ -3221,6 +3230,7 @@ module.exports = function (RED) {
 
         to_available_modes(json_data) {
             let me = this;
+            // TODO: Was bringt das hier eigentlich? Der macht die Funktion nur nochmal unter dem selben Namen zugänglich
             let key_name_synonym = function (type, json_data, key1, key2, key3, manage_other_fields) {
                 return me.key_name_synonym(type, json_data, key1, key2, key3, manage_other_fields);
             }
@@ -3241,11 +3251,32 @@ module.exports = function (RED) {
             return this.key_name_synonym("Toggles", json_data, 'name', 'name_values', 'name_synonym');
         }
 
+        /**
+         * Wandelt WASNEIGENTLICH in das von Google erwartete Format um.
+         *
+         * Example input:
+         *
+         * TODO
+         *
+         * Example output:
+         *
+         * TODO
+         *
+         *
+         * @param {string}        type         Type name to use in debug messages
+         * @param {object | string} json_data    Data to convert
+         * @param key1
+         * @param key2
+         * @param key3
+         * @param manage_other_fields
+         * @returns {*[]}
+         */
         key_name_synonym(type, json_data, key1, key2, key3, manage_other_fields) {
+            // TODO: Brauchen wir type hier wirklich? Wenn wir die Fehler sauber per Exception rausgeben (statt wie aktuell direkt zu loggen), ergibt sich das doch aus dem Node
             const me = this;
             me._debug(".key_name_synonym: Parsing " + type);
             let new_data = [];
-            if (Array.isArray(json_data)) {
+            if (Array.isArray(json_data)) { // TODO: Was passiert, wenn ich einen String reinschiebe? Theoretisch macht der gar nichts. Ist aber irgendwie auch nicht richitg. Oder brauchen wir String mit Fertigdaten reinschieben beim Initialisieren?
                 if (typeof manage_other_fields !== 'function') {
                     manage_other_fields = function () { return true; }
                 }
@@ -3459,6 +3490,7 @@ module.exports = function (RED) {
                         });
 
                     this._debug('.writeJson: ' + text + ' saved');
+                    // TODO: Hier auch mal überall Logmeldungen angleichen mit Klasse:Methode()
                     return true;
                 }
                 catch (err) {
