@@ -3252,11 +3252,42 @@ module.exports = function (RED) {
             return this.key_name_synonym("Modes", json_data, 'name', 'name_values', 'name_synonym', f);
         }
 
+        /**
+         * Converts an array of toggles to the format expected by Google.
+         * @see key_name_synonym
+         *
+         * @param {string[]} json_data - The toggles to convert
+         * @return {{name: string, name_values: {lang: string, name_synony: Array<string>}}[]}
+         */
         to_available_toggles(json_data) {
             return this.key_name_synonym("Toggles", json_data, 'name', 'name_values', 'name_synonym');
         }
 
-        key_name_synonym(type, json_data, key1, key2, key3, manage_other_fields) {
+        /**
+         * Converts an array to a list of synonyms in the format expected by Google. Used to specify the list of items
+         * in AppSelector, Modes or similar traits.
+         *
+         * Example input:
+         * [ 'Heating', 'Cooling' ]
+         *
+         * Example output:
+         * [
+         *     {"name":"Heating", "name_values":[{"lang":"en", "name_synonym":["Heating"]}]},
+         *     {"name":"Cooling", "name_values":[{"lang":"en", "name_synonym":["Cooling"]}]}
+         * ]
+         *
+         * The names of the "name", "name_values" and "name_synonym" can be controlled via the parameters key1, key2 and
+         * key3.
+         *
+         * @param {string} type - Type name to use in debug messages
+         * @param {string[] | string} json_data - Array of items to convert
+         * @param {string} key1 - Key for item name ("name" in example)
+         * @param {string} key2 - Key for synonyms object ("name_values" in example)
+         * @param {string} key3 - Key for synonyms array ("name_synonyms" in example)
+         * @param {Function} manage_other_fields - Optional callback function to handle other fields
+         * @returns {object} - Object with items as expected by Google
+         */
+        key_name_synonym(type, json_data, key1, key2, key3, manage_other_fields = undefined) {
             const me = this;
             me._debug(".key_name_synonym: Parsing " + type);
             let new_data = [];
