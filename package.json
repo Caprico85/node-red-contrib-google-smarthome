@@ -57,7 +57,8 @@
     "globals": "^15.6.0",
     "mocha": "^10.5.2",
     "node-red": "^4.0.1",
-    "node-red-node-test-helper": "^0.3.4"
+    "node-red-node-test-helper": "^0.3.4",
+    "typescript": "^5.5.3"
   },
   "optionalDependencies": {
     "fsevents": "*"
