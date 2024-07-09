@@ -22,6 +22,7 @@ module.exports = function (RED) {
     const fs = require('fs');
     const path = require('path');
     const util = require('util');
+    const crypto = require('crypto');
     const Formats = require('../lib/Formats.js');
     const COOK_SUPPORTED_UNITS = ["UNKNOWN_UNITS", "NO_UNITS", "CENTIMETERS", "CUPS", "DECILITERS", "FEET", "FLUID_OUNCES", "GALLONS", "GRAMS", "INCHES", "KILOGRAMS", "LITERS", "METERS", "MILLIGRAMS", "MILLILITERS", "MILLIMETERS", "OUNCES", "PINCH", "PINTS", "PORTION", "POUNDS", "QUARTS", "TABLESPOONS", "TEASPOONS"];
     const DISPENSE_SUPPORTED_UNITS = ["CENTIMETERS", "CUPS", "DECILITERS", "FLUID_OUNCES", "GALLONS", "GRAMS", "KILOGRAMS", "LITERS", "MILLIGRAMS", "MILLILITERS", "MILLIMETERS", "NO_UNITS", "OUNCES", "PINCH", "PINTS", "PORTION", "POUNDS", "QUARTS", "TABLESPOONS", "TEASPOONS"];
@@ -2434,7 +2435,7 @@ module.exports = function (RED) {
                     }
                 } else if (upper_topic === 'CAMERASTREAMAUTHTOKEN') {
                     const auth_token = Formats.formatValue('cameraStreamAuthToken', msg.payload, Formats.STRING, '');
-                    if (auth_token != me.auth_token) {
+                    if (crypto.timingSafeEqual(auth_token, me.auth_token)) {
                         me.auth_token = auth_token;
                         if (Object.prototype.hasOwnProperty.call(me.device.properties.attributes, "cameraStreamNeedAuthToken")) {
                             let cameraStreamNeedAuthToken = me.device.properties.attributes.cameraStreamNeedAuthToken;
