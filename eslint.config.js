@@ -18,7 +18,7 @@ module.exports = [
             //    ...globals.jquery,
             
             //    ...globals.es6,
-            //    ...globals.node,
+                ...globals.node,
                 RED: "readonly"
             },
             sourceType: "commonjs"
