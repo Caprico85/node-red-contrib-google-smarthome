@@ -9,9 +9,16 @@ module.exports = [
     {
         files: ["**/*.js", "**/*.html"],
         languageOptions: {
+            ecmaVersion: 12,
+            sourceType: 'commonjs',
             globals: {
-                ...globals.es6,
-                ...globals.node,
+            //    ...globals.browser,
+                ...globals.commonjs,
+                ...globals.es2021,
+            //    ...globals.jquery,
+            
+            //    ...globals.es6,
+            //    ...globals.node,
                 RED: "readonly"
             },
             sourceType: "commonjs"
@@ -21,6 +28,7 @@ module.exports = [
         },
         settings: {
             jsdoc: {
+                // TODO: ?
                 mode: "typescript"
             }
         },
