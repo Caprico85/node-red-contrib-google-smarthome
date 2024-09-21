@@ -29,7 +29,7 @@ module.exports = [
         settings: {
             jsdoc: {
                 // TODO: ?
-                mode: "typescript"
+                //mode: "typescript"
             }
         },
         rules: {
