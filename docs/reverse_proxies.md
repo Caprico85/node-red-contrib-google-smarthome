@@ -17,7 +17,7 @@ This is an example of using Caddy (see [caddyserver.com](https://caddyserver.com
 This guide assumes that your domain is example.com and you want to run the smarthome service on port 3001. Replace
 domain and ports accordingly.
 
-1. If you previously used a certicate client like Certbot or acme.sh, uninstall it now.
+1. If you previously used a certificate client like Certbot or acme.sh, uninstall it now.
 2. On your home router, forward ports 80, 443 and 3001 to your host.
 3. Install Caddy. On Ubuntu it's `apt-get install caddy`.
 4. Edit Caddy's config file. On Ubuntu it is located in `/etc/caddy/Caddyfile`.
@@ -38,7 +38,7 @@ domain and ports accordingly.
 6. Restart Caddy. On Ubuntu it's `systemctl restart caddy`.
 7. Wait a minute. Certificate creation may take a while.
 8. Go to https://example.com:3001/ in your browser. You should see the message "Hello World".
-   There should not be any certicate warnings. Click on the lock icon in the address bar to check if your certificate is
+   There should not be any certificate warnings. Click on the lock icon in the address bar to check if your certificate is
    valid.
 9. If you have any problems, check Caddy's log output. On Ubuntu it's `systemctl status -ln100 caddy`.
 
