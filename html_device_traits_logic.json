@@ -1,0 +1,322 @@
+{
+  "AC_UNIT": {
+    "required_traits": ["temperaturesetting"],
+    "recommended_traits": ["fanspeed"]
+  },
+  "AIRCOOLER": {
+    "required_traits": ["temperaturesetting"],
+    "recommended_traits": ["fanspeed", "humiditysetting"]
+  },
+  "AIRFRESHENER": {
+    "required_traits": ["onoff"],
+    "recommended_traits": ["modes", "toggles"]
+  },
+  "AIRPURIFIER": {
+    "required_traits": ["onoff"],
+    "recommended_traits": ["fanspeed", "sensorstate"]
+  },
+  "AUDIO_VIDEO_RECEIVER": {
+    "required_traits": ["inputselector", "onoff", "volume"],
+    "recommended_traits": ["appselector", "mediastate", "transportcontrol"]
+  },
+  "AWNING": {
+    "required_traits": ["openclose"],
+    "recommended_traits": []
+  },
+  "BATHTUB": {
+    "required_traits": ["fill", "temperaturecontrol", "startstop"],
+    "recommended_traits": []
+  },
+  "BED": {
+    "required_traits": ["modes"],
+    "recommended_traits": ["scene"]
+  },
+  "BLENDER": {
+    "required_traits": ["onoff"],
+    "recommended_traits": ["cook", "startstop", "timer"]
+  },
+  "BLINDS": {
+    "required_traits": ["openclose"],
+    "recommended_traits": ["rotation"]
+  },
+  "BOILER": {
+    "required_traits": ["onoff"],
+    "recommended_traits": ["temperaturecontrol"]
+  },
+  "CAMERA": {
+    "required_traits": ["camerastream"],
+    "recommended_traits": []
+  },
+  "CARBON_MONOXIDE_DETECTOR": {
+    "required_traits": ["sensorstate"],
+    "recommended_traits": []
+  },
+  "CHARGER": {
+    "required_traits": ["energystorage"],
+    "recommended_traits": []
+  },
+  "CLOSET": {
+    "required_traits": ["openclose"],
+    "recommended_traits": []
+  },
+  "COFFEE_MAKER": {
+    "required_traits": ["onoff"],
+    "recommended_traits": ["cook", "temperaturecontrol"]
+  },
+  "COOKTOP": {
+    "required_traits": ["onoff"],
+    "recommended_traits": ["cook", "timer"]
+  },
+  "CURTAIN": {
+    "required_traits": ["openclose"],
+    "recommended_traits": []
+  },
+  "DEHUMIDIFIER": {
+    "required_traits": ["onoff"],
+    "recommended_traits": ["fanspeed", "humiditysetting", "startstop"]
+  },
+  "DEHYDRATOR": {
+    "required_traits": ["onoff"],
+    "recommended_traits": ["cook", "startstop", "timer"]
+  },
+  "DISHWASHER": {
+    "required_traits": ["startstop"],
+    "recommended_traits": ["onoff", "runcycle"]
+  },
+  "DOOR": {
+    "required_traits": ["openclose"],
+    "recommended_traits": ["lockunlock"]
+  },
+  "DOORBELL": {
+    "required_traits": [],
+    "recommended_traits": ["camerastream", "objectdetection"]
+  },
+  "DRAWER": {
+    "required_traits": ["openclose"],
+    "recommended_traits": []
+  },
+  "DRYER": {
+    "required_traits": ["startstop"],
+    "recommended_traits": ["modes", "onoff", "runcycle", "toggles"]
+  },
+  "FAN": {
+    "required_traits": ["onoff"],
+    "recommended_traits": ["fanspeed"]
+  },
+  "FAUCET": {
+    "required_traits": [],
+    "recommended_traits": ["dispense", "startstop", "temperaturecontrol"]
+  },
+  "FIREPLACE": {
+    "required_traits": [],
+    "recommended_traits": ["modes", "toggles", "onoff"]
+  },
+  "FREEZER": {
+    "required_traits": ["temperaturecontrol"],
+    "recommended_traits": []
+  },
+  "FRYER": {
+    "required_traits": ["onoff"],
+    "recommended_traits": ["cook", "startstop", "timer"]
+  },
+  "GAME_CONSOLE": {
+    "required_traits": ["appselector", "mediastate", "onoff", "transportcontrol"],
+    "recommended_traits": ["volume"]
+  },
+  "GARAGE": {
+    "required_traits": ["openclose"],
+    "recommended_traits": []
+  },
+  "GATE": {
+    "required_traits": ["openclose"],
+    "recommended_traits": ["lockunlock"]
+  },
+  "GRILL": {
+    "required_traits": ["startstop"],
+    "recommended_traits": ["cook", "onoff", "timer"]
+  },
+  "HEATER": {
+    "required_traits": ["temperaturesetting"],
+    "recommended_traits": ["fanspeed"]
+  },
+  "HOOD": {
+    "required_traits": ["onoff"],
+    "recommended_traits": ["brightness", "fanspeed"]
+  },
+  "HUMIDIFIER": {
+    "required_traits": ["onoff"],
+    "recommended_traits": ["fanspeed", "humiditysetting", "startstop"]
+  },
+  "KETTLE": {
+    "required_traits": ["onoff"],
+    "recommended_traits": ["temperaturecontrol"]
+  },
+  "LIGHT": {
+    "required_traits": ["onoff"],
+    "recommended_traits": ["colorsetting", "brightness"]
+  },
+  "LOCK": {
+    "required_traits": ["lockunlock"],
+    "recommended_traits": []
+  },
+  "MICROWAVE": {
+    "required_traits": ["startstop"],
+    "recommended_traits": ["cook", "timer"]
+  },
+  "MOP": {
+    "required_traits": ["startstop"],
+    "recommended_traits": ["dock", "energystorage", "locator", "onoff", "runcycle"]
+  },
+  "MOWER": {
+    "required_traits": ["startstop"],
+    "recommended_traits": ["dock", "energystorage", "locator", "onoff", "runcycle"]
+  },
+  "MULTICOOKER": {
+    "required_traits": ["onoff"],
+    "recommended_traits": ["cook", "startstop", "timer"]
+  },
+  "NETWORK": {
+    "required_traits": ["networkcontrol"],
+    "recommended_traits": ["reboot", "softwareupdate"]
+  },
+  "OUTLET": {
+    "required_traits": ["onoff"],
+    "recommended_traits": []
+  },
+  "OVEN": {
+    "required_traits": ["onoff"],
+    "recommended_traits": ["cook", "temperaturecontrol", "timer"]
+  },
+  "PERGOLA": {
+    "required_traits": ["openclose"],
+    "recommended_traits": ["rotation"]
+  },
+  "PETFEEDER": {
+    "required_traits": ["dispense"],
+    "recommended_traits": ["onoff", "startstop"]
+  },
+  "PRESSURECOOKER": {
+    "required_traits": ["onoff"],
+    "recommended_traits": ["cook", "timer"]
+  },
+  "RADIATOR": {
+    "required_traits": ["onoff"],
+    "recommended_traits": ["modes", "toggles"]
+  },
+  "REFRIGERATOR": {
+    "required_traits": ["temperaturecontrol"],
+    "recommended_traits": []
+  },
+  "REMOTECONTROL": {
+    "required_traits": ["inputselector", "mediastate", "onoff", "transportcontrol", "volume"],
+    "recommended_traits": ["appselector", "channel"]
+  },
+  "ROUTER": {
+    "required_traits": ["networkcontrol"],
+    "recommended_traits": ["reboot", "softwareupdate"]
+  },
+  "SCENE": {
+    "required_traits": ["scene"],
+    "recommended_traits": []
+  },
+  "SECURITYSYSTEM": {
+    "required_traits": ["armdisarm"],
+    "recommended_traits": ["statusreport"]
+  },
+  "SENSOR": {
+    "required_traits": [],
+    "recommended_traits": ["sensorstate", "energystorage", "humiditysetting", "temperaturecontrol", "openclose", "brightness"]
+  },
+  "SETTOP": {
+    "required_traits": ["appselector", "mediastate", "channel", "transportcontrol"],
+    "recommended_traits": ["volume", "onoff"]
+  },
+  "SHOWER": {
+    "required_traits": ["openclose"],
+    "recommended_traits": ["rotation"]
+  },
+  "SHUTTER": {
+    "required_traits": ["openclose"],
+    "recommended_traits": ["rotation"]
+  },
+  "SMOKE_DETECTOR": {
+    "required_traits": ["sensorstate"],
+    "recommended_traits": []
+  },
+  "SOUNDBAR": {
+    "required_traits": ["volume"],
+    "recommended_traits": ["appselector", "inputselector", "mediastate", "onoff", "transportcontrol"]
+  },
+  "SOUSVIDE": {
+    "required_traits": ["onoff"],
+    "recommended_traits": ["cook", "startstop", "timer"]
+  },
+  "SPEAKER": {
+    "required_traits": ["volunme"],
+    "recommended_traits": ["appselector", "inputselector", "mediastate", "onoff", "transportcontrol"]
+  },
+  "SPRINKLER": {
+    "required_traits": ["startstop"],
+    "recommended_traits": ["timer"]
+  },
+  "STANDMIXER": {
+    "required_traits": ["onoff"],
+    "recommended_traits": ["cook", "startstop"]
+  },
+  "STREAMING_BOX": {
+    "required_traits": ["appselector", "mediastate", "transportcontrol", "volume"],
+    "recommended_traits": ["inputselector", "onoff"]
+  },
+  "STREAMING_SOUNDBAR": {
+    "required_traits": ["appselector", "mediastate", "transportcontrol", "volume"],
+    "recommended_traits": ["inputselector", "onoff"]
+  },
+  "STREAMING_STICK": {
+    "required_traits": ["appselector", "mediastate", "transportcontrol", "volume"],
+    "recommended_traits": ["onoff"]
+  },
+  "SWITCH": {
+    "required_traits": ["onoff"],
+    "recommended_traits": ["brightness"]
+  },
+  "THERMOSTAT": {
+    "required_traits": ["temperaturesetting"],
+    "recommended_traits": []
+  },
+  "TV": {
+    "required_traits": ["appselector", "mediastate", "onoff", "transportcontrol", "volume"],
+    "recommended_traits": ["channel", "inputselector"]
+  },
+  "VACUUM": {
+    "required_traits": ["startstop"],
+    "recommended_traits": ["dock", "energystorage", "locator", "onoff", "runcycle"]
+  },
+  "VALVE": {
+    "required_traits": ["openclose"],
+    "recommended_traits": []
+  },
+  "WASHER": {
+    "required_traits": ["startstop"],
+    "recommended_traits": ["modes", "onoff", "runcycle", "toggles"]
+  },
+  "WATERHEATER": {
+    "required_traits": ["onoff"],
+    "recommended_traits": ["temperaturecontrol"]
+  },
+  "WATERPURIFIER": {
+    "required_traits": [],
+    "recommended_traits": ["onoff", "sensorstate"]
+  },
+  "WATERSOFTENER": {
+    "required_traits": [],
+    "recommended_traits": ["onoff", "sensorstate"]
+  },
+  "WINDOW": {
+    "required_traits": ["openclose"],
+    "recommended_traits": ["lockunlock"]
+  },
+  "YOGURTMAKER": {
+    "required_traits": ["onoff"],
+    "recommended_traits": ["cook", "startstop", "timer"]
+  }
+}

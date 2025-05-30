@@ -153,7 +153,7 @@ module.exports = function (RED) {
                     this.trait.energystorage = true;
                     break;
                 case "CLOSET": // Closet
-                    this.trait.closet = true;
+                    this.trait.openclose = true;
                     break;
                 case "COFFEE_MAKER": // Coffee Maker
                     this.trait.onoff = true;
@@ -175,6 +175,8 @@ module.exports = function (RED) {
                     break;
                 case "DOOR": // Door
                     this.trait.openclose = true;
+                    break;
+                case "DOORBELL": // Doorbell
                     break;
                 case "DRAWER": // Drawer
                     this.trait.openclose = true;
@@ -284,7 +286,6 @@ module.exports = function (RED) {
                     this.trait.armdisarm = true;
                     break;
                 case "SENSOR": // Sensor
-                    this.trait.sensorstate = true;
                     break;
                 case "SETTOP": // Settop
                     this.trait.appselector = true;
@@ -299,6 +300,7 @@ module.exports = function (RED) {
                     this.trait.openclose = true;
                     break;
                 case "SMOKE_DETECTOR": // Smoke detector
+                    this.trait.sensorstate = true;
                     break;
                 case "SOUNDBAR": // Soundbar
                     this.trait.volume = true;
