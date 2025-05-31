@@ -1,0 +1,643 @@
+{
+  "missing_in_js": [
+    "BLANKET",
+    "PUMP"
+  ],
+  "extra_in_js": [],
+  "trait_discrepancies": {
+    "AC_UNIT": {
+      "required_missing_in_js": [
+        "FanSpeed",
+        "OnOff"
+      ],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": []
+    },
+    "AIRCOOLER": {
+      "required_missing_in_js": [
+        "FanSpeed",
+        "HumiditySetting",
+        "OnOff"
+      ],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": []
+    },
+    "AIRFRESHENER": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "Modes",
+        "Toggles"
+      ]
+    },
+    "AIRPURIFIER": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "FanSpeed",
+        "SensorState"
+      ]
+    },
+    "AUDIO_VIDEO_RECEIVER": {
+      "required_missing_in_js": [
+        "MediaState",
+        "TransportControl"
+      ],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "AppSelector"
+      ]
+    },
+    "AWNING": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": []
+    },
+    "BATHTUB": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [
+        "Fill",
+        "TemperatureControl",
+        "StartStop"
+      ],
+      "recommended_in_docs_not_in_js": [
+        "Fill",
+        "TemperatureControl",
+        "StartStop"
+      ]
+    },
+    "BED": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "Scene"
+      ]
+    },
+    "BLENDER": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "Cook",
+        "StartStop",
+        "Timer"
+      ]
+    },
+    "BLINDS": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "Rotation"
+      ]
+    },
+    "BOILER": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "TemperatureControl"
+      ]
+    },
+    "CAMERA": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": []
+    },
+    "CARBON_MONOXIDE_DETECTOR": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": []
+    },
+    "CHARGER": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": []
+    },
+    "CLOSET": {
+      "required_missing_in_js": [
+        "OpenClose"
+      ],
+      "required_extra_in_js": [
+        "Closet"
+      ],
+      "recommended_in_docs_not_in_js": []
+    },
+    "COFFEE_MAKER": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "Cook",
+        "TemperatureControl"
+      ]
+    },
+    "COOKTOP": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "Cook",
+        "Timer"
+      ]
+    },
+    "CURTAIN": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": []
+    },
+    "DEHUMIDIFIER": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "FanSpeed",
+        "HumiditySetting",
+        "StartStop"
+      ]
+    },
+    "DEHYDRATOR": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "Cook",
+        "StartStop",
+        "Timer"
+      ]
+    },
+    "DISHWASHER": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "OnOff",
+        "RunCycle"
+      ]
+    },
+    "DOOR": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "LockUnlock"
+      ]
+    },
+    "DOORBELL": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "ObjectDetection",
+        "CameraStream"
+      ]
+    },
+    "DRAWER": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": []
+    },
+    "DRYER": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "Modes",
+        "OnOff",
+        "RunCycle",
+        "Toggles"
+      ]
+    },
+    "FAN": {
+      "required_missing_in_js": [
+        "FanSpeed"
+      ],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": []
+    },
+    "FAUCET": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "Dispense",
+        "StartStop",
+        "TemperatureControl"
+      ]
+    },
+    "FIREPLACE": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "Modes",
+        "Toggles",
+        "OnOff"
+      ]
+    },
+    "FREEZER": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": []
+    },
+    "FRYER": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "Cook",
+        "StartStop",
+        "Timer"
+      ]
+    },
+    "GAME_CONSOLE": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "InputSelector",
+        "Volume"
+      ]
+    },
+    "GARAGE": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "LockUnlock"
+      ]
+    },
+    "GATE": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "LockUnlock"
+      ]
+    },
+    "GRILL": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "Cook",
+        "OnOff",
+        "Timer"
+      ]
+    },
+    "HEATER": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "FanSpeed"
+      ]
+    },
+    "HOOD": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "Brightness",
+        "FanSpeed"
+      ]
+    },
+    "HUMIDIFIER": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "FanSpeed",
+        "HumiditySetting",
+        "StartStop"
+      ]
+    },
+    "KETTLE": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "TemperatureControl"
+      ]
+    },
+    "LIGHT": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "ColorSetting",
+        "Brightness"
+      ]
+    },
+    "LOCK": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": []
+    },
+    "MICROWAVE": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "Cook",
+        "Timer"
+      ]
+    },
+    "MOP": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "Dock",
+        "EnergyStorage",
+        "Locator",
+        "OnOff",
+        "RunCycle"
+      ]
+    },
+    "MOWER": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "Dock",
+        "EnergyStorage",
+        "Locator",
+        "OnOff",
+        "RunCycle"
+      ]
+    },
+    "MULTICOOKER": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "Cook",
+        "StartStop",
+        "Timer"
+      ]
+    },
+    "NETWORK": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "Reboot",
+        "SoftwareUpdate"
+      ]
+    },
+    "OUTLET": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": []
+    },
+    "OVEN": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "Cook",
+        "TemperatureControl",
+        "Timer"
+      ]
+    },
+    "PERGOLA": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "Rotation"
+      ]
+    },
+    "PETFEEDER": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "OnOff",
+        "StartStop"
+      ]
+    },
+    "PRESSURECOOKER": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "Cook",
+        "Timer"
+      ]
+    },
+    "RADIATOR": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "Modes",
+        "Toggles"
+      ]
+    },
+    "REFRIGERATOR": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": []
+    },
+    "REMOTECONTROL": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "AppSelector",
+        "Channel"
+      ]
+    },
+    "ROUTER": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "Reboot",
+        "SoftwareUpdate"
+      ]
+    },
+    "SCENE": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": []
+    },
+    "SECURITYSYSTEM": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "StatusReport"
+      ]
+    },
+    "SENSOR": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [
+        "SensorState"
+      ],
+      "recommended_in_docs_not_in_js": [
+        "SensorState",
+        "EnergyStorage"
+      ]
+    },
+    "SETTOP": {
+      "required_missing_in_js": [
+        "OnOff"
+      ],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "Volume"
+      ]
+    },
+    "SHOWER": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [
+        "OpenClose"
+      ],
+      "recommended_in_docs_not_in_js": [
+        "StartStop",
+        "TemperatureControl"
+      ]
+    },
+    "SHUTTER": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "Rotation"
+      ]
+    },
+    "SMOKE_DETECTOR": {
+      "required_missing_in_js": [
+        "SensorState"
+      ],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": []
+    },
+    "SOUNDBAR": {
+      "required_missing_in_js": [
+        "MediaState",
+        "OnOff",
+        "TransportControl"
+      ],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "AppSelector",
+        "InputSelector"
+      ]
+    },
+    "SOUSVIDE": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "Cook",
+        "StartStop",
+        "Timer"
+      ]
+    },
+    "SPEAKER": {
+      "required_missing_in_js": [
+        "MediaState",
+        "OnOff",
+        "TransportControl"
+      ],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "AppSelector",
+        "InputSelector"
+      ]
+    },
+    "SPRINKLER": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "Timer"
+      ]
+    },
+    "STANDMIXER": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "Cook",
+        "StartStop"
+      ]
+    },
+    "STREAMING_BOX": {
+      "required_missing_in_js": [
+        "OnOff"
+      ],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "Channel",
+        "InputSelector"
+      ]
+    },
+    "STREAMING_SOUNDBAR": {
+      "required_missing_in_js": [
+        "OnOff"
+      ],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "InputSelector"
+      ]
+    },
+    "STREAMING_STICK": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "OnOff"
+      ]
+    },
+    "SWITCH": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "Brightness"
+      ]
+    },
+    "THERMOSTAT": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": []
+    },
+    "TV": {
+      "required_missing_in_js": [
+        "InputSelector"
+      ],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "Channel"
+      ]
+    },
+    "VACUUM": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "Dock",
+        "EnergyStorage",
+        "Locator",
+        "OnOff",
+        "RunCycle"
+      ]
+    },
+    "VALVE": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": []
+    },
+    "WASHER": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "Modes",
+        "OnOff",
+        "RunCycle",
+        "Toggles"
+      ]
+    },
+    "WATERHEATER": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "TemperatureControl"
+      ]
+    },
+    "WATERPURIFIER": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "OnOff",
+        "SensorState"
+      ]
+    },
+    "WATERSOFTENER": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "OnOff",
+        "SensorState"
+      ]
+    },
+    "WINDOW": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "LockUnlock"
+      ]
+    },
+    "YOGURTMAKER": {
+      "required_missing_in_js": [],
+      "required_extra_in_js": [],
+      "recommended_in_docs_not_in_js": [
+        "Cook",
+        "StartStop",
+        "Timer"
+      ]
+    }
+  }
+}

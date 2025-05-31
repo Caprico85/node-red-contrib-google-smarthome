@@ -1,0 +1,205 @@
+{
+  "missing_in_html": [
+    "BLANKET",
+    "PUMP"
+  ],
+  "extra_in_html": [],
+  "trait_discrepancies": {
+    "AC_UNIT": {
+      "required_missing_in_html": [
+        "FanSpeed",
+        "OnOff"
+      ],
+      "required_extra_in_html": [],
+      "recommended_missing_in_html": [],
+      "recommended_extra_in_html": [],
+      "required_in_docs_is_recommended_in_html": [
+        "FanSpeed"
+      ],
+      "recommended_in_docs_is_required_in_html": []
+    },
+    "AIRCOOLER": {
+      "required_missing_in_html": [
+        "FanSpeed",
+        "HumiditySetting",
+        "OnOff"
+      ],
+      "required_extra_in_html": [],
+      "recommended_missing_in_html": [],
+      "recommended_extra_in_html": [],
+      "required_in_docs_is_recommended_in_html": [
+        "FanSpeed",
+        "HumiditySetting"
+      ],
+      "recommended_in_docs_is_required_in_html": []
+    },
+    "AUDIO_VIDEO_RECEIVER": {
+      "required_missing_in_html": [
+        "MediaState",
+        "TransportControl"
+      ],
+      "required_extra_in_html": [],
+      "recommended_missing_in_html": [],
+      "recommended_extra_in_html": [],
+      "required_in_docs_is_recommended_in_html": [
+        "MediaState",
+        "TransportControl"
+      ],
+      "recommended_in_docs_is_required_in_html": []
+    },
+    "BATHTUB": {
+      "required_missing_in_html": [],
+      "required_extra_in_html": [
+        "Fill",
+        "TemperatureControl",
+        "StartStop"
+      ],
+      "recommended_missing_in_html": [
+        "Fill",
+        "TemperatureControl",
+        "StartStop"
+      ],
+      "recommended_extra_in_html": [],
+      "required_in_docs_is_recommended_in_html": [],
+      "recommended_in_docs_is_required_in_html": [
+        "Fill",
+        "TemperatureControl",
+        "StartStop"
+      ]
+    },
+    "FAN": {
+      "required_missing_in_html": [
+        "FanSpeed"
+      ],
+      "required_extra_in_html": [],
+      "recommended_missing_in_html": [],
+      "recommended_extra_in_html": [],
+      "required_in_docs_is_recommended_in_html": [
+        "FanSpeed"
+      ],
+      "recommended_in_docs_is_required_in_html": []
+    },
+    "GARAGE": {
+      "required_missing_in_html": [],
+      "required_extra_in_html": [],
+      "recommended_missing_in_html": [
+        "LockUnlock"
+      ],
+      "recommended_extra_in_html": [],
+      "required_in_docs_is_recommended_in_html": [],
+      "recommended_in_docs_is_required_in_html": []
+    },
+    "SENSOR": {
+      "required_missing_in_html": [],
+      "required_extra_in_html": [],
+      "recommended_missing_in_html": [],
+      "recommended_extra_in_html": [
+        "HumiditySetting",
+        "TemperatureControl",
+        "OpenClose",
+        "Brightness"
+      ],
+      "required_in_docs_is_recommended_in_html": [],
+      "recommended_in_docs_is_required_in_html": []
+    },
+    "SETTOP": {
+      "required_missing_in_html": [
+        "OnOff"
+      ],
+      "required_extra_in_html": [],
+      "recommended_missing_in_html": [],
+      "recommended_extra_in_html": [],
+      "required_in_docs_is_recommended_in_html": [
+        "OnOff"
+      ],
+      "recommended_in_docs_is_required_in_html": []
+    },
+    "SHOWER": {
+      "required_missing_in_html": [],
+      "required_extra_in_html": [
+        "OpenClose"
+      ],
+      "recommended_missing_in_html": [
+        "StartStop",
+        "TemperatureControl"
+      ],
+      "recommended_extra_in_html": [
+        "Rotation"
+      ],
+      "required_in_docs_is_recommended_in_html": [],
+      "recommended_in_docs_is_required_in_html": []
+    },
+    "SOUNDBAR": {
+      "required_missing_in_html": [
+        "MediaState",
+        "OnOff",
+        "TransportControl"
+      ],
+      "required_extra_in_html": [],
+      "recommended_missing_in_html": [],
+      "recommended_extra_in_html": [],
+      "required_in_docs_is_recommended_in_html": [
+        "MediaState",
+        "OnOff",
+        "TransportControl"
+      ],
+      "recommended_in_docs_is_required_in_html": []
+    },
+    "SPEAKER": {
+      "required_missing_in_html": [
+        "MediaState",
+        "OnOff",
+        "TransportControl"
+      ],
+      "required_extra_in_html": [
+        "Volume"
+      ],
+      "recommended_missing_in_html": [],
+      "recommended_extra_in_html": [],
+      "required_in_docs_is_recommended_in_html": [
+        "MediaState",
+        "OnOff",
+        "TransportControl"
+      ],
+      "recommended_in_docs_is_required_in_html": []
+    },
+    "STREAMING_BOX": {
+      "required_missing_in_html": [
+        "OnOff"
+      ],
+      "required_extra_in_html": [],
+      "recommended_missing_in_html": [
+        "Channel"
+      ],
+      "recommended_extra_in_html": [],
+      "required_in_docs_is_recommended_in_html": [
+        "OnOff"
+      ],
+      "recommended_in_docs_is_required_in_html": []
+    },
+    "STREAMING_SOUNDBAR": {
+      "required_missing_in_html": [
+        "OnOff"
+      ],
+      "required_extra_in_html": [],
+      "recommended_missing_in_html": [],
+      "recommended_extra_in_html": [],
+      "required_in_docs_is_recommended_in_html": [
+        "OnOff"
+      ],
+      "recommended_in_docs_is_required_in_html": []
+    },
+    "TV": {
+      "required_missing_in_html": [
+        "InputSelector"
+      ],
+      "required_extra_in_html": [],
+      "recommended_missing_in_html": [],
+      "recommended_extra_in_html": [],
+      "required_in_docs_is_recommended_in_html": [
+        "InputSelector"
+      ],
+      "recommended_in_docs_is_required_in_html": []
+    }
+  }
+}
