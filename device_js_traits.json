@@ -1,0 +1,417 @@
+{
+  "AC_UNIT": {
+    "required": [
+      "TemperatureSetting"
+    ]
+  },
+  "AIRCOOLER": {
+    "required": [
+      "TemperatureSetting"
+    ]
+  },
+  "AIRFRESHENER": {
+    "required": [
+      "OnOff"
+    ]
+  },
+  "AIRPURIFIER": {
+    "required": [
+      "OnOff"
+    ]
+  },
+  "AUDIO_VIDEO_RECEIVER": {
+    "required": [
+      "InputSelector",
+      "OnOff",
+      "Volume"
+    ]
+  },
+  "AWNING": {
+    "required": [
+      "OpenClose"
+    ]
+  },
+  "BATHTUB": {
+    "required": [
+      "Fill",
+      "TemperatureControl",
+      "StartStop"
+    ]
+  },
+  "BED": {
+    "required": [
+      "Modes"
+    ]
+  },
+  "BLENDER": {
+    "required": [
+      "OnOff"
+    ]
+  },
+  "BLINDS": {
+    "required": [
+      "OpenClose"
+    ]
+  },
+  "BOILER": {
+    "required": [
+      "OnOff"
+    ]
+  },
+  "CAMERA": {
+    "required": [
+      "CameraStream"
+    ]
+  },
+  "CARBON_MONOXIDE_DETECTOR": {
+    "required": [
+      "SensorState"
+    ]
+  },
+  "CHARGER": {
+    "required": [
+      "EnergyStorage"
+    ]
+  },
+  "CLOSET": {
+    "required": [
+      "Closet"
+    ]
+  },
+  "COFFEE_MAKER": {
+    "required": [
+      "OnOff"
+    ]
+  },
+  "COOKTOP": {
+    "required": [
+      "OnOff"
+    ]
+  },
+  "CURTAIN": {
+    "required": [
+      "OpenClose"
+    ]
+  },
+  "DEHUMIDIFIER": {
+    "required": [
+      "OnOff"
+    ]
+  },
+  "DEHYDRATOR": {
+    "required": [
+      "OnOff"
+    ]
+  },
+  "DISHWASHER": {
+    "required": [
+      "StartStop"
+    ]
+  },
+  "DOOR": {
+    "required": [
+      "OpenClose"
+    ]
+  },
+  "DOORBELL": {
+    "required": []
+  },
+  "DRAWER": {
+    "required": [
+      "OpenClose"
+    ]
+  },
+  "DRYER": {
+    "required": [
+      "StartStop"
+    ]
+  },
+  "FAN": {
+    "required": [
+      "OnOff"
+    ]
+  },
+  "FAUCET": {
+    "required": []
+  },
+  "FIREPLACE": {
+    "required": []
+  },
+  "FREEZER": {
+    "required": [
+      "TemperatureControl"
+    ]
+  },
+  "FRYER": {
+    "required": [
+      "OnOff"
+    ]
+  },
+  "GAME_CONSOLE": {
+    "required": [
+      "AppSelector",
+      "MediaState",
+      "OnOff",
+      "TransportControl"
+    ]
+  },
+  "GARAGE": {
+    "required": [
+      "OpenClose"
+    ]
+  },
+  "GATE": {
+    "required": [
+      "OpenClose"
+    ]
+  },
+  "GRILL": {
+    "required": [
+      "StartStop"
+    ]
+  },
+  "HEATER": {
+    "required": [
+      "TemperatureSetting"
+    ]
+  },
+  "HOOD": {
+    "required": [
+      "OnOff"
+    ]
+  },
+  "HUMIDIFIER": {
+    "required": [
+      "OnOff"
+    ]
+  },
+  "KETTLE": {
+    "required": [
+      "OnOff"
+    ]
+  },
+  "LIGHT": {
+    "required": [
+      "OnOff"
+    ]
+  },
+  "LOCK": {
+    "required": [
+      "LockUnlock"
+    ]
+  },
+  "MICROWAVE": {
+    "required": [
+      "StartStop"
+    ]
+  },
+  "MOP": {
+    "required": [
+      "StartStop"
+    ]
+  },
+  "MOWER": {
+    "required": [
+      "StartStop"
+    ]
+  },
+  "MULTICOOKER": {
+    "required": [
+      "OnOff"
+    ]
+  },
+  "NETWORK": {
+    "required": [
+      "NetworkControl"
+    ]
+  },
+  "OUTLET": {
+    "required": [
+      "OnOff"
+    ]
+  },
+  "OVEN": {
+    "required": [
+      "OnOff"
+    ]
+  },
+  "PERGOLA": {
+    "required": [
+      "OpenClose"
+    ]
+  },
+  "PETFEEDER": {
+    "required": [
+      "Dispense"
+    ]
+  },
+  "PRESSURECOOKER": {
+    "required": [
+      "OnOff"
+    ]
+  },
+  "RADIATOR": {
+    "required": [
+      "OnOff"
+    ]
+  },
+  "REFRIGERATOR": {
+    "required": [
+      "TemperatureControl"
+    ]
+  },
+  "REMOTECONTROL": {
+    "required": [
+      "InputSelector",
+      "MediaState",
+      "OnOff",
+      "TransportControl",
+      "Volume"
+    ]
+  },
+  "ROUTER": {
+    "required": [
+      "NetworkControl"
+    ]
+  },
+  "SCENE": {
+    "required": [
+      "Scene"
+    ]
+  },
+  "SECURITYSYSTEM": {
+    "required": [
+      "ArmDisarm"
+    ]
+  },
+  "SENSOR": {
+    "required": [
+      "SensorState"
+    ]
+  },
+  "SETTOP": {
+    "required": [
+      "AppSelector",
+      "MediaState",
+      "Channel",
+      "TransportControl"
+    ]
+  },
+  "SHOWER": {
+    "required": [
+      "OpenClose"
+    ]
+  },
+  "SHUTTER": {
+    "required": [
+      "OpenClose"
+    ]
+  },
+  "SMOKE_DETECTOR": {
+    "required": []
+  },
+  "SOUNDBAR": {
+    "required": [
+      "Volume"
+    ]
+  },
+  "SOUSVIDE": {
+    "required": [
+      "OnOff"
+    ]
+  },
+  "SPEAKER": {
+    "required": [
+      "Volume"
+    ]
+  },
+  "SPRINKLER": {
+    "required": [
+      "StartStop"
+    ]
+  },
+  "STANDMIXER": {
+    "required": [
+      "OnOff"
+    ]
+  },
+  "STREAMING_BOX": {
+    "required": [
+      "AppSelector",
+      "MediaState",
+      "TransportControl",
+      "Volume"
+    ]
+  },
+  "STREAMING_SOUNDBAR": {
+    "required": [
+      "AppSelector",
+      "MediaState",
+      "TransportControl",
+      "Volume"
+    ]
+  },
+  "STREAMING_STICK": {
+    "required": [
+      "AppSelector",
+      "MediaState",
+      "TransportControl",
+      "Volume"
+    ]
+  },
+  "SWITCH": {
+    "required": [
+      "OnOff"
+    ]
+  },
+  "THERMOSTAT": {
+    "required": [
+      "TemperatureSetting"
+    ]
+  },
+  "TV": {
+    "required": [
+      "AppSelector",
+      "MediaState",
+      "OnOff",
+      "TransportControl",
+      "Volume"
+    ]
+  },
+  "VACUUM": {
+    "required": [
+      "StartStop"
+    ]
+  },
+  "VALVE": {
+    "required": [
+      "OpenClose"
+    ]
+  },
+  "WASHER": {
+    "required": [
+      "StartStop"
+    ]
+  },
+  "WATERHEATER": {
+    "required": [
+      "OnOff"
+    ]
+  },
+  "WATERPURIFIER": {
+    "required": []
+  },
+  "WATERSOFTENER": {
+    "required": []
+  },
+  "WINDOW": {
+    "required": [
+      "OpenClose"
+    ]
+  },
+  "YOGURTMAKER": {
+    "required": [
+      "OnOff"
+    ]
+  }
+}
