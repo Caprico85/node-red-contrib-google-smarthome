@@ -6,6 +6,17 @@ available, Google will use the "normal" mode.
 
 This tutorial assumes that your service is already set up and working.
 
+## How it works
+
+When local discovery is set up, your smart speaker will regularly send discovery packets through your local network,
+using mDNS or UDP (as configured on the Google Developer console). Our Node-RED module will listen to these packets and
+answer with its connection information (mainly IP address and port). The smart speaker will then establish a direct
+connection to the Node-RED module. Future commands will be sent from the smart speaker directly to Node-RED using this
+connection, without going through the cloud.
+
+Setting up local discovery can be tricky. Sometimes, mDNS/UDP packets are blocked by your network. Sometimes
+Google may also refuse to use local fulfillment for no apparent reason.
+
 ---
 
 ## Using local fulfillment with Docker containers
@@ -32,7 +43,7 @@ ports:
     * Scan Type: Select either mDNS or UDP scanning. Which one works better depends on your network configuration. You
       may need to try both.
     * Discovery port: Node-RED will listen on this port for discovery messages from your smart speaker. Enter any port
-      that you want. Don't create an external port forwarding for this port on your home router. Not available for MDNS.
+      that you want. Don't create an external port forwarding for this port on your home router. Not available for mDNS.
     * HTTP port: Node-RED will listen on this port for control messages from your smart speaker. Enter any port you
       want. Can be the same as the discovery port. Don't create an external port forwarding for this port on your home
       router.
@@ -153,7 +164,7 @@ speaker. You'll get a warning on Node-RED's debug panel if this is needed.
   the local fulfillment connection was successfully established, you should see lines starting with "IDENTIFY" and
   "REACHABLE_DEVICES" as well as lots of other lines. Yellow warning lines are okay, but you should not see red error
   lines.
-- The first lines in  the chrome://inspect console will show the version number of the app.js script. Compare the
+- The first lines in the chrome://inspect console will show the version number of the app.js script. Compare the
   version number to the one on the third line of the official
   [app.js script](https://raw.githubusercontent.com/mikejac/node-red-contrib-google-smarthome/master/local-execution/app.js).
   If they are different, update the app.js script as explained
