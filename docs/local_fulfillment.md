@@ -4,7 +4,22 @@ Local fulfillment establishes direct communication between your smart speaker an
 and makes your devices respond faster. However, it is not required. If local fulfillment is not set up or is not
 available, Google will use the "normal" mode.
 
-This tutorial assumes that your service is already set up and working.
+
+## How it works
+
+When local discovery is set up, your smart speaker will regularly send discovery packets through your local network,
+using mDNS or UDP. Our Node-RED module will listen to these packets and answer with its connection information (mainly
+IP address and port). The smart speaker will then establish a direct HTTP connection to the Node-RED module over your
+local network. Future commands will be sent from the smart speaker directly to Node-RED using this connection, without
+going through the cloud.
+
+
+## Prerequisites
+
+- Your Smart Home service needs to be set up and working.
+- All devices (Node-RED host and smart speaker) must be on the same local network/subnet, as the discovery packets are not routed between different networks.
+- If you are using a firewall, configure it to allow UDP traffic on port 3002 or mDNS traffic (depending on if you choose UDP or mDNS) and TCP traffic on port 3002.
+
 
 ---
 
@@ -35,10 +50,11 @@ numbers. Just make sure they still match.
 2. Scroll down to the section `Local Fulfillment`. Fill in as follows:
     * Scan Type: Select either mDNS or UDP scanning. Which one works better depends on your network configuration. You
       may need to try both.
-    * Discovery port: Node-RED will listen on this port for discovery messages from your smart speaker. Set to port 3002. Don't create an external port forwarding for this port on your home router. Not available for MDNS.
-    * HTTP port: Node-RED will listen on this port for control messages from your smart speaker. Set to port 3002.
-      Can be the same as the discovery port. Don't create an external port forwarding for this port on your home
-      router.
+    * Discovery port: Node-RED will listen on this UDP port for discovery messages from your smart speaker. Set to
+      port 3002. Don't create an external port forwarding for this port on your home router. Not available for mDNS.
+    * HTTP port: Node-RED will listen on this HTTP port for control messages from your smart speaker. Set to port 3002.
+      Don't create an external port forwarding for this port on your home router.
+    * Discovery and HTTP ports can be the same.
 
 
 3. Save and deploy.
@@ -78,10 +94,10 @@ numbers. Just make sure they still match.
     mDNS service name: Set to `_nodered-google._tcp.local`.
     <br><br>
     For UDP, fill in the fields as follows,<br>
-    * Broadcast address: Set to `255.255.255.255`.
+    * Discovery address: Set to `255.255.255.255`.
+    * Listening port: Set to port 3002. Must be identical to the "Discovery Port" as set in the configuration of your management node. This is the port the smart speaker will listen on for responses to the discovery packets.
+    * Broadcast port: Set to port 3002. Must be identical to the "Listen port". This is the port to which the smart speaker will send discovery packets.
     * Discovery packet: Set to `6e6f64652d7265642d636f6e747269622d676f6f676c652d736d617274686f6d65`.
-    * Listen port: Set to port 3002. Must be identical to the "Discovery Port" as set in the configuration of your management node.
-    * Broadcast port: Set to port 3002. Must be identical to the "Listen port".
 
 13. `Save` your changes.
 
@@ -137,7 +153,8 @@ speaker. You'll get a warning on Node-RED's debug panel if this is needed.
   actions will now be executed locally or will fail if local fulfillment is not available. Revert to normal mode by
   saying "Force default" or "Force cloud". This will work on non-English devices too. You may need several tries with
   different pronunciations though.
-- Set a port for local fulfillment in the management node's config.
+- Neither UDP nor mDNS are routed between subnets. If your smart speaker is on another subnet than your Node-RED host,
+  you cannot use local fulfillment.
 - Send an HTTP POST request to `http://192.168.178.25:3002/smarthome` (with the IP address of your host and the
   port you chose). E.g. run `curl -X POST http://192.168.178.25:3002/smarthome`. It should answer with
   `{"error":"missing inputs"}`. This error message is okay, all other messages indicate connection problems with the
@@ -153,7 +170,7 @@ speaker. You'll get a warning on Node-RED's debug panel if this is needed.
   the local fulfillment connection was successfully established, you should see lines starting with "IDENTIFY" and
   "REACHABLE_DEVICES" as well as lots of other lines. Yellow warning lines are okay, but you should not see red error
   lines.
-- The first lines in  the chrome://inspect console will show the version number of the app.js script. Compare the
+- The first lines in the chrome://inspect console will show the version number of the app.js script. Compare the
   version number to the one on the third line of the official
   [app.js script](https://raw.githubusercontent.com/mikejac/node-red-contrib-google-smarthome/master/local-execution/app.js).
   If they are different, update the app.js script as explained
