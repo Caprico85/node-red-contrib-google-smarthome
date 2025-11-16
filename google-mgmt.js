@@ -28,7 +28,7 @@ export class MgmtNode {
         REDInstance.nodes.createNode(this, config);
 
         this.client = config.client;
-        /** @type {GoogleSmartHomeNode} */
+        /** @type {import('./google-smarthome.js').GoogleSmartHomeNode} */
         this.clientConn = REDInstance.nodes.getNode(this.client);
 
         if (!this.clientConn) {
