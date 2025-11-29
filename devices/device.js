@@ -42,6 +42,7 @@ export class DeviceNode {
         this.name = config.name || config.id;
         this.device_type = config.device_type;
         this.nicknames = config.nicknames;
+        /** @type {import('../google-smarthome.js').GoogleSmartHomeNode} */
         this.clientConn = REDInstance.nodes.getNode(this.client);
         this._debug(".constructor config " + JSON.stringify(config));
 
