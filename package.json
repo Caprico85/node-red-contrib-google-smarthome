@@ -2,9 +2,11 @@
   "name": "node-red-contrib-google-smarthome",
   "version": "0.5.0",
   "description": "Lets you control Node-Red via Google Assistant or the Google Home App",
-  "main": "google-smarthome.js",
+  "main": "dist/google-smarthome.js",
   "type": "module",
   "scripts": {
+    "build": "node ./scripts/build.js",
+    "typecheck": "tsc --noEmit",
     "test": "mocha \"test/**/*_spec.js\""
   },
   "repository": {
@@ -21,9 +23,9 @@
   "node-red": {
     "version": ">=2.0.0",
     "nodes": {
-      "google-smarthome": "google-smarthome.js",
-      "google-mgmt": "google-mgmt.js",
-      "device": "devices/device.js"
+      "google-smarthome": "dist/google-smarthome.js",
+      "google-mgmt": "dist/google-mgmt.js",
+      "device": "dist/devices/device.js"
     }
   },
   "engines": {
@@ -70,5 +72,13 @@
       "name": "mikejac",
       "email": "michael@visbyjacobsen.dk"
     }
+  ],
+  "files": [
+    "dist/**/*",
+    "examples/**/*",
+    "locales/**/*",
+    "icons/**/*",
+    "README.md",
+    "LICENSE"
   ]
 }
