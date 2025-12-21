@@ -189,3 +189,5 @@ module.exports = function(RED:NodeAPI) {
 
     RED.nodes.registerType("google-mgmt", MgmtNode);
 };
+
+module.exports.MgmtNode = MgmtNode;

@@ -28,7 +28,6 @@ import path from 'path';
 import { EventEmitter } from 'events';
 import dnssd from '@gravitysoftware/dnssd';
 import dgram from 'dgram';
-import { fileURLToPath } from 'url';
 import { NodeAPI } from 'node-red';
 
 import Auth from './Auth.js';
@@ -40,7 +39,7 @@ import HttpActions from './HttpActions.js';
  * GoogleSmartHome
  *
  */
-class GoogleSmartHome {
+export class GoogleSmartHome {
     constructor(mgmtNode, nodeId, userDir, httpNodeRoot, useGoogleLogin, googleClientId, emails, username, password, accessTokenDuration, usehttpnoderoot,
         httpPath, httpPort, localScanType, localScanPort, httpLocalPort, nodeRedUsesHttps, ssloffload, publicKey, privateKey, jwtkeyFile, clientid,
         clientsecret, reportStateInterval, requestSyncDelay, setStateDelay, debug, debug_function, error_function) {
