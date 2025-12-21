@@ -16,9 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { RED } from "./lib/SmartHome";
 import { NodeAPI } from "node-red";
-import { setRED } from "./lib/SmartHome";
+import { setRED, RED } from "./lib/SmartHome";
 
 /******************************************************************************************************************
  *
@@ -187,8 +186,6 @@ class MgmtNode {
 
 module.exports = function(RED:NodeAPI) {
     setRED(RED);
-    
-    RED.nodes.registerType('google-mgmt', MgmtNode);
-};
 
-module.exports.MgmtNode = MgmtNode;
+    RED.nodes.registerType("google-mgmt", MgmtNode);
+};

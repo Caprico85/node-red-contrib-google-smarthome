@@ -25,19 +25,13 @@
  */
 
 import https from 'https';
-import GoogleSmartHome from './lib/SmartHome.js';
+import { NodeAPI } from 'node-red';
+import { GoogleSmartHome, setRED, RED } from './lib/SmartHome.js';
 
-/** @type {import('node-red').NodeAPI | null} */
-let REDInstance = null;
-
-/******************************************************************************************************************
- *
- *
- */
 class GoogleSmartHomeNode {
     constructor(config) {
 
-        REDInstance.nodes.createNode(this, config);
+        RED.nodes.createNode(this, config);
 
         this.mgmtNodes = {};
 
@@ -48,8 +42,8 @@ class GoogleSmartHomeNode {
         this.app = new GoogleSmartHome(
             this,
             config.id,
-            REDInstance.settings.userDir,
-            REDInstance.settings.httpNodeRoot,
+            RED.settings.userDir,
+            RED.settings.httpNodeRoot,
             config.usegooglelogin,
             node.credentials.loginclientid || '',
             node.credentials.emails || [],
@@ -62,7 +56,7 @@ class GoogleSmartHomeNode {
             config.local_scan_type || '',
             parseInt(config.local_scan_port || '0'),
             parseInt(config.localport || '0'),
-            REDInstance.server instanceof https.Server,
+            RED.server instanceof https.Server,
             config.ssloffload,
             node.credentials.publickey || '',
             node.credentials.privatekey || '',
@@ -141,7 +135,7 @@ class GoogleSmartHomeNode {
         if (this.enabledebug) {
             console.log(msg)
         } else {
-            REDInstance.log.debug(msg);
+            RED.log.debug(msg);
         }
     }
 
@@ -149,7 +143,7 @@ class GoogleSmartHomeNode {
         if (typeof msg === 'object') {
             this._debug(JSON.stringify(msg));
         }
-        REDInstance.log.error(msg);
+        RED.log.error(msg);
     }
 
     // call all management nodes
@@ -221,11 +215,11 @@ class GoogleSmartHomeNode {
     }
 }
 
-/** @param {import('node-red').NodeAPI} RED - The Node-RED API */
-module.exports = function(RED:NodeAPI) {
-    REDInstance = RED;
 
-    REDInstance.nodes.registerType("googlesmarthome-client", GoogleSmartHomeNode, {
+module.exports = function(RED:NodeAPI) {
+    setRED(RED);
+
+    RED.nodes.registerType("googlesmarthome-client", GoogleSmartHomeNode, {
         credentials: {
             loginclientid: { type: "text" },
             emails: { type: "text" },
