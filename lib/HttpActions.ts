@@ -97,8 +97,7 @@ export default class HttpActions {
         appHttp.get(me._smarthome.Path_join(httpRoot, 'check'), function (request, response) {
             me._smarthome.debug('HttpActions:httpActionsRegister(/check)');
             if (me._smarthome._debug) {
-                const checkFileName = path.join(path.dirname(fileURLToPath(import.meta.url)), 'frontend/check.html');
-                fs.readFile(checkFileName, 'utf8', function (err, data) {
+                fs.readFile(path.join(__dirname, 'frontend/check.html'), 'utf8', function (err, data) {
                     if (err) {
                         response.end();
                         throw (err);
