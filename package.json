@@ -5,7 +5,7 @@
   "main": "dist/google-smarthome.js",
   "type": "commonjs",
   "scripts": {
-    "build": "node ./scripts/build.js",
+    "build": "node ./scripts/build.mjs",
     "typecheck": "tsc --noEmit",
     "test": "mocha \"test/**/*_spec.js\""
   },
@@ -60,6 +60,7 @@
     "@typescript/native-preview": "^7.0.0-dev.20251217.1",
     "eslint": "^9.39.2",
     "eslint-plugin-jsdoc": "^61.5.0",
+    "glob": "^13.0.0",
     "globals": "^16.5.0",
     "mocha": "^11.7.5",
     "node-red": "^4.1.2",
