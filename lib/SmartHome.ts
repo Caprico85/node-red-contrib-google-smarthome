@@ -39,7 +39,7 @@ import HttpActions from './HttpActions.js';
  * GoogleSmartHome
  *
  */
-class GoogleSmartHome {
+export class GoogleSmartHome {
     constructor(mgmtNode, nodeId, userDir, httpNodeRoot, useGoogleLogin, googleClientId, emails, username, password, accessTokenDuration, usehttpnoderoot,
         httpPath, httpPort, localScanType, localScanPort, httpLocalPort, nodeRedUsesHttps, ssloffload, publicKey, privateKey, jwtkeyFile, clientid,
         clientsecret, reportStateInterval, requestSyncDelay, setStateDelay, debug, debug_function, error_function) {

@@ -233,3 +233,5 @@ module.exports = function(RED:NodeAPI) {
         }
     });
 };
+
+module.exports.GoogleSmartHomeNode = GoogleSmartHomeNode;
