@@ -4946,3 +4946,5 @@ module.exports = function(RED:NodeAPI) {
 
     RED.nodes.registerType('google-device', DeviceNode);
 };
+
+module.exports.DeviceNode = DeviceNode;
