@@ -20,7 +20,7 @@ const assetsToCopy = [
 
 const projectRoot = path.resolve(__dirname, '..');
 const distDir = path.join(projectRoot, 'dist');
-const useTsgo = false;
+const useTsgo = true;
 
 
 try {
