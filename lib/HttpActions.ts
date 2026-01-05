@@ -19,7 +19,7 @@
 import express from 'express';
 import fs from 'fs';
 import path from 'path';
-import UidGenerator from 'uid-generator';
+import { nanoid } from 'nanoid';
 import { google } from 'googleapis';
 import ipRangeCheck from 'ip-range-check';
 import { Request, Response } from 'express';
@@ -58,7 +58,6 @@ export default class HttpActions {
      */
     constructor(smarthome: GoogleSmartHome) {
         this._smarthome = smarthome;
-        this._reqGen = new UidGenerator(128, UidGenerator.BASE62);
     }
     //
     //
@@ -671,7 +670,7 @@ export default class HttpActions {
         }
 
         const postData = {
-            requestId: this._reqGen.generateSync(),
+            requestId: nanoid(),
             agentUserId: userId,
             payload: {
                 devices: {
