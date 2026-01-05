@@ -204,7 +204,7 @@ export class GoogleSmartHomeNode {
         node.app.devices.SendNotifications(client.id, notifications);
     }
 
-    reportState(deviceId) {
+    reportState(deviceId: string) {
         const node = this;
         node.app.devices.ReportState(deviceId);
     }

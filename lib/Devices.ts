@@ -56,7 +56,7 @@ export default class Devices {
     //
     //
     //
-    ReportState(deviceId) {
+    ReportState(deviceId: string) {
         let me = this;
 
         if (!this._nodes[deviceId]) {
@@ -69,7 +69,7 @@ export default class Devices {
     //
     //
     //
-    SendNotifications(deviceId, notifications) {
+    SendNotifications(deviceId: string, notifications) {
         let me = this;
 
         this._smarthome.debug('Devices:SendNotifications(): notifications = ' + JSON.stringify(notifications));
@@ -84,7 +84,7 @@ export default class Devices {
     //
     //
     //
-    GetIdFromName(name) {
+    GetIdFromName(name: string) {
         let nodeId;
         if (name) {
             Object.keys(this._nodes).forEach(nid => {
@@ -112,7 +112,7 @@ export default class Devices {
     //
     // Executed in HttpActions:_execDevice
     //
-    getDevice(deviceId) {
+    getDevice(deviceId: string) {
         return this._nodes[deviceId] ||  undefined;
     }
     //
