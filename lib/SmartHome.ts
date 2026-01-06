@@ -42,12 +42,12 @@ import { MgmtNode } from '../google-mgmt';
  */
 export class GoogleSmartHome {
     public auth: Auth;
-    private devices: Devices;
+    public devices: Devices;
     public httpActions: HttpActions;
     public httpAuth: HttpAuth;
     public mgmtNode: MgmtNode;
     public app: express.Express;
-    private localApp: express.Express;
+    public localApp: express.Express;
 
 
     constructor(mgmtNode: MgmtNode, nodeId, userDir, httpNodeRoot, useGoogleLogin, googleClientId, emails, username, password, accessTokenDuration, usehttpnoderoot,
