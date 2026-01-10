@@ -155,10 +155,10 @@ export class GoogleSmartHome {
      * Retrieves the router instance from an Express app object.
      * This method provides compatibility for Express 4 (app._router) and Express 5 (app.router).
      *
-     * @param {object} appInstance - The Express application instance.
+     * @param {express.Express} appInstance - The Express application instance.
      * @returns {object|undefined} The router object if found, otherwise undefined.
      */
-    getRouter(appInstance) {
+    getRouter(appInstance: express.Express) {
         return appInstance._router || appInstance.router;
     }
 
@@ -208,9 +208,9 @@ export class GoogleSmartHome {
      * use our own webserver, routes are automatically removed when we
      * stop the webserver.
      *
-     * @param {express} REDapp - the Express server from Node-RED
+     * @param {express.Express} REDapp - the Express server from Node-RED
      */
-    UnregisterUrl(REDapp) {
+    UnregisterUrl(REDapp: express.Express) {
         // Skip if we are using our own webserver instead of Node-RED's webserver
         if (this._httpPort > 0) {
             return;
@@ -352,7 +352,7 @@ export class GoogleSmartHome {
     //
     //
     //
-    Start(REDapp, REDserver) {
+    Start(REDapp: express.Express, REDserver) {
         // httpNodeRoot is the root url for nodes that provide HTTP endpoints. If set to false, all node-based HTTP endpoints are disabled. 
         if (this._httpNodeRoot === false) return;
 
@@ -514,7 +514,7 @@ export class GoogleSmartHome {
     //
     //
     //
-    Stop(REDapp, done) {
+    Stop(REDapp: express.Express, done) {
         // httpNodeRoot is the root url for nodes that provide HTTP endpoints. If set to false, all node-based HTTP endpoints are disabled. 
         if (this._httpNodeRoot === false) return;
 
@@ -579,7 +579,7 @@ export class GoogleSmartHome {
     //
     //
     //
-    Restart(REDapp, REDserver) {
+    Restart(REDapp: express.Express, REDserver) {
         let me = this;
 
         this.Stop(REDapp, function() {
