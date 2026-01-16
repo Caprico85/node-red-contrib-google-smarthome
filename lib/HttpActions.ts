@@ -63,7 +63,6 @@ export default class HttpActions {
     //
     //
     httpActionsRegister(httpRoot: string, appHttp: express.Express | undefined): void {
-        let me = this;
         if (typeof appHttp === 'undefined') {
             appHttp = this._smarthome.app;
         }
@@ -86,39 +85,29 @@ export default class HttpActions {
          *   }
          * }
          */
-        appHttp.post(me._smarthome.Path_join(httpRoot, 'smarthome'), function (request: Request, response: Response) {
-            me._post(request, response, 'smarthome');
-        });
+        appHttp.post(
+            this._smarthome.Path_join(httpRoot, 'smarthome'),
+            this._handleSmarthomePost.bind(this)
+        );
 
         /**
          * Endpoint to check HTTP(S) reachability.
          */
-        appHttp.get(me._smarthome.Path_join(httpRoot, 'check'), function (request: Request, response: Response) {
-            me._smarthome.debug('HttpActions:httpActionsRegister(/check)');
-            if (me._smarthome._debug) {
-                fs.readFile(path.join(__dirname, 'frontend/check.html'), 'utf8', function (err, data) {
-                    if (err) {
-                        response.end();
-                        throw (err);
-                    }
-                    response
-                        .set("Content-Security-Policy", "default-src 'self' 'unsafe-inline' code.jquery.com")
-                        .send(data);
-                });
-            } else {
-                response.send('SUCCESS');
-            }
-        });
+        appHttp.get(
+            this._smarthome.Path_join(httpRoot, 'check'),
+            this._handleCheckGet.bind(this)
+        );
 
         /**
          * Enables preflight (OPTIONS) requests made cross-domain.
          */
-        appHttp.options(me._smarthome.Path_join(httpRoot, 'smarthome'), function (request: Request, response: Response) {
-            me._options(request, response);
-        });
+        appHttp.options(
+            this._smarthome.Path_join(httpRoot, 'smarthome'),
+            this._handleSmarthomeOptions.bind(this)
+        );
     }
 
-    httpLocalActionsRegister(httpLocalRoot, appHttp) {
+    httpLocalActionsRegister(httpLocalRoot: string, appHttp: express.Express): void {
         let me = this;
 
         /**
@@ -148,7 +137,7 @@ export default class HttpActions {
          * Enables preflight (OPTIONS) requests made cross-domain.
          */
         appHttp.options(me._smarthome.Path_join(httpLocalRoot, 'smarthome'), function (request: Request, response: Response) {
-            me._options(request, response);
+            me._handleSmarthomeOptions(request, response);
         });
 
         /**
@@ -165,7 +154,38 @@ export default class HttpActions {
      * @param {Response} response - Express response object
      * @private
      */
-    _options(request: Request, response: Response) {
+    _handleSmarthomePost(request: Request, response: Response) {
+        this._post(request, response, 'smarthome');
+    }
+
+    /**
+     * @param {Request} request   - Express request object
+     * @param {Response} response - Express response object
+     * @private
+     */
+    _handleCheckGet(request: Request, response: Response) {
+        this._smarthome.debug('HttpActions:httpActionsRegister(/check)');
+        if (this._smarthome._debug) {
+            fs.readFile(path.join(__dirname, 'frontend/check.html'), 'utf8', function (err, data) {
+                if (err) {
+                    response.end();
+                    throw (err);
+                }
+                response
+                    .set("Content-Security-Policy", "default-src 'self' 'unsafe-inline' code.jquery.com")
+                    .send(data);
+            });
+        } else {
+            response.send('SUCCESS');
+        }
+    }
+
+    /**
+     * @param {Request} request   - Express request object
+     * @param {Response} response - Express response object
+     * @private
+     */
+    _handleSmarthomeOptions(request: Request, response: Response) {
         response.status(200).set({
             'Access-Control-Allow-Headers': 'Content-Type, Authorization',
         }).send('null');
