@@ -42,12 +42,15 @@ import { MgmtNode } from '../google-mgmt';
  */
 export class GoogleSmartHome {
     public auth: Auth;
-    private devices: Devices;
+    public devices: Devices;
     public httpActions: HttpActions;
     public httpAuth: HttpAuth;
     public mgmtNode: MgmtNode;
     public app: express.Express;
-    private localApp: express.Express;
+    public localApp: express.Express;
+    private _httpLocalPath: string
+    private _httpPath: string;
+    private _localScanType: string;
 
 
     constructor(mgmtNode: MgmtNode, nodeId, userDir, httpNodeRoot, useGoogleLogin, googleClientId, emails, username, password, accessTokenDuration, usehttpnoderoot,
@@ -657,7 +660,7 @@ export class GoogleSmartHome {
      *
      * @param {string} remoteAppJsVersion - version number of the script running on the speaker
      */
-    checkAppJsVersion(remoteAppJsVersion) {
+    checkAppJsVersion(remoteAppJsVersion: string): void {
         const appJsPath = path.resolve(__dirname, '../../local-execution/app.js');
         fs.readFile(appJsPath, 'utf8', (err, data) => {
             if (err) {
