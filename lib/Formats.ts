@@ -20,6 +20,9 @@
  * Helper functions to convert input values to target formats.
  *
  */
+type FormatInput = string | number | boolean | Record<string, unknown> | Array<unknown> | undefined;
+type FormatOutput = string | number | boolean | Record<string, unknown> | Array<unknown> | undefined;
+
 export const Formats = {
     BOOL: 1,
     INT: 2,
@@ -43,7 +46,7 @@ export const Formats = {
      * @param {*} default_value - Target value to use if input is undefined
      * @returns {*} Converted value
      */
-    formatValue(key, value, format, default_value = undefined) {
+    formatValue(key: string, value: FormatInput, format: number, default_value: FormatInput = undefined): FormatOutput {
         if (typeof value === 'undefined') {
             value = default_value;
         }
@@ -135,7 +138,7 @@ export const Formats = {
             }
         } else if (typeof value === 'object') {
             if (Object.prototype.hasOwnProperty.call(value, key)) {
-                return this.formatValue(format, key, value[key]);
+                return this.formatValue(key, value[key] as FormatInput, format, default_value);
             } else {
                 throw new Error('Type of ' + key + ' is object but it does not have matching property');
             }

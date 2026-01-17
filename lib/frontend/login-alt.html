@@ -149,37 +149,6 @@
             cursor: pointer;
         }
     </style>
-    <script>
-      function decodeJWT(token) {
-
-        let base64Url = token.split(".")[1];
-        let base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-        let jsonPayload = decodeURIComponent(
-          atob(base64)
-            .split("")
-            .map(function (c) {
-              return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-            })
-            .join("")
-        );
-        return JSON.parse(jsonPayload);
-      }
-
-      function handleCredentialResponse(response) {
-
-        console.log("Encoded JWT ID token: " + response.credential);
-
-        const responsePayload = decodeJWT(response.credential);
-
-        console.log("Decoded JWT ID token fields:");
-        console.log("  Full Name: " + responsePayload.name);
-        console.log("  Given Name: " + responsePayload.given_name);
-        console.log("  Family Name: " + responsePayload.family_name);
-        console.log("  Unique ID: " + responsePayload.sub);
-        console.log("  Profile image URL: " + responsePayload.picture);
-        console.log("  Email: " + responsePayload.email);
-      }
-    </script>
 </head>
 
 <body>
@@ -239,35 +208,14 @@
 
             <button id="login-button">LOGIN</button>
         </form>
-    <!--
-    id muss so
-    data-client_id muss so
-    data-context definiert Text für OneTap (also egal)
-    data-ux_mode definiert, wie das Popup aufgeht (nicht was nach dem Login passiert)
-    data-callback definiert die Funktion, die nach dem Login aufgerufen wird
-    data-close_on_tap_outside schließt das Popup bei Klick außerhalb
-    data-itp_support bei OneTap
-    -->
-    <div id="g_id_onload"
+        <div id="g_id_onload"
             data-client_id="GOOGLE_CLIENT_ID"
             data-context="signin"
-            data-ux_mode="redirect"
+            data-ux_mode="popup"
             data-callback="handleCredentialResponse"
             data-close_on_tap_outside="false"
-            data-itp_support="true"
-            data-auto_prompt="false"
-            >
+            data-itp_support="true">
         </div>
-        <!--
-        id muss so
-        class muss so
-        data-type standard oder icon
-        data-shape rechteckig oder pill
-        data-theme filled_blue, outline_blue, filled_black, outline_black
-        data-text Text auf dem Button
-        data-size Größe des Buttons
-        data-logo_alignment links oder center
-        -->
         <div id='login-google' style="display:none;align-items: center;"
             class="g_id_signin"
             data-type="standard"
@@ -277,6 +225,35 @@
             data-size="large"
             data-logo_alignment="left">
         </div>
+    </div>
+
+    <script>
+        function handleCredentialResponse(response) {
+            document.querySelector('[name="id_token"]').value = response.credential;
+            document.getElementById("loginform").submit();
+        }
+
+        document.addEventListener("DOMContentLoaded", function (event) {
+            let url = window.location.href.split('?')[0];
+            document.getElementById("loginform").action = url;
+
+            // Set each hidden input from a value obtained from the URL
+            let params = new URLSearchParams(window.location.search);
+            document.querySelector('[name="client_id"]').value = params.get('client_id');
+            document.querySelector('[name="redirect_uri"]').value = decodeURIComponent(params.get('redirect_uri'));
+            document.querySelector('[name="state"]').value = params.get('state');
+
+            if (USE_GOOGLE_LOGIN) {
+                document.getElementById('login-google').style.display = 'block';
+            } else {
+                document.getElementById('loginform').style.display = 'block';
+            }
+
+            if (params.get('error')) {
+                document.getElementById('error_invalid_user').style.display = 'block';
+            }
+        });
+    </script>
 </body>
 
 </html>
