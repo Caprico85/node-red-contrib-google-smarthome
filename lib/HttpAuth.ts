@@ -90,7 +90,7 @@ export default class HttpAuth {
                     throw(err);
                 }
                 res
-                    .set("Content-Security-Policy", "default-src 'self' 'unsafe-inline' *.google.com")
+                    .set("Content-Security-Policy", "script-src 'self' 'unsafe-inline' 'unsafe-eval' accounts.google.com www.gstatic.com; frame-src accounts.google.com;")
                     .send(data.replace(/GOOGLE_CLIENT_ID/g, googleClientId).replace(/USE_GOOGLE_LOGIN/g, '' + useGoogleClientAuth));
             });
         });
