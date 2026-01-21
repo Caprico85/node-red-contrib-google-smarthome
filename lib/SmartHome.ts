@@ -51,11 +51,19 @@ export class GoogleSmartHome {
     private _httpLocalPath: string
     private _httpPath: string;
     private _localScanType: string;
+    private _httpServerRunning: boolean = false;
+    private _dnssdAdRunning: boolean = false;
+    private _syncScheduled: boolean = false;
+    private _getStateScheduled: boolean = false;
+    private debug_function: (data: any) => void;
+    private error_function: (data: any) => void
+
+    private _localScanPacket: string = 'node-red-contrib-google-smarthome';
 
 
     constructor(configNode: GoogleSmartHomeNode, userDir, httpNodeRoot, useGoogleLogin, googleClientId, emails, username, password, accessTokenDuration, usehttpnoderoot,
         httpPath, httpPort, localScanType, localScanPort, httpLocalPort, nodeRedUsesHttps, ssloffload, publicKey, privateKey, jwtkeyFile, clientid,
-        clientsecret, reportStateInterval, requestSyncDelay, setStateDelay, debug, debug_function, error_function) {
+        clientsecret, reportStateInterval, requestSyncDelay, setStateDelay, debug, debug_function: (data: any) => void, error_function: (data: any) => void) {
 
         this.auth                   = new Auth(this);
         this.devices                = new Devices(this);
@@ -79,15 +87,10 @@ export class GoogleSmartHome {
         this._setStateDelay         = setStateDelay * 1000;
         this._debug                 = debug;
         this._userDir               = userDir;
-        this._httpServerRunning     = false;
-        this._dnssdAdRunning        = false;
-        this._syncScheduled         = false;
-        this._getStateScheduled     = false;
         this._httpLocalPath         = this.Path_join(this._httpNodeRoot || '/', this._httpPath);
         this._httpPath              = this.Path_join((usehttpnoderoot ? this._httpNodeRoot || '/' : '/'), this._httpPath);
         this.debug_function         = debug_function;
         this.error_function         = error_function;
-        this._localScanPacket       = 'node-red-contrib-google-smarthome';
         this._localUDPServers       = {};
         this._localDiscoveryPort    = null;
         this._localExecutionPort    = null;
