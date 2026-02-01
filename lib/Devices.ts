@@ -28,6 +28,7 @@ const syncRequestDelay = 5000;
 export default class Devices {
     private _smarthome: GoogleSmartHome;
     private _nodes: Record<string, DeviceNode>;
+    private _devicesSyncTimer: NodeJS.Timeout | null;
 
     /**
      * Constructor
@@ -144,7 +145,7 @@ export default class Devices {
     //
     //
     //
-    getStates(deviceIds, onlyPersistent, useNames) {
+    getStates(deviceIds: string[] | null = null, onlyPersistent = false, useNames = false) {
         if (!deviceIds || !Object.keys(deviceIds).length) {
             this._smarthome.debug('Device:getStates(): all deviceIds');
             deviceIds = null;

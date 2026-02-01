@@ -66,14 +66,14 @@ export interface GoogleSmartHomeNode extends Node<GoogleSmartHomeCredentials> {}
 
 export class GoogleSmartHomeNode {
     public app: GoogleSmartHome;
-    private mgmtNodes: Record<string, MgmtNode>;
+    public mgmtNodes: Record<string, MgmtNode> = {};
+    public default_lang: string;
+    public enabledebug: boolean;
 
 
     constructor(config: GoogleSmartHomeNodeConfig) {
 
         RED.nodes.createNode(this, config);
-
-        this.mgmtNodes = {};
 
         const node = this;
         this.default_lang = config.default_lang || 'en';

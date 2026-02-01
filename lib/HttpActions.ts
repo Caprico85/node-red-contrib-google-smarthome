@@ -395,7 +395,7 @@ export default class HttpActions {
     /**
      * @param {Response} response - Express response object
      */
-    private _sync(requestId, response: Response) {
+    private _sync(requestId: string, response: Response) {
         this._smarthome.debug('HttpActions:_sync()');
 
         let devices = this._smarthome.devices.getProperties();
@@ -462,7 +462,7 @@ export default class HttpActions {
     /**
      * @param {Response} response - Express response object
      */
-    private _query(requestId, devices, response: Response) {
+    private _query(requestId: string, devices, response: Response) {
         this._smarthome.debug('HttpActions:_query()');
 
         let deviceIds = this._smarthome.devices.getDeviceIds(devices);

@@ -48,14 +48,25 @@ export class GoogleSmartHome {
     public configNode: GoogleSmartHomeNode;
     public app: express.Express;
     public localApp: express.Express;
+    private httpServer!: http.Server & stoppable.WithStop;
+    private localHttpServer!: http.Server & stoppable.WithStop;
     private _httpLocalPath: string
     private _httpPath: string;
+    private _httpNodeRoot: string;
     private _localScanType: string;
+    private _httpServerRunning: boolean = false;
+    private _dnssdAdRunning: boolean = false;
+    private _syncScheduled: boolean = false;
+    private _getStateScheduled: boolean = false;
+    private debug_function: (data: any) => void;
+    private error_function: (data: any) => void
+
+    private _localScanPacket: string = 'node-red-contrib-google-smarthome';
 
 
-    constructor(configNode: GoogleSmartHomeNode, userDir, httpNodeRoot, useGoogleLogin, googleClientId, emails, username, password, accessTokenDuration, usehttpnoderoot,
-        httpPath, httpPort, localScanType, localScanPort, httpLocalPort, nodeRedUsesHttps, ssloffload, publicKey, privateKey, jwtkeyFile, clientid,
-        clientsecret, reportStateInterval, requestSyncDelay, setStateDelay, debug, debug_function, error_function) {
+    constructor(configNode: GoogleSmartHomeNode, userDir: string, httpNodeRoot: string, useGoogleLogin, googleClientId, emails, username, password, accessTokenDuration, usehttpnoderoot,
+        httpPath, httpPort, localScanType, localScanPort, httpLocalPort, nodeRedUsesHttps, ssloffload: boolean, publicKey, privateKey, jwtkeyFile, clientid,
+        clientsecret, reportStateInterval: number, requestSyncDelay: number, setStateDelay: number, debug, debug_function: (data: any) => void, error_function: (data: any) => void) {
 
         this.auth                   = new Auth(this);
         this.devices                = new Devices(this);
@@ -79,15 +90,10 @@ export class GoogleSmartHome {
         this._setStateDelay         = setStateDelay * 1000;
         this._debug                 = debug;
         this._userDir               = userDir;
-        this._httpServerRunning     = false;
-        this._dnssdAdRunning        = false;
-        this._syncScheduled         = false;
-        this._getStateScheduled     = false;
         this._httpLocalPath         = this.Path_join(this._httpNodeRoot || '/', this._httpPath);
         this._httpPath              = this.Path_join((usehttpnoderoot ? this._httpNodeRoot || '/' : '/'), this._httpPath);
         this.debug_function         = debug_function;
         this.error_function         = error_function;
-        this._localScanPacket       = 'node-red-contrib-google-smarthome';
         this._localUDPServers       = {};
         this._localDiscoveryPort    = null;
         this._localExecutionPort    = null;
@@ -155,7 +161,7 @@ export class GoogleSmartHome {
      * Retrieves the router instance from an Express app object.
      * This method provides compatibility for Express 4 (app._router) and Express 5 (app.router).
      *
-     * @param {express.Express} appInstance - The Express application instance.
+     * @param appInstance - The Express application instance.
      * @returns {object|undefined} The router object if found, otherwise undefined.
      */
     getRouter(appInstance: express.Express) {
@@ -166,9 +172,9 @@ export class GoogleSmartHome {
      * Joins multiple path segments into a single path.
      *
      * @param {...string} paths - The path segments to join
-     * @returns {string} The joined path
+     * @returns The joined path
      */
-    Path_join(...paths) {
+    Path_join(...paths): string {
         let full_path = '';
 
         for (const ipath of paths) {
@@ -192,7 +198,7 @@ export class GoogleSmartHome {
      * @param {object} route - The route object
      * @returns {string} The type of the route
      */
-    GetRouteType(route) {
+    GetRouteType(route): string {
         if (route) {
             if (route.route.methods['get'] && route.route.methods['post']) return "all";
             if (route.route.methods['get']) return "get";
@@ -247,7 +253,7 @@ export class GoogleSmartHome {
     //
     //
     //
-    StartDeviceScanServer() {
+    StartDeviceScanServer(): void {
         if (this._localScanType === "UDP") {
             this.StartUDPDeviceScanServer();
         } else if (this._localScanType === "MDNS") {
@@ -257,14 +263,14 @@ export class GoogleSmartHome {
     //
     //
     //
-    StopDeviceScanServer() {
+    StopDeviceScanServer(): void {
         this.StopUDPDeviceScanServer();
         this.StopMDNSAdvertisement();
     }
     //
     //
     //
-    StopUDPDeviceScanServer() {
+    StopUDPDeviceScanServer(): void {
         ['udp4', /*'udp6'*/].forEach((type) => {
             if (Object.prototype.hasOwnProperty.call(this._localUDPServers, type) && this._localUDPServers[type] !== null) {
                 this._localUDPServers[type].close();
@@ -275,7 +281,7 @@ export class GoogleSmartHome {
     //
     //
     //
-    StartUDPDeviceScanServer() {
+    StartUDPDeviceScanServer(): void {
         const me = this;
         me.debug('Starting service Scan UDP server on port ' + me._localDiscoveryPort);
 
@@ -324,7 +330,7 @@ export class GoogleSmartHome {
     /**
      * Stops the mDNS advertisement for local fulfillment.
      */
-    StopMDNSAdvertisement(){
+    StopMDNSAdvertisement(): void {
         if (this._dnssdAdRunning) {
             this._dnssdAdRunning = false;
             
@@ -336,7 +342,7 @@ export class GoogleSmartHome {
     /**
      * Starts the mDNS advertisement for local fulfillment.
      */
-    StartMDNSAdvertisement() {
+    StartMDNSAdvertisement(): void {
         const me = this;
         this.StopMDNSAdvertisement();
 
@@ -606,7 +612,7 @@ export class GoogleSmartHome {
     /**
      * Reports the states of all devices to Google.
      */
-    ReportAllStates() {
+    ReportAllStates(): void {
         let states = this.devices.getStates();
 
         if (states) {
@@ -618,7 +624,7 @@ export class GoogleSmartHome {
     /**
      * Sends a SYNC request to Google.
      */
-    RequestSync() {
+    RequestSync(): void {
         this.httpActions.requestSync();
     }
     
@@ -626,27 +632,25 @@ export class GoogleSmartHome {
      * Waits 10 seconds, then sends a SYNC request to Google.
      * Multiple calls to this method during the delay are buffered into the same SYNC call.
      */
-    ScheduleRequestSync() {
-        const me = this;
-        if (me._requestSyncDelay && !me._syncScheduled) {
-            me._syncScheduled = true;
+    ScheduleRequestSync(): void {
+        if (this._requestSyncDelay && !this._syncScheduled) {
+            this._syncScheduled = true;
             setTimeout(() => {
-                me._syncScheduled = false;
-                me.httpActions.requestSync();
-            }, me._requestSyncDelay);
+                this._syncScheduled = false;
+                this.httpActions.requestSync();
+            }, this._requestSyncDelay);
         }
     }
     //
     //
     //
-    ScheduleGetState() {
-        const me = this;
-        if (me._setStateDelay && !me._getStateScheduled) {
-            me._getStateScheduled = true;
+    ScheduleGetState(): void {
+        if (this._setStateDelay && !this._getStateScheduled) {
+            this._getStateScheduled = true;
             setTimeout(() => {
-                me._getStateScheduled = false;
-                Object.keys(me.configNode.mgmtNodes).forEach(key => me.configNode.mgmtNodes[key].sendSetState());
-            }, me._setStateDelay);
+                this._getStateScheduled = false;
+                Object.keys(this.configNode.mgmtNodes).forEach(key => this.configNode.mgmtNodes[key].sendSetState());
+            }, this._setStateDelay);
         }
     }
 
@@ -689,7 +693,7 @@ export class GoogleSmartHome {
     //
     //
     //
-    IsHttpServerRunning() {
+    IsHttpServerRunning(): boolean {
         return this._httpServerRunning || this._httpPort <= 0;
     }
 
