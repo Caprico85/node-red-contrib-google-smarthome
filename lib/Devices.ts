@@ -43,7 +43,7 @@ export default class Devices {
     //
     //
     //
-    DeleteDevice(client) {
+    DeleteDevice(client): boolean {
         if (!this._nodes[client.id]) {
             this._smarthome.debug('Device:DeleteDevice(): device does not exist; client.id = ' + client.id);
             return false;
@@ -58,7 +58,7 @@ export default class Devices {
     //
     //
     //
-    ReportState(deviceId: string) {
+    ReportState(deviceId: string): boolean {
         if (!this._nodes[deviceId]) {
             this._smarthome.debug('Device:ReportState(): device ' + deviceId + ' does not exist');
             return false;
