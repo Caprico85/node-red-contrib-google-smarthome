@@ -202,55 +202,48 @@ export class GoogleSmartHomeNode {
      *
      */
     register(client, type) {
-        const node = this;
-        node._debug("GoogleSmartHomeNode(): register; type = " + type + ' ' + client.id);
+        this._debug("GoogleSmartHomeNode(): register; type = " + type + ' ' + client.id);
 
         if (type === 'mgmt') {
-            node.mgmtNodes[client.id] = client;
+            this.mgmtNodes[client.id] = client;
         } else {
-            node.app.devices.registerDevice(client);
+            this.app.devices.registerDevice(client);
         }
     }
 
     deregister(client, type) {
-        const node = this;
-        node._debug("GoogleSmartHomeNode(): deregister; type = " + type);
+        this._debug("GoogleSmartHomeNode(): deregister; type = " + type);
 
-        if (type === 'mgmt' && node.mgmtNodes[client.id]) {
-            delete node.mgmtNodes[client.id];
+        if (type === 'mgmt' && this.mgmtNodes[client.id]) {
+            delete this.mgmtNodes[client.id];
         }
     }
 
     remove(client, type) {
-        const node = this;
-        node._debug("GoogleSmartHomeNode(): remove; type = " + type);
+        this._debug("GoogleSmartHomeNode(): remove; type = " + type);
 
-        if (type === 'mgmt' && node.mgmtNodes[client.id]) {
-            delete node.mgmtNodes[client.id];
+        if (type === 'mgmt' && this.mgmtNodes[client.id]) {
+            delete this.mgmtNodes[client.id];
         } else {
-            node.app.devices.DeleteDevice(client);
+            this.app.devices.DeleteDevice(client);
         }
     }
 
     sendNotifications(client: DeviceNode, notifications) {
-        const node = this;
-        node._debug("GoogleSmartHomeNode:sendNotifications(): notifications = " + JSON.stringify(notifications));
-        node.app.devices.SendNotifications(client.id, notifications);
+        this._debug("GoogleSmartHomeNode:sendNotifications(): notifications = " + JSON.stringify(notifications));
+        this.app.devices.SendNotifications(client.id, notifications);
     }
 
     reportState(deviceId: string) {
-        const node = this;
-        node.app.devices.ReportState(deviceId);
+        this.app.devices.ReportState(deviceId);
     }
 
     getIdFromName(name) {
-        const node = this;
-        return node.app.devices.GetIdFromName(name);
+        return this.app.devices.GetIdFromName(name);
     }
 
     getProperties(deviceIds) {
-        const node = this;
-        return node.app.devices.getProperties(deviceIds);
+        return this.app.devices.getProperties(deviceIds);
     }
 }
 

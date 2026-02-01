@@ -59,14 +59,12 @@ export default class Devices {
     //
     //
     ReportState(deviceId: string) {
-        let me = this;
-
         if (!this._nodes[deviceId]) {
-            me._smarthome.debug('Device:ReportState(): device ' + deviceId + ' does not exist');
+            this._smarthome.debug('Device:ReportState(): device ' + deviceId + ' does not exist');
             return false;
         }
 
-        this._smarthome.httpActions.reportState(deviceId, me._nodes[deviceId].states);
+        this._smarthome.httpActions.reportState(deviceId, this._nodes[deviceId].states);
     }
     //
     //

@@ -1943,22 +1943,22 @@ export class DeviceNode {
         let me = this;
         let states = device.states;
 
-        if (me.trait.appselector) {
+        if (this.trait.appselector) {
             states['currentApplication'] = '';
         }
-        if (me.trait.armdisarm) {
+        if (this.trait.armdisarm) {
             states['isArmed'] = false;
             states['currentArmLevel'] = '';
             // states['exitAllowance'] = 60;
         }
-        if (me.trait.brightness) {
+        if (this.trait.brightness) {
             // states['brightness'] = 50;
         }
-        if (me.trait.colorsetting) {
-            if (!me.command_only_colorsetting) {
-                if (me.color_model === "rgb") {
+        if (this.trait.colorsetting) {
+            if (!this.command_only_colorsetting) {
+                if (this.color_model === "rgb") {
                     states['color'] = { spectrumRgb: 16777215 };
-                } else if (me.color_model === "hsv") {
+                } else if (this.color_model === "hsv") {
                     states['color'] = {
                         spectrumHsv: {
                             hue: 0.0,           // float, representing hue as positive degrees in the range of [0.0, 360.0)
@@ -1967,80 +1967,80 @@ export class DeviceNode {
                         }
                     };
                 } else {
-                    states['color'] = { temperatureK: me.temperature_max_k || 6000 };
+                    states['color'] = { temperatureK: this.temperature_max_k || 6000 };
                 }
             }
         }
-        if (me.trait.cook) {
+        if (this.trait.cook) {
             states['currentCookingMode'] = "NONE";
             states['currentFoodPreset'] = "NONE";
             // states['currentFoodQuantity'] = 0;
             // states['currentFoodUnit'] = "UNKNOWN_UNITS";
         }
-        if (me.trait.dispense) {
+        if (this.trait.dispense) {
             states['dispenseItems'] = this.getDispenseNewState();
         }
-        if (me.trait.dock) {
+        if (this.trait.dock) {
             // states['isDocked'] = false;
         }
-        if (me.trait.energystorage) {
+        if (this.trait.energystorage) {
             states['descriptiveCapacityRemaining'] = "FULL";
             // states['capacityRemaining'] = [];
-            if (me.is_rechargeable) {
+            if (this.is_rechargeable) {
                 // states['capacityUntilFull'] = [];
                 states['isCharging'] = false;
             }
             // states['isPluggedIn'] = false;
         }
-        if (me.trait.fanspeed) {
+        if (this.trait.fanspeed) {
             // states['currentFanSpeedSetting'] = "";
-            if (!me.command_only_fanspeed && me.supports_fan_speed_percent) {
+            if (!this.command_only_fanspeed && this.supports_fan_speed_percent) {
                 states['currentFanSpeedPercent'] = 0;
             }
         }
-        if (me.trait.fill) {
+        if (this.trait.fill) {
             states['isFilled'] = false;
-            if (me.available_fill_levels.length > 0) {
+            if (this.available_fill_levels.length > 0) {
                 states['currentFillLevel'] = "";
             }
-            if (me.supports_fill_percent) {
+            if (this.supports_fill_percent) {
                 states['currentFillPercent'] = 0;
             }
         }
-        if (me.trait.humiditysetting) {
+        if (this.trait.humiditysetting) {
             // states['humiditySetpointPercent'] = 52;
             // states['humidityAmbientPercent'] = 52;
         }
-        if (me.trait.inputselector) {
-            if (!me.command_only_input_selector) {
-                if (me.availableInputs && me.availableInputs.length > 0) {
-                    states['currentInput'] = me.availableInputs[0].key;
+        if (this.trait.inputselector) {
+            if (!this.command_only_input_selector) {
+                if (this.availableInputs && this.availableInputs.length > 0) {
+                    states['currentInput'] = this.availableInputs[0].key;
                 } else {
                     states['currentInput'] = '';
                 }
             }
         }
-        if (me.trait.lighteffects) {
+        if (this.trait.lighteffects) {
             states['activeLightEffect'] = "";
             // states['lightEffectEndUnixTimestampSec'] = 60;
         }
-        //if (me.trait.lockunlock) {
+        //if (this.trait.lockunlock) {
         // states['isLocked'] = false;
         // states['isJammed'] = false;
         //}
-        //if (me.trait.mediastate) {
+        //if (this.trait.mediastate) {
         // INACTIVE STANDBY ACTIVE
         // states['activityState'] = 'INACTIVE';
         // PAUSED PLAYING FAST_FORWARDING REWINDING BUFFERING STOPPED
         // states['playbackState'] = 'STOPPED';
         //}
-        if (me.trait.modes) {
-            if (!me.command_only_modes) {
+        if (this.trait.modes) {
+            if (!this.command_only_modes) {
                 states['currentModeSettings'] = {};
                 this.updateModesState(device);
             }
         }
-        //if (me.trait.networkcontrol) {
+        //if (this.trait.networkcontrol) {
         // states['networkEnabled'] = true;
         // states['networkSettings'] = { ssid: '' };
         // states['guestNetworkEnabled'] = false;
@@ -2061,17 +2061,17 @@ export class DeviceNode {
         };*/
         // states['networkSpeedTestInProgress'] = false;
         //}
-        //if (me.trait.onoff) {
+        //if (this.trait.onoff) {
         // states['on'] = false;
         //}
-        if (me.trait.openclose) {
-            if (!me.command_only_openclose) {
-                if (me.open_direction.length < 2) {
+        if (this.trait.openclose) {
+            if (!this.command_only_openclose) {
+                if (this.open_direction.length < 2) {
                     states['openPercent'] = 0;
                 } else {
                     let openState = [];
                     states['openState'] = openState;
-                    me.open_direction.forEach(direction => {
+                    this.open_direction.forEach(direction => {
                         openState.push({
                             openPercent: 0,
                             openDirection: direction
@@ -2080,25 +2080,25 @@ export class DeviceNode {
                 }
             }
         }
-        /*if (me.trait.rotation) {
-            if (me.supports_degrees) {
+        /*if (this.trait.rotation) {
+            if (this.supports_degrees) {
                 // states['rotationDegrees'] = 0;
             }
-            if (me.supports_percent) {
+            if (this.supports_percent) {
                 // states['rotationPercent'] = 0;
             }
         }*/
-        if (me.trait.runcycle) {
+        if (this.trait.runcycle) {
             states['currentRunCycle'] = [{
                 currentCycle: "unknown",
-                lang: me.lang
+                lang: this.lang
             }];
             states['currentTotalRemainingTime'] = 0;
             states['currentCycleRemainingTime'] = 0;
         }
-        if (me.trait.sensorstate) {
+        if (this.trait.sensorstate) {
             let current_sensor_state_data = [];
-            me.sensor_states_supported.forEach(function (sensor_state_name) {
+            this.sensor_states_supported.forEach(function (sensor_state_name) {
                 let current_sensor = { name: sensor_state_name };
                 let current_sensor_state = undefined;
                 let raw_value = undefined;
@@ -2155,56 +2155,56 @@ export class DeviceNode {
             if (current_sensor_state_data.length > 0) {
                 states['currentSensorStateData'] = current_sensor_state_data;
             } else {
-                delete me.state_types['currentSensorStateData'];
+                delete this.state_types['currentSensorStateData'];
             }
         }
-        if (me.trait.softwareupdate) {
+        if (this.trait.softwareupdate) {
             states['lastSoftwareUpdateUnixTimestampSec'] = 0;
         }
-        if (me.trait.startstop) {
+        if (this.trait.startstop) {
             states['isRunning'] = false;
             // states['isPaused'] = false;
             // states['activeZones'] = [];
         }
-        /*if (me.trait.statusreport) {
+        /*if (this.trait.statusreport) {
             states['currentStatusReport'] = [];
         }*/
-        if (me.trait.temperaturecontrol) {
-            if (!me.query_only_temperaturecontrol) { // Required if queryOnlyTemperatureControl set to false
-                states['temperatureSetpointCelsius'] = me.tc_min_threshold_celsius;
+        if (this.trait.temperaturecontrol) {
+            if (!this.query_only_temperaturecontrol) { // Required if queryOnlyTemperatureControl set to false
+                states['temperatureSetpointCelsius'] = this.tc_min_threshold_celsius;
             }
-            // states['temperatureAmbientCelsius'] = me.tc_min_threshold_celsius;
+            // states['temperatureAmbientCelsius'] = this.tc_min_threshold_celsius;
         }
-        if (me.trait.temperaturesetting) {
-            if (!me.command_only_temperaturesetting) {
+        if (this.trait.temperaturesetting) {
+            if (!this.command_only_temperaturesetting) {
                 // states['activeThermostatMode'] = "none";
-                // states['targetTempReachedEstimateUnixTimestampSec'] = me.target_temp_reached_estimate_unix_timestamp_sec;
-                // states['thermostatHumidityAmbient'] = me.thermostat_humidity_ambient;
-                states['thermostatMode'] = me.available_thermostat_modes.length > 0 ? me.available_thermostat_modes[0] : "";
-                states['thermostatTemperatureAmbient'] = me.thermostat_temperature_setpoint;
+                // states['targetTempReachedEstimateUnixTimestampSec'] = this.target_temp_reached_estimate_unix_timestamp_sec;
+                // states['thermostatHumidityAmbient'] = this.thermostat_humidity_ambient;
+                states['thermostatMode'] = this.available_thermostat_modes.length > 0 ? this.available_thermostat_modes[0] : "";
+                states['thermostatTemperatureAmbient'] = this.thermostat_temperature_setpoint;
                 // 0
-                states['thermostatTemperatureSetpoint'] = me.thermostat_temperature_setpoint;
+                states['thermostatTemperatureSetpoint'] = this.thermostat_temperature_setpoint;
                 // 1
-                // states['thermostatTemperatureSetpointHigh'] = me.thermostat_temperature_setpoint_hight;
-                // states['thermostatTemperatureSetpointLow'] = me.thermostat_temperature_setpoint_low;
+                // states['thermostatTemperatureSetpointHigh'] = this.thermostat_temperature_setpoint_hight;
+                // states['thermostatTemperatureSetpointLow'] = this.thermostat_temperature_setpoint_low;
             }
         }
-        if (me.trait.timer) {
-            if (!me.command_only_timer) {
+        if (this.trait.timer) {
+            if (!this.command_only_timer) {
                 states['timerRemainingSec'] = -1;
                 // states['timerPaused'] = false;
             }
         }
-        if (me.trait.toggles) {
-            if (!me.command_only_toggles) {
+        if (this.trait.toggles) {
+            if (!this.command_only_toggles) {
                 states['currentToggleSettings'] = {};
                 this.updateTogglesState(device);
             }
         }
-        if (me.trait.volume) {
-            if (!me.command_only_volume) {
-                states['currentVolume'] = me.volume_default_percentage;
-                if (me.volume_can_mute_and_unmute) {
+        if (this.trait.volume) {
+            if (!this.command_only_volume) {
+                states['currentVolume'] = this.volume_default_percentage;
+                if (this.volume_can_mute_and_unmute) {
                     states['isMuted'] = false;
                 }
             }
@@ -2217,18 +2217,17 @@ export class DeviceNode {
      * @param {boolean} is_local - Indicates whether the current command was issued using local fulfillment.
      */
     updateStatusIcon(is_local: boolean) {
-        const me = this;
         let text = [];
         let fill = 'red';
         let shape = 'dot';
-        if (me.states.online) {
-            if (me.trait.scene) {
+        if (this.states.online) {
+            if (this.trait.scene) {
                 text.push('OK');
                 fill = 'green';
             }
-            if (me.trait.onoff) {
-                if (me.states.on !== undefined) {
-                    if (me.states.on) {
+            if (this.trait.onoff) {
+                if (this.states.on !== undefined) {
+                    if (this.states.on) {
                         text.push('ON');
                         fill = 'green';
                     } else {
@@ -2240,58 +2239,58 @@ export class DeviceNode {
             } else {
                 fill = 'blue';
             }
-            if (me.trait.brightness && me.states.brightness !== undefined) {
-                text.push(`${me.states.brightness} %`);
+            if (this.trait.brightness && this.states.brightness !== undefined) {
+                text.push(`${this.states.brightness} %`);
             }
-            if (me.trait.colorsetting && me.states.color.temperatureK !== undefined) {
-                text.push(`${me.states.color.temperatureK} K`);
+            if (this.trait.colorsetting && this.states.color.temperatureK !== undefined) {
+                text.push(`${this.states.color.temperatureK} K`);
             }
-            if (me.trait.colorsetting && me.states.color.spectrumRgb !== undefined) {
-                text.push('#' + me.states.color.spectrumRgb.toString(16).toUpperCase().padStart(6, '0'));
+            if (this.trait.colorsetting && this.states.color.spectrumRgb !== undefined) {
+                text.push('#' + this.states.color.spectrumRgb.toString(16).toUpperCase().padStart(6, '0'));
             }
-            if (me.trait.colorsetting && me.states.color.spectrumHsv !== undefined) {
-                text.push('H: ' + me.states.color.spectrumHsv.hue +
-                    ' S: ' + me.states.color.spectrumHsv.saturation +
-                    ' V: ' + me.states.color.spectrumHsv.value);
+            if (this.trait.colorsetting && this.states.color.spectrumHsv !== undefined) {
+                text.push('H: ' + this.states.color.spectrumHsv.hue +
+                    ' S: ' + this.states.color.spectrumHsv.saturation +
+                    ' V: ' + this.states.color.spectrumHsv.value);
             }
-            if (me.trait.openclose) {
-                if (me.states.openPercent !== undefined) {
-                    if (me.states.openPercent === 0) {
+            if (this.trait.openclose) {
+                if (this.states.openPercent !== undefined) {
+                    if (this.states.openPercent === 0) {
                         text.push('CLOSED');
                         fill = 'green';
                     } else {
-                        text.push(me.discrete_only_openclose ? 'OPEN' : util.format("OPEN %d%%", me.states.openPercent));
+                        text.push(this.discrete_only_openclose ? 'OPEN' : util.format("OPEN %d%%", this.states.openPercent));
                     }
                 }
             }
-            if (me.trait.startstop) {
-                if (me.pausable && me.states.isPaused) {
+            if (this.trait.startstop) {
+                if (this.pausable && this.states.isPaused) {
                     text.push('Paused');
                     fill = 'yellow';
                 } else {
-                    text.push(me.states.isRunning ? 'Started' : 'Stopped');
-                    fill = me.states.isRunning ? 'green' : 'red';
+                    text.push(this.states.isRunning ? 'Started' : 'Stopped');
+                    fill = this.states.isRunning ? 'green' : 'red';
                 }
             }
-            if (me.trait.humiditysetting) {
-                if (me.states.humidityAmbientPercent !== undefined) {
-                    text.push('H: ' + me.states.humidityAmbientPercent + "% ");
+            if (this.trait.humiditysetting) {
+                if (this.states.humidityAmbientPercent !== undefined) {
+                    text.push('H: ' + this.states.humidityAmbientPercent + "% ");
                 }
-                if (me.states.humiditySetpointPercent !== undefined) {
-                    text.push('TH: ' + me.states.humiditySetpointPercent + "% ");
-                }
-            }
-            if (me.trait.temperaturecontrol) {
-                if (me.states.temperatureAmbientCelsius !== undefined) {
-                    text.push('TC: ' + me.states.temperatureAmbientCelsius);
-                }
-                if (me.states.temperatureSetpointCelsius !== undefined) {
-                    text.push(' SC: ' + me.states.temperatureSetpointCelsius);
+                if (this.states.humiditySetpointPercent !== undefined) {
+                    text.push('TH: ' + this.states.humiditySetpointPercent + "% ");
                 }
             }
-            if (me.trait.temperaturesetting) {
-                const thermostat_mode = me.states.thermostatMode;
-                const st = " T: " + (me.states.thermostatTemperatureAmbient || '?') + "°C | S: " + (me.states.thermostatTemperatureSetpoint || '?');
+            if (this.trait.temperaturecontrol) {
+                if (this.states.temperatureAmbientCelsius !== undefined) {
+                    text.push('TC: ' + this.states.temperatureAmbientCelsius);
+                }
+                if (this.states.temperatureSetpointCelsius !== undefined) {
+                    text.push(' SC: ' + this.states.temperatureSetpointCelsius);
+                }
+            }
+            if (this.trait.temperaturesetting) {
+                const thermostat_mode = this.states.thermostatMode;
+                const st = " T: " + (this.states.thermostatTemperatureAmbient || '?') + "°C | S: " + (this.states.thermostatTemperatureSetpoint || '?');
                 if (thermostat_mode === "off") {
                     text.push('OFF ' + st);
                 } else if (thermostat_mode === "heat" || thermostat_mode === "cool") {
@@ -2299,38 +2298,38 @@ export class DeviceNode {
                     text.push(thermostat_mode.substring(0, 1).toUpperCase() + st);
                 } else if (thermostat_mode === "heatcool") {
                     fill = "green";
-                    text.push('H/C T: ' + (me.states.thermostatTemperatureAmbient || '?') + "°C | S: [" + (me.states.thermostatTemperatureSetpointLow || '') + " - " + (me.states.thermostatTemperatureSetpointHigh || ''));
+                    text.push('H/C T: ' + (this.states.thermostatTemperatureAmbient || '?') + "°C | S: [" + (this.states.thermostatTemperatureSetpointLow || '') + " - " + (this.states.thermostatTemperatureSetpointHigh || ''));
                 } else {
                     fill = "green";
                     text.push(thermostat_mode.substring(0, 1).toUpperCase() + st);
                 }
-                if (me.states.thermostatHumidityAmbient !== undefined) {
-                    text.push(me.states.thermostatHumidityAmbient + "%");
+                if (this.states.thermostatHumidityAmbient !== undefined) {
+                    text.push(this.states.thermostatHumidityAmbient + "%");
                 }
             }
-            if (me.trait.energystorage) {
-                text.push(me.states.descriptiveCapacityRemaining);
+            if (this.trait.energystorage) {
+                text.push(this.states.descriptiveCapacityRemaining);
             }
-            if (me.trait.armdisarm) {
-                if (me.states.isArmed) {
-                    if (me.states.currentArmLevel) {
-                        text.push(me.states.currentArmLevel);
+            if (this.trait.armdisarm) {
+                if (this.states.isArmed) {
+                    if (this.states.currentArmLevel) {
+                        text.push(this.states.currentArmLevel);
                     }
                 } else {
                     text.push('DISARMED');
                 }
             }
-            if (me.trait.fanspeed) {
-                if (typeof me.states.currentFanSpeedPercent === 'number') {
-                    text.push(me.states.currentFanSpeedPercent + '%');
+            if (this.trait.fanspeed) {
+                if (typeof this.states.currentFanSpeedPercent === 'number') {
+                    text.push(this.states.currentFanSpeedPercent + '%');
                 }
-                if (typeof me.states.currentFanSpeedSetting === 'string') {
-                    text.push(me.states.currentFanSpeedSetting);
+                if (typeof this.states.currentFanSpeedSetting === 'string') {
+                    text.push(this.states.currentFanSpeedSetting);
                 }
             }
-            if (me.trait.sensorstate) {
-                if (Array.isArray(me.states.currentSensorStateData)) {
-                    me.states.currentSensorStateData.forEach(sensor => {
+            if (this.trait.sensorstate) {
+                if (Array.isArray(this.states.currentSensorStateData)) {
+                    this.states.currentSensorStateData.forEach(sensor => {
                         const currentSensorStateSet = sensor.currentSensorState !== undefined && sensor.currentSensorState !== 'unknown';
                         if (currentSensorStateSet || sensor.rawValue !== undefined) {
                             text.push(sensor.name);
@@ -2344,26 +2343,26 @@ export class DeviceNode {
                     });
                 }
             }
-            if (me.trait.lockunlock) {
-                if (me.states.isJammed) {
+            if (this.trait.lockunlock) {
+                if (this.states.isJammed) {
                     text.push('JAMMED');
-                } else if (typeof me.states.isLocked === 'boolean') {
-                    text.push(me.states.isLocked ? ' LOCKED' : ' UNLOCKED');
+                } else if (typeof this.states.isLocked === 'boolean') {
+                    text.push(this.states.isLocked ? ' LOCKED' : ' UNLOCKED');
                 }
             }
-            if (me.trait.runcycle) {
+            if (this.trait.runcycle) {
                 if(
-                    typeof me.states.currentRunCycle !== 'undefined' &&
-                    typeof me.states.currentRunCycle[0] !== 'undefined' &&
-                    typeof me.states.currentRunCycle[0].currentCycle !== 'undefined' &&
-                    me.states.currentRunCycle[0].currentCycle !== 'unknown'
+                    typeof this.states.currentRunCycle !== 'undefined' &&
+                    typeof this.states.currentRunCycle[0] !== 'undefined' &&
+                    typeof this.states.currentRunCycle[0].currentCycle !== 'undefined' &&
+                    this.states.currentRunCycle[0].currentCycle !== 'unknown'
                 ) {
-                    text.push(me.states.currentRunCycle[0].currentCycle);
+                    text.push(this.states.currentRunCycle[0].currentCycle);
                 }
             }
-            if (me.trait.occupancysensing) {
-                if(typeof me.states.occupancy !== 'undefined')
-                    text.push(me.states.occupancy);
+            if (this.trait.occupancysensing) {
+                if(typeof this.states.occupancy !== 'undefined')
+                    text.push(this.states.occupancy);
             }
         } else {
             shape = 'ring';
@@ -2376,7 +2375,7 @@ export class DeviceNode {
             shape = 'ring';
         }
         text = text.join(' | ');
-        me.status({ fill: fill, shape: shape, text: text });
+        this.status({ fill: fill, shape: shape, text: text });
     }
 
     /******************************************************************************************************************
