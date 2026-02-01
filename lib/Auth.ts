@@ -48,7 +48,9 @@ export default class Auth {
     private _useGoogleClientAuth: boolean;
     private _googleClientId: string;
     private _emails: string[];
+    //private _authCode: Map<string, { user: string; expiresAt: Date }>;
     private _authFilename: string | null;
+    //private _jwtkey: any;
     private _accessTokenDuration: number;
 
 
