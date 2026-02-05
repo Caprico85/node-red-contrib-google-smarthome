@@ -7,13 +7,14 @@ on:
   workflow_dispatch:
 
 permissions:
-  id-token: write  # Required for OIDC trusted publishing to NPM
-  contents: read
+  id-token: write      # OIDC trusted publishing to npm
+  contents: write      # nötig zum Upload von Release-Assets
 
 jobs:
   publish-npm:
     name: Publish Node-RED package
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v6
@@ -22,13 +23,29 @@ jobs:
         with:
           node-version: latest
           cache: npm
+
       - name: npm Install
         run: npm ci
+
       - name: Build
         run: npm run build
-      - name: npm Publish
-        run: npm publish
-      - name: Publish to Node-RED Library
-        uses: Hacksore/node-red-flow@v2
-        with:
-          repo: node-red-contrib-google-smarthome
+
+      - name: Create npm package tarball (npm pack)
+        run: |
+          TGZ="$(npm pack)"
+          echo "TGZ=$TGZ" >> $GITHUB_ENV
+
+      - name: Upload tgz to GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          gh release upload "$TAG" "$TGZ" --clobber
+
+#      - name: npm Publish
+#        run: npm publish
+
+#      - name: Publish to Node-RED Library
+#        uses: Hacksore/node-red-flow@v2
+#        with:
+#          repo: node-red-contrib-google-smarthome
