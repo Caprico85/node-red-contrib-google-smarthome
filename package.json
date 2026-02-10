@@ -63,7 +63,7 @@
     "@typescript/native-preview": "^7.0.0-dev.20260210.1",
     "eslint": "^9.39.2",
     "eslint-plugin-jsdoc": "^62.5.4",
-    "glob": "^13.0.1",
+    "glob": "^13.0.2",
     "globals": "^17.3.0",
     "mocha": "^11.7.5",
     "node-red": "^4.1.4",
