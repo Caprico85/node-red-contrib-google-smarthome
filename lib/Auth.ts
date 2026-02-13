@@ -173,7 +173,7 @@ export default class Auth {
     /**
      * Checks if Google client authentication (a.k.a. Google Login) is used.
      *
-     * @returns {boolean} True if Google Client authentication is used, false otherwise
+     * @returns True if Google Client authentication is used, false otherwise
      */
     useGoogleClientAuth(): boolean {
         return this._useGoogleClientAuth;
@@ -182,7 +182,7 @@ export default class Auth {
     /**
      * Retrieves the Client ID for Google Client authentication (a.k.a. Google Login).
      *
-     * @returns {string} Google Client ID
+     * @returns Google Client ID
      */
     getGoogleClientId(): string {
         return this._googleClientId;
@@ -191,7 +191,7 @@ export default class Auth {
     /**
      * Retrieves the authorized email addresses for Google Client authentication (a.k.a. Google Login).
      *
-     * @returns {string[]} Authorized email addresses
+     * @returns Authorized email addresses
      */
     getGoogleClientEmails(): string[] {
         return this._emails;
@@ -200,10 +200,10 @@ export default class Auth {
     /**
      * Checks if the provided email address is valid for Google Client authentication (a.k.a. Google Login).
      *
-     * @param {string} email - Email to check
-     * @returns {boolean} True if the email is valid, false otherwise
+     * @param email - Email to check
+     * @returns True if the email is valid, false otherwise
      */
-    isGoogleClientEmailValid(email): boolean {
+    isGoogleClientEmailValid(email: string): boolean {
         if (this._useGoogleClientAuth) {
             return this._emails.includes(email);
         }
@@ -213,7 +213,7 @@ export default class Auth {
     /**
      * Sets the duration (in minutes) for which an access token is valid.
      *
-     * @param {number} duration - The duration in minutes.
+     * @param duration - The duration in minutes.
      */
     setAccessTokenDuration(duration: number) {
         this._accessTokenDuration = duration;
@@ -222,7 +222,7 @@ export default class Auth {
     /**
      * Retrieves the duration (in minutes) for which an access token is valid.
      *
-     * @returns {number} The duration in minutes.
+     * @returns The duration in minutes.
      */
     getAccessTokenDuration(): number {
         return this._accessTokenDuration;
@@ -231,9 +231,9 @@ export default class Auth {
     /**
      * Checks if the provided username and password are valid.
      *
-     * @param {string} username - Username to check
-     * @param {string} password - Password to check
-     * @returns {boolean} True if the username and password are valid, false otherwise.
+     * @param username - Username to check
+     * @param password - Password to check
+     * @returns True if the username and password are valid, false otherwise.
      */
     isValidUser(username: string, password: string): boolean {
         if (this._username !== username) {
@@ -258,8 +258,8 @@ export default class Auth {
     /**
      * Generates a new auth code and saves it for exchanging the auth code into tokens later.
      *
-     * @param {string} username - Username, for which the auth code should be generated
-     * @returns {string} The newly generated auth code
+     * @param username - Username, for which the auth code should be generated
+     * @returns The newly generated auth code
      */
     generateAuthCode(username: string): string {
         this.removeExpiredAuthCode();
@@ -299,7 +299,7 @@ export default class Auth {
     /**
      * Checks if the account is linked (that is, if we have refresh tokens).
      *
-     * @returns {boolean} True if account is linked (we have refresh tokens), false otherwise.
+     * @returns True if account is linked (we have refresh tokens), false otherwise.
      */
     isAccountLinked(): boolean {
         return Object.keys(this._authStorage.refreshTokens).length > 0;
@@ -308,9 +308,9 @@ export default class Auth {
     /**
      * Checks if the provided client ID and secret are valid.
      *
-     * @param {string} clientId - Client ID to check
-     * @param {?string} [clientSecret] - Client secret to check
-     * @returns {boolean} True if the client ID and secret are valid, false otherwise
+     * @param clientId - Client ID to check
+     * @param clientSecret - Client secret to check
+     * @returns True if the client ID and secret are valid, false otherwise
      */
     isValidClient(clientId: string, clientSecret: string|undefined = undefined): boolean {
         if (this._clientId !== clientId) {
@@ -335,9 +335,9 @@ export default class Auth {
      *
      * To check via the check page, our own domain (specified by my_uri, e.g. https://example.com:3001) is also allowed.
      *
-     * @param {string} redirect_uri - URI to check
-     * @param {string} my_uri - Own URL (e.g. https://example.com:3001)
-     * @returns {boolean} true if the URI is valid, false otherwise
+     * @param redirect_uri - URI to check
+     * @param my_uri - Own URL (e.g. https://example.com:3001)
+     * @returns true if the URI is valid, false otherwise
      */
     isValidRedirectUri(redirect_uri: string, my_uri: string): boolean {
         if (my_uri) {
@@ -400,7 +400,7 @@ export default class Auth {
     /**
      * Refreshes the access token used by Google to authenticate with our service.
      *
-     * @param {string} refreshToken - Refresh token
+     * @param refreshToken - Refresh token
      * @returns {object} Tokens
      */
     refreshAccessToken(refreshToken: string): { token_type: string; access_token: string; expires_in: number; } {
@@ -425,8 +425,8 @@ export default class Auth {
     /**
      * Checks if the provided access token is valid.
      *
-     * @param {string} accessToken - Access token to check
-     * @returns {boolean} True if the access token is valid, false otherwise
+     * @param accessToken - Access token to check
+     * @returns True if the access token is valid, false otherwise
      */
     isValidAccessToken(accessToken: string): boolean {
         return this.getuserForAccessToken(accessToken) !== null;
@@ -435,8 +435,8 @@ export default class Auth {
     /**
      * Checks if the provided access token for local fulfillment is valid.
      *
-     * @param {string} accessToken - Local access token to check
-     * @returns {boolean} True if the local access token is valid, false otherwise
+     * @param accessToken - Local access token to check
+     * @returns True if the local access token is valid, false otherwise
      */
     isValidLocalAccessToken(accessToken: string): boolean {
         if (accessToken === this._authStorage.nextLocalAuthCode) {
@@ -451,8 +451,8 @@ export default class Auth {
     /**
      * Retrieves the user for the provided access token.
      *
-     * @param {string} accessToken - Access token
-     * @returns {string|null} User or null if the access token is invalid
+     * @param accessToken - Access token
+     * @returns User or null if the access token is invalid
      */
     getuserForAccessToken(accessToken: string): string | null {
         if (accessToken === this._authStorage.localAuthCode || accessToken === this._authStorage.nextLocalAuthCode) {
@@ -478,8 +478,8 @@ export default class Auth {
     /**
      * Checks if the provided refresh token is valid.
      *
-     * @param {string} refreshToken - Refresh token to check
-     * @returns {boolean} True if the refresh token is valid, false otherwise
+     * @param refreshToken - Refresh token to check
+     * @returns True if the refresh token is valid, false otherwise
      */
     isValidRefreshToken(refreshToken: string): boolean {
         const refreshTokenInfo = this._authStorage.refreshTokens[refreshToken];
@@ -494,7 +494,7 @@ export default class Auth {
     /**
      * Removes all tokens for the provided user.
      *
-     * @param {string} user - User whose tokens should be removed
+     * @param user - User whose tokens should be removed
      */
     removeAllTokensForUser(user: string): void {
         this._removeAllTokensForUser(user);
@@ -504,7 +504,7 @@ export default class Auth {
     /**
      * Retrieves the client email from the JWT file.
      *
-     * @returns {string} JWT client email
+     * @returns JWT client email
      */
     getJwtClientEmail(): string {
         return this._jwtkey.client_email;
@@ -513,7 +513,7 @@ export default class Auth {
     /**
      * Retrieves the private key from the JWT file.
      *
-     * @returns {string} JWT private key
+     * @returns JWT private key
      */
     getJwtPrivateKey(): string {
         return this._jwtkey.private_key;
@@ -522,7 +522,7 @@ export default class Auth {
     /**
      * Retrieves the project ID from the JWT file.
      *
-     * @returns {string} JWT Project ID
+     * @returns JWT Project ID
      */
     getProjectId(): string {
         return this._jwtkey.project_id;
@@ -531,7 +531,7 @@ export default class Auth {
     /**
      * Generates a random string.
      *
-     * @returns {string} Random string
+     * @returns Random string
      */
     genRandomString(): string {
         return nanoid(48);
@@ -540,7 +540,7 @@ export default class Auth {
     /**
      * Retrieves the auth storage object.
      *
-     * @returns {object} Auth storage
+     * @returns Auth storage
      */
     getAuthStorage(): AuthStorage {
         return this._authStorage;
@@ -559,9 +559,9 @@ export default class Auth {
     /**
      * Generates a new access token.
      *
-     * @returns {string} New access token
+     * @returns New access token
      */
-    private _generateNewAccessToken() {
+    private _generateNewAccessToken(): string {
         while (true) {
             let accessToken = this.genRandomString();
             if (accessToken !== this._authStorage.localAuthCode && accessToken !== this._authStorage.nextLocalAuthCode && typeof this._authStorage.accessTokens[accessToken] == 'undefined') {
