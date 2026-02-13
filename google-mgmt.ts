@@ -41,8 +41,7 @@ export class MgmtNode {
     constructor(config: MgmtNodeConfig) {
         RED.nodes.createNode(this, config);
 
-        this.client = config.client;
-        this.clientConn = RED.nodes.getNode(this.client);
+        this.clientConn = RED.nodes.getNode(config.client);
 
         if (!this.clientConn) {
             this.error(RED._("googlemanagement.errors.missing-config"));
