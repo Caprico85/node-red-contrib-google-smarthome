@@ -188,7 +188,7 @@ export class GoogleSmartHomeNode {
     }
 
     // call all management nodes
-    callMgmtFuncs(obj) {
+    callMgmtFuncs(obj): void {
         Object.keys(this.mgmtNodes).forEach((key) => {
             if (Object.prototype.hasOwnProperty.call(this.mgmtNodes, key)) {
                 this._debug("GoogleSmartHomeNode(on-server): found mgmt client");
@@ -202,7 +202,7 @@ export class GoogleSmartHomeNode {
      * functions called by our 'clients'
      *
      */
-    register(client, type) {
+    register(client, type): void {
         this._debug("GoogleSmartHomeNode(): register; type = " + type + ' ' + client.id);
 
         if (type === 'mgmt') {
@@ -212,7 +212,7 @@ export class GoogleSmartHomeNode {
         }
     }
 
-    deregister(client, type) {
+    deregister(client, type): void {
         this._debug("GoogleSmartHomeNode(): deregister; type = " + type);
 
         if (type === 'mgmt' && this.mgmtNodes[client.id]) {
@@ -230,7 +230,7 @@ export class GoogleSmartHomeNode {
         }
     }
 
-    sendNotifications(client: DeviceNode, notifications) {
+    sendNotifications(client: DeviceNode, notifications): void {
         this._debug("GoogleSmartHomeNode:sendNotifications(): notifications = " + JSON.stringify(notifications));
         this.app.devices.SendNotifications(client.id, notifications);
     }
