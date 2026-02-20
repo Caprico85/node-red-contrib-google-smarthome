@@ -2845,7 +2845,7 @@ export class DeviceNode {
                     }
                 });
                 if (this.updateState({ currentStatusReport: new_payload }) || differs) {
-                    this.clientConn.reportState(this.id);  // tell Google ...
+                    this.clientConn.app.httpActions.reportState(this.id, this.states);  // tell Google ...
                     if (this.persistent_state) {
                         this.clientConn.app.ScheduleGetState();
                     }
@@ -3017,7 +3017,7 @@ export class DeviceNode {
                         this.cloneObject(states, this.states, this.state_types);
                         send({ topic: this.topicOut, payload: states });
                     }
-                    this.clientConn.reportState(this.id);  // tell Google ...
+                    this.clientConn.app.httpActions.reportState(this.id, this.states);  // tell Google ...
                     if (this.persistent_state) {
                         this.clientConn.app.ScheduleGetState();
                     }
