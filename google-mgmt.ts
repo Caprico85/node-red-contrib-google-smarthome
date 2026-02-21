@@ -43,7 +43,7 @@ export class MgmtNode {
         RED.nodes.createNode(this, config);
 
         this.config = config;
-        this.clientConn = RED.nodes.getNode(this.config.client);
+        this.clientConn = RED.nodes.getNode(this.config.client) as GoogleSmartHomeNode;
 
         if (!this.clientConn) {
             this.error(RED._("googlemanagement.errors.missing-config"));
