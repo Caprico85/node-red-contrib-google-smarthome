@@ -297,7 +297,7 @@ export class DeviceNode {
         this.name = config.name || config.id;
         this.device_type = config.device_type;
         this.nicknames = config.nicknames;
-        this.clientConn = RED.nodes.getNode(this.config.client);
+        this.clientConn = RED.nodes.getNode(this.config.client) as GoogleSmartHomeNode;
         this._debug(".constructor config " + JSON.stringify(config));
 
         if (!this.clientConn) {
