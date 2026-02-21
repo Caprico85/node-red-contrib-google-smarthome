@@ -2214,7 +2214,7 @@ export class DeviceNode {
     /**
      * Updates the status icon of this device node.
      *
-     * @param {boolean} is_local - Indicates whether the current command was issued using local fulfillment.
+     * @param is_local - Indicates whether the current command was issued using local fulfillment.
      */
     updateStatusIcon(is_local: boolean) {
         let text = [];
@@ -2381,7 +2381,7 @@ export class DeviceNode {
     /******************************************************************************************************************
      * called when state is updated from Google Assistant
      *
-     * @param {boolean} is_local - Indicates whether the current command was issued using local fulfillment.
+     * @param is_local - Indicates whether the current command was issued using local fulfillment.
      */
     updated(g_command, exe_result, is_local: boolean) {
         let command = g_command.command.startsWith('action.devices.commands.') ? g_command.command.substr(24) : g_command.command;
@@ -3046,7 +3046,7 @@ export class DeviceNode {
     /**
      * Called by the runtime when this node is being removed or restarted
      *
-     * @param {boolean} removed - true if the is being removed, false on restart
+     * @param removed - true if the is being removed, false on restart
      * @param {Function} done - Function to inform the runtime that this node has finished its operation
      */
     onClose(removed, done) {
