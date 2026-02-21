@@ -161,10 +161,10 @@ export class MgmtNode {
     /**
      * Called by the runtime when this node is being removed or restarted
      *
-     * @param {boolean} removed - true if the is being removed, false on restart
+     * @param removed - true if the is being removed, false on restart
      * @param {Function} done - Function to inform the runtime that this node has finished its operation
      */
-    onClose(removed, done) {
+    onClose(removed: boolean, done) {
         if (removed) {
             // this node has been deleted
             this.clientConn.remove(this, 'mgmt');
