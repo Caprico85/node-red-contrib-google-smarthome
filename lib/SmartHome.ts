@@ -114,8 +114,6 @@ export class GoogleSmartHome {
             this.auth.setUsernamePassword(username, password);
         }
 
-        this.emitter = new EventEmitter();
-
         // httpNodeRoot is the root url for nodes that provide HTTP endpoints. If set to false, all node-based HTTP endpoints are disabled. 
         if (this._httpNodeRoot !== false) {
             if (httpPort > 0) {
@@ -442,18 +440,10 @@ export class GoogleSmartHome {
                     const port = this.httpServer.address().port;
 
                     this.debug('SmartHome:Start(listen): listening at ' + host + ':' + port);
-
-                    process.nextTick(() => {
-                        this.emitter.emit('server', 'start', this._httpPort);
-                    });
                 });
 
                 this.httpServer.on('error', (err) => {
                     this.error('SmartHome:Start(): err:' + err);
-
-                    process.nextTick(() => {
-                        this.emitter.emit('server', 'error', err);
-                    });
                 });
 
                 this.debug('SmartHome:Start(): registered routes:');
@@ -550,10 +540,6 @@ export class GoogleSmartHome {
                 this._httpServerRunning = false;
 
                 this.httpServer.stop(() => {
-                    process.nextTick(() => {
-                        this.emitter.emit('server', 'stop', 0);
-                    });
-
                     if (typeof done === 'function') {
                         done();
                     }
@@ -563,19 +549,11 @@ export class GoogleSmartHome {
                     this.httpServer.emit('close');
                 });
             } else {
-                process.nextTick(() => {
-                    this.emitter.emit('server', 'stop', 0);
-                });
-
                 if (typeof done === 'function') {
                     done();
                 }
             }
         } else {
-            process.nextTick(() => {
-                this.emitter.emit('server', 'stop', 0);
-            });
-
             if (typeof done === 'function') {
                 done();
             }
