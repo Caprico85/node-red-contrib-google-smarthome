@@ -55,17 +55,7 @@ export default class Devices {
             return true;
         }
     }
-    //
-    //
-    //
-    ReportState(deviceId: string): boolean {
-        if (!this._nodes[deviceId]) {
-            this._smarthome.debug('Device:ReportState(): device ' + deviceId + ' does not exist');
-            return false;
-        }
 
-        this._smarthome.httpActions.reportState(deviceId, this._nodes[deviceId].states);
-    }
     //
     //
     //
