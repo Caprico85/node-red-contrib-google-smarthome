@@ -277,9 +277,9 @@ const LANGUAGES = ["da", "nl", "en", "fr", "de", "hi", "id", "it", "ja", "ko", "
 
 export interface DeviceNode extends Node {}
 
-/******************************************************************************************************************
- *
- *
+/**
+ * Represents a single virtual device.
+ * Every node of this type generates one device on the Google Smart Home platform.
  */
 export class DeviceNode {
     private clientConn: GoogleSmartHomeNode;
