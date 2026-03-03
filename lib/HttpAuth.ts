@@ -109,7 +109,11 @@ export default class HttpAuth {
                 throw(err);
             }
             response
-                .set("Content-Security-Policy", "default-src 'self' 'unsafe-inline' *.google.com")
+                .set("Content-Security-Policy",
+                    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://accounts.google.com/gsi/client; " +
+                    "frame-src https://accounts.google.com/gsi/; " +
+                    "connect-src https://accounts.google.com/gsi/; "
+                )
                 .send(data.replace(/GOOGLE_CLIENT_ID/g, googleClientId).replace(/USE_GOOGLE_LOGIN/g, '' + useGoogleClientAuth));
         });
     }
