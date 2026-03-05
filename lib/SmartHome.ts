@@ -634,6 +634,14 @@ export class GoogleSmartHome {
         }
     }
 
+    getHomegraphSync() {
+        this.httpActions.getHomegraphSync();
+    }
+
+    getHomegraphQuery() {
+        this.httpActions.getHomegraphQuery();
+    }
+
     /**
      * Checks if the app.js script running on the smart speaker is the most up-to-date version.
      *
