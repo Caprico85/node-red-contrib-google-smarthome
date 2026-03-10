@@ -339,7 +339,6 @@ export class GoogleSmartHome {
      * Starts the mDNS advertisement for local fulfillment.
      */
     StartMDNSAdvertisement(): void {
-        const me = this;
         this.StopMDNSAdvertisement();
 
         this.dnssdAd = dnssd.Advertisement(
