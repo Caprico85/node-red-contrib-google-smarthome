@@ -60,6 +60,12 @@ interface GoogleSmartHomeCredentials {
 
 export interface GoogleSmartHomeNode extends Node<GoogleSmartHomeCredentials> {}
 
+/**
+ * The configuration node for Google Smart Home.
+ * 
+ * This node holds the configuration and instantiates the GoogleSmartHome class as the main entry point
+ * for the application.
+ */
 export class GoogleSmartHomeNode {
     public app: GoogleSmartHome;
     public mgmtNodes: Record<string, MgmtNode> = {};

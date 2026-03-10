@@ -61,6 +61,21 @@ export default class HttpActions {
      */
     constructor(smarthome: GoogleSmartHome) {
         this._smarthome = smarthome;
+
+        // Initialize HomeGraph
+        if (this._smarthome.auth._jwtkey.private_key) {
+            const googleAuth = new google.auth.GoogleAuth({
+                keyFile: this._smarthome._jwtKeyFile.startsWith(path.sep) ? this._smarthome._jwtKeyFile : path.join(this._smarthome._userDir, this._smarthome._jwtKeyFile),
+                scopes: ['https://www.googleapis.com/auth/homegraph']
+            });
+            this._homegraph = google.homegraph({
+                version: 'v1',
+                auth: googleAuth,
+            });
+        }
+        else {
+            this._smarthome.debug('No JWT key found, HomeGraph not initialized');
+        }
     }
 
     /**
@@ -697,22 +712,12 @@ export default class HttpActions {
             }
         }
 
-        const auth = new google.auth.GoogleAuth({
-            keyFile: this._smarthome._jwtKeyFile.startsWith(path.sep) ? this._smarthome._jwtKeyFile : path.join(this._smarthome._userDir, this._smarthome._jwtKeyFile),
-            scopes: ['https://www.googleapis.com/auth/homegraph']
-        });
-
-        const homegraph = google.homegraph({
-            version: 'v1',
-            auth: auth,
-        });
-
         const sendReportState = (retryCount: number): void => {
-            homegraph.devices.reportStateAndNotification({ 'requestBody': postData })
+            this._homegraph.devices.reportStateAndNotification({ 'requestBody': postData })
                 .then(() => {
                     this._smarthome.debug('HttpActions:reportState(): successfully reported state to Google: ' + JSON.stringify(postData));
                 })
-                .catch((error: GaxiosError) => {
+                .catch(error => {
                     // Error 503 are temporary outages on Google's side. Retry a few times.
                     if (error.status === 503 && retryCount < REPORT_STATE_MAX_RETRIES) {
                         const currentRetry = retryCount + 1;
@@ -765,17 +770,7 @@ export default class HttpActions {
 
         this._smarthome.debug('HttpActions:requestSync(): postData = ' + JSON.stringify(postData));
 
-        const auth = new google.auth.GoogleAuth({
-            keyFile: this._smarthome._jwtKeyFile.startsWith(path.sep) ? this._smarthome._jwtKeyFile : path.join(this._smarthome._userDir, this._smarthome._jwtKeyFile),
-            scopes: ['https://www.googleapis.com/auth/homegraph']
-        });
-
-        const homegraph = google.homegraph({
-            version: 'v1',
-            auth: auth,
-        });
-
-        homegraph.devices.requestSync({ 'requestBody': postData })
+        this._homegraph.devices.requestSync({ 'requestBody': postData })
             .then(() => {
                 this._smarthome.debug('HttpActions:requestSync(): success');
             })
@@ -783,6 +778,69 @@ export default class HttpActions {
                 const myError = {
                     "msg": "Error in HttpActions:requestSync()",
                     "org_msg": (error.response !== undefined ? error.response.data.error : error),
+                    "data": {
+                        "postData": postData,
+                    },
+                };
+
+                this._smarthome.error(myError);
+            });
+    }
+
+    
+    /**
+     * Liste der derzeit im Homegraph bekannten Geräte
+     */
+    getHomegraphSync() {
+        const postData = {
+            requestId: this._reqGen.generateSync(),
+            agentUserId: userId,
+        };
+
+        this._homegraph.devices.sync({ 'requestBody': postData })
+            .then((data) => {
+                this._smarthome._mgmtNode.send(data.data.payload.devices);
+            })
+            .catch(error => {
+                let myError = {
+                    "msg": "Error in HttpActions:getHomegraphSync()",
+                    "org_msg": (error.response !== undefined ? error.response.data.error : error),
+                    "org": error,
+                    "data": {
+                        "postData": postData,
+                    },
+                };
+
+                this._smarthome.error(myError);
+            });
+    }
+
+    /**
+     * Liste der derzeit im Homegraph registrierten States für alle bekannten Geräte
+     */
+    getHomegraphQuery() {
+        const postData = {
+            agentUserId: userId,
+            inputs: [{
+                payload: {
+                    devices: [
+                        {
+                            id: "475525b40c0b1b0f"
+                        },
+                    ]
+                }
+            }]
+        };
+
+        this._homegraph.devices.query({'requestBody': postData})
+            .then((data) => {
+                this._smarthome._mgmtNode.send(data.data.payload.devices);
+            })
+            .catch(error => {
+                let myError = {
+                    "msg": "Error in HttpActions:getHomegraphQuery()",
+                    "org_msg": (error.response !== undefined ? error.response.data.error : error),
+                    "org": error,
                     "data": {
                         "postData": postData,
                     },
