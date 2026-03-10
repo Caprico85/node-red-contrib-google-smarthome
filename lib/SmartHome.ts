@@ -54,12 +54,16 @@ export class GoogleSmartHome {
     private httpServer!: http.Server & stoppable.WithStop;
     private localHttpServer!: http.Server & stoppable.WithStop;
     private _httpLocalPath: string
+    private _httpLocalPort: number;
+    private _localScanPort: number;
     private _httpPath: string;
+    private _httpPort: number;
     private _httpNodeRoot: string;
     private _localScanType: string;
     private _httpServerRunning: boolean = false;
     private _dnssdAdRunning: boolean = false;
     private _syncScheduled: boolean = false;
+    private _sslOffload: boolean;
     private _getStateScheduled: boolean = false;
     private debug_function: (data: any) => void;
     private error_function: (data: any) => void
@@ -68,7 +72,7 @@ export class GoogleSmartHome {
 
 
     constructor(configNode: GoogleSmartHomeNode, userDir: string, httpNodeRoot: string, useGoogleLogin, googleClientId, emails, username, password, usehttpnoderoot,
-        httpPath, httpPort, localScanType, localScanPort, httpLocalPort, nodeRedUsesHttps, ssloffload: boolean, publicKey, privateKey, jwtkeyFile, clientid,
+        httpPath: string, httpPort: number, localScanType: string, localScanPort: number, httpLocalPort: number, nodeRedUsesHttps, ssloffload: boolean, publicKey, privateKey, jwtkeyFile, clientid,
         clientsecret, debug, debug_function: (data: any) => void, error_function: (data: any) => void) {
 
         this.auth                   = new Auth(this);
@@ -419,7 +423,7 @@ export class GoogleSmartHome {
 
                     // update server if certificate file changes on disk
                     // timeout is used to give certbot enough time to renew private and public key
-                    let waitForRenewalTimeout;
+                    let waitForRenewalTimeout: NodeJS.Timeout;
                     fs.watch(this._publicKey, () => {
                         this.debug('SmartHome:Start(listen): Certificate file change detected. Updating HTTPS server in 30 seconds.');
                         clearTimeout(waitForRenewalTimeout);
