@@ -208,8 +208,27 @@
 
             <button id="login-button">LOGIN</button>
         </form>
-        <div id="g_id_onload" data-client_id="GOOGLE_CLIENT_ID" data-context="signin" data-ux_mode="popup" data-auto_prompt="false" data-callback="handleCredentialResponse"></div>
-        <div id='login-google' style="display:none;align-items: center;" class="g_id_signin" data-type="standard"></div>
+
+        <div id="g_id_onload"
+            data-client_id="GOOGLE_CLIENT_ID"
+            data-context="signin"
+            data-ux_mode="popup"
+            data-callback="handleCredentialResponse"
+            data-close_on_tap_outside="false"
+            data-itp_support="true"
+            data-auto_prompt="false"
+            >
+        </div>
+
+        <div id='login-google' style="display:none;align-items: center;"
+            class="g_id_signin"
+            data-type="standard"
+            data-shape="rectangular"
+            data-theme="filled_blue"
+            data-text="signin_with"
+            data-size="large"
+            data-logo_alignment="left">
+        </div>
     </div>
 
     <script>
