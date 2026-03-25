@@ -32,13 +32,20 @@ export interface MgmtNode extends Node {}
 
 /******************************************************************************************************************
  *
+ * The management node is used to output log messages and can be used to send debug commands like "RESTART_SERVER"
+ * or "REQUEST_SYNC" into the system.
  *
+ * The Management node itself does not contain much logic, but forwards most calls to the configuration node and its
+ * instance of GoogleSmartHome.
  */
 export class MgmtNode {
     private clientConn: GoogleSmartHomeNode;
     public  config: MgmtNodeConfig;
 
 
+    /**
+     * Initialize the management node.
+     */
     constructor(config: MgmtNodeConfig) {
         RED.nodes.createNode(this, config);
 
@@ -75,7 +82,7 @@ export class MgmtNode {
 
     /******************************************************************************************************************
      * called when state is updated from Google Assistant
-     *
+     * TODO: Wann wird die aufgerufen?
      */
     updated(data): void {   // this must be defined before the call to clientConn.register()
         this._debug("MgmtNode(updated): data = " + JSON.stringify(data));
@@ -89,7 +96,8 @@ export class MgmtNode {
     }
 
     /**
-     * respond to inputs from NodeRED
+     * Respond to inputs from Node-RED.
+     * This method is called when the user sends a message into this node.
      *
      * @param msg - The incoming message
      * @param send - Function to send outgoing messages
@@ -147,6 +155,16 @@ export class MgmtNode {
                 if (typeof msg.payload === 'object') {
                     this.clientConn.app.devices.setStates(msg.payload);
                 }
+            } else if (topic_upper === 'GET_HOMEGRAPH_SYNC') {
+                me._debug("MgmtNode(input): GET_HOMEGRAPH_SYNC");
+
+                this.clientConn.app.getHomegraphSync();
+                // TODO: Diese Methode bekommt als Parameter "send". Sollte ich die nehmen statt das Ergebnis selbser an den mgmtNode zu senden?
+                // this.clientConn.app.getHomegraphSync(send);
+            } else if (topic_upper === 'GET_HOMEGRAPH_QUERY') {
+                me._debug("MgmtNode(input): GET_HOMEGRAPH_QUERY");
+
+                this.clientConn.app.getHomegraphQuery();
             }
             else {
                 this.error(`Unknown command "${topic}"`);
