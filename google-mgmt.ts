@@ -91,9 +91,9 @@ export class MgmtNode {
     /**
      * respond to inputs from NodeRED
      *
-     * @param {object} msg - The incoming message
-     * @param {Function} send - Function to send outgoing messages
-     * @param {Function} done - Function to inform the runtime that this node has finished its operation
+     * @param msg - The incoming message
+     * @param send - Function to send outgoing messages
+     * @param done - Function to inform the runtime that this node has finished its operation
      */
     onInput(msg, send, done): void {
         const topicArr = (msg.topic || '').split(this.topicDelim);
