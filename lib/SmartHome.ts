@@ -53,6 +53,7 @@ export class GoogleSmartHome {
     public localApp: express.Express;
     private httpServer!: http.Server & stoppable.WithStop;
     private localHttpServer!: http.Server & stoppable.WithStop;
+    private _localUDPServer: dgram.Socket | null = null;
     private _httpLocalPath: string
     private _httpLocalPort: number;
     private _localScanPort: number;
@@ -99,7 +100,6 @@ export class GoogleSmartHome {
         this._httpPath              = this.Path_join((usehttpnoderoot ? this._httpNodeRoot || '/' : '/'), this._httpPath);
         this.debug_function         = debug_function;
         this.error_function         = error_function;
-        this._localUDPServers       = {};
         this._localDiscoveryPort    = null;
         this._localExecutionPort    = null;
         this.dnssdAd                = null;
@@ -271,12 +271,10 @@ export class GoogleSmartHome {
      * Stops the UDP server listening for discovery packets from the smart speaker.
      */
     StopUDPDeviceScanServer(): void {
-        ['udp4', /*'udp6'*/].forEach((type) => {
-            if (Object.prototype.hasOwnProperty.call(this._localUDPServers, type) && this._localUDPServers[type] !== null) {
-                this._localUDPServers[type].close();
-                delete this._localUDPServers[type];
-            }
-        });
+        if (this._localUDPServer !== null) {
+            this._localUDPServer.close();
+            this._localUDPServer = null;
+        }
     }
 
     /**
@@ -327,22 +325,18 @@ export class GoogleSmartHome {
             me.debug(`Service Scan UDP server: listening on: ${address.family} ${address.address}:${address.port}`);
         }
 
-        /**
-         * Callback when the UDP server is closed.
-         */
         function onClose(this: dgram.Socket) {
-            me._localUDPServers[this.type] = null;
-            me.debug(`Service Scan UDP server: server ${this.type} server closed`);
+            me._localUDPServer = null;
+            me.debug('Service Scan UDP server: server closed');
         }
 
-        ['udp4', /*'udp6'*/].forEach((type) => {
-            this._localUDPServers[type] = dgram.createSocket({type: type, ipv6Only: type === 'udp6'});
-            this._localUDPServers[type].on('error', onError);
-            this._localUDPServers[type].on('message', onMessage);
-            this._localUDPServers[type].on('listening', onListening);
-            this._localUDPServers[type].on('close', onClose);
-            this._localUDPServers[type].bind(this._localDiscoveryPort);
-        });
+        // "type udp6" listens on both IPv6 and IPv4
+        this._localUDPServer = dgram.createSocket({type: 'udp6'});
+        this._localUDPServer.on('error', onError);
+        this._localUDPServer.on('message', onMessage);
+        this._localUDPServer.on('listening', onListening);
+        this._localUDPServer.on('close', onClose);
+        this._localUDPServer.bind(this._localDiscoveryPort);
     }
 
     /**
