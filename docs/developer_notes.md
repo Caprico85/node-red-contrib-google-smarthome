@@ -33,9 +33,9 @@ In Visual Studio Code, your launch.json has to look like this:
 
 # Debug startup of Node-RED
 
-Sometimes you may need to debug problem during initialization.
+Sometimes your nodes or Node-RED are crashing during initialization.
 
-If Node-RED is still able to start up, you can wait until Node-RED has started, then attach your debugger, set
+If Node-RED still starts up, it may be enough to wait until Node-RED has started, then attach your debugger, set
 breakpoints and then restart your flows using the Node-RED UI.
 
 You can have node.js wait until your debugger is attached before actually continuing the startup process. This way, you
