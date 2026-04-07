@@ -2389,9 +2389,9 @@ export class DeviceNode {
     /**
      * respond to inputs from NodeRED
      *
-     * @param {object} msgi - The incoming message
-     * @param {Function} send - Function to send outgoing messages
-     * @param {Function} done - Function to inform the runtime that this node has finished its operation
+     * @param msgi - The incoming message
+     * @param send - Function to send outgoing messages
+     * @param done - Function to inform the runtime that this node has finished its operation
      */
     onInput(msgi, send, done): void {
         if(!send) send = () => { this.send.apply(this, arguments) };
@@ -3176,8 +3176,8 @@ export class DeviceNode {
     /**
      * Updates the states of this device with new values.
      *
-     * @param {Object} from_states - The new states values.
-     * @returns {string[]} - Array of the state keys that were modified.
+     * @param from_states - The new states values.
+     * @returns Array of the state keys that were modified.
      */
     updateState(from_states) {
         const modified = [];

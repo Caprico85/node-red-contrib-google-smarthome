@@ -184,8 +184,11 @@ export default class HttpActions {
     }
 
     /**
-     * @param request  - Express request object
+     * Handles POST requests.
+     *
+     * @param request   - Express request object
      * @param response - Express response object
+     * @param url - Current URL
      */
     private _post(request: Request, response: Response, url: string) {
         const reqdata = request.body;
@@ -395,6 +398,9 @@ export default class HttpActions {
     }
 
     /**
+     * Handles SYNC intent.
+     *
+     * @param requestId - Request ID
      * @param response - Express response object
      */
     private _sync(requestId: string, response: Response) {
@@ -457,10 +463,15 @@ export default class HttpActions {
 
         response.status(200).json(deviceProps);
 
+        // TODO: Kein return nötig
         return deviceProps;
     }
 
     /**
+     * Handles QUERY intent.
+     *
+     * @param requestId - Request ID
+     * @param devices - Devices
      * @param response - Express response object
      */
     private _query(requestId: string, devices, response: Response) {
@@ -491,6 +502,10 @@ export default class HttpActions {
     }
 
     /**
+     * Handles EXECUTE intent.
+     *
+     * @param requestId - Request ID
+     * @param commands - Commands
      * @param response - Express response object
      * @param is_local - Indicates whether the current command was issued using local fulfillment.
      */
@@ -552,6 +567,10 @@ export default class HttpActions {
     }
 
     /**
+     * Executes a command on a device.
+     *
+     * @param command - Command
+     * @param device - Device
      * @param is_local - Indicates whether the current command was issued using local fulfillment.
      */
     private _execDevice(command, device, is_local: boolean) {
@@ -617,6 +636,10 @@ export default class HttpActions {
     }
 
     /**
+     * Handles REACHABLE_DEVICES intent.
+     *
+     * @param requestId - Request ID
+     * @param devices - Devices
      * @param response - Express response object
      */
     private _reachable_devices(requestId, response: Response) {
@@ -645,10 +668,15 @@ export default class HttpActions {
 
         return reachableDevices;
     }
-    //
-    //
-    //
-    reportState(deviceId?: string, states, notifications?): void {
+
+    /**
+     * Reports the state of a device to Google.
+     *
+     * @param deviceId - Device ID
+     * @param states - States
+     * @param notifications - Notifications
+     */
+    reportState(deviceId: string, states, notifications) {
         if (deviceId == undefined && Object.keys(states).length === 0 && notifications == undefined) {
             this._smarthome.error('HttpActions:reportState(): skipped reporting states, no devices registered');
             return;

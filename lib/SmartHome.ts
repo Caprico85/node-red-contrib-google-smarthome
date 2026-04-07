@@ -193,7 +193,7 @@ export class GoogleSmartHome {
     /**
      * Determines the type of a HTTP route (GET, POST, OPTIONS, etc.).
      *
-     * @param {object} route - The route object
+     * @param route - The route object
      * @returns The type of the route
      */
     GetRouteType(route): string {
@@ -247,9 +247,10 @@ export class GoogleSmartHome {
             });
         }
     }
-    //
-    //
-    //
+
+    /**
+     * Starts the device scan server based on the local scan type.
+     */
     StartDeviceScanServer(): void {
         if (this._localScanType === "UDP") {
             this.StartUDPDeviceScanServer();
@@ -257,16 +258,18 @@ export class GoogleSmartHome {
             this.StartMDNSAdvertisement();
         }
     }
-    //
-    //
-    //
+
+    /**
+     * Stops the device scan server.
+     */
     StopDeviceScanServer(): void {
         this.StopUDPDeviceScanServer();
         this.StopMDNSAdvertisement();
     }
-    //
-    //
-    //
+
+    /**
+     * Stops the UDP server listening for discovery packets from the smart speaker.
+     */
     StopUDPDeviceScanServer(): void {
         ['udp4', /*'udp6'*/].forEach((type) => {
             if (Object.prototype.hasOwnProperty.call(this._localUDPServers, type) && this._localUDPServers[type] !== null) {
@@ -275,20 +278,32 @@ export class GoogleSmartHome {
             }
         });
     }
-    //
-    //
-    //
+
+    /**
+     * Starts the UDP server listening for discovery packets from the smart speaker.
+     */
     StartUDPDeviceScanServer(): void {
         const me = this;
         this.debug('Starting service Scan UDP server on port ' + this._localDiscoveryPort);
 
         this.StopUDPDeviceScanServer();
 
+        /**
+         * Callback for error events on the UDP server.
+         *
+         * @param {Error} error - The error object.
+         */
         function onError(error) {
             me.debug('Service Scan UDP server: ' + error);
             me.StopUDPDeviceScanServer();
         }
 
+        /**
+         * Callback for message events on the UDP server.
+         *
+         * @param msg - The received UDP message.
+         * @param info - Remote address information.
+         */
         function onMessage(this: dgram.Socket, msg: Buffer, info: dgram.RemoteInfo) {
             const data = msg.toString().trim();
             // Accept packet with quotes too in case user sends test packet with quotes (echo "..." | nc -...)
@@ -304,11 +319,17 @@ export class GoogleSmartHome {
             }
         }
 
+        /**
+         * Callback when the UDP server starts listening.
+         */
         function onListening(this: dgram.Socket) {
             const address = this.address();
             me.debug(`Service Scan UDP server: listening on: ${address.family} ${address.address}:${address.port}`);
         }
 
+        /**
+         * Callback when the UDP server is closed.
+         */
         function onClose(this: dgram.Socket) {
             me._localUDPServers[this.type] = null;
             me.debug(`Service Scan UDP server: server ${this.type} server closed`);
@@ -355,9 +376,14 @@ export class GoogleSmartHome {
             this.error('SmartHome:Start(): dnssd-ad: err:' + err);
         });
     }
-    //
-    //
-    //
+
+    /**
+     * Starts the Google Smart Home service.
+     *
+     * @param REDapp - The Node-RED application instance.
+     * @param REDserver - The Node-RED server instance.
+     * @returns True if started successfully, otherwise an error message.
+     */
     Start(REDapp: express.Express, REDserver) {
         // httpNodeRoot is the root url for nodes that provide HTTP endpoints. If set to false, all node-based HTTP endpoints are disabled. 
         if (this._httpNodeRoot === false) return;
@@ -508,10 +534,14 @@ export class GoogleSmartHome {
 
         return true;
     }
-    //
-    //
-    //
-    Stop(REDapp: express.Express, done): void {
+
+    /**
+     * Stops the Google Smart Home service.
+     *
+     * @param REDapp - The Node-RED application instance.
+     * @param done - The callback function to call when done.
+     */
+    Stop(REDapp: express.Express, done) {
         // httpNodeRoot is the root url for nodes that provide HTTP endpoints. If set to false, all node-based HTTP endpoints are disabled. 
         if (this._httpNodeRoot === false) return;
 
@@ -561,10 +591,14 @@ export class GoogleSmartHome {
             }
         }
     }
-    //
-    //
-    //
-    Restart(REDapp: express.Express, REDserver): void {
+
+    /**
+     * Restarts the Google Smart Home service.
+     *
+     * @param REDapp - The Node-RED application instance.
+     * @param REDserver - The Node-RED server instance.
+     */
+    Restart(REDapp: express.Express, REDserver) {
         this.Stop(REDapp, () => {
             this.debug('SmartHome:Restart(): Stop done');
 
@@ -673,9 +707,11 @@ export class GoogleSmartHome {
         });
     }
 
-    //
-    //
-    //
+    /**
+     * Checks if the HTTP server is running.
+     *
+     * @returns True if the HTTP server is running, otherwise false.
+     */
     IsHttpServerRunning(): boolean {
         return this._httpServerRunning || this._httpPort <= 0;
     }
