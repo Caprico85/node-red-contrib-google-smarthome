@@ -72,7 +72,7 @@ export class GoogleSmartHome {
     private _localScanPacket: string = 'node-red-contrib-google-smarthome';
 
 
-    constructor(configNode: GoogleSmartHomeNode, userDir: string, httpNodeRoot: string, useGoogleLogin, googleClientId, emails, username, password, usehttpnoderoot,
+    constructor(configNode: GoogleSmartHomeNode, userDir: string, httpNodeRoot: string, username, password, usehttpnoderoot,
         httpPath: string, httpPort: number, localScanType: string, localScanPort: number, httpLocalPort: number, nodeRedUsesHttps, ssloffload: boolean, publicKey, privateKey, jwtkeyFile, clientid,
         clientsecret, debug, debug_function: (data: any) => void, error_function: (data: any) => void) {
 
@@ -112,11 +112,7 @@ export class GoogleSmartHome {
         this.debug('GoogleSmartHome.constructor');
         this.auth.loadAuthStorage(configNode.id, userDir);
         this.auth.setClientIdSecret(clientid, clientsecret);
-        if (useGoogleLogin) {
-            this.auth.setGoogleClientIdAndEmails(googleClientId, emails);
-        } else {
-            this.auth.setUsernamePassword(username, password);
-        }
+        this.auth.setUsernamePassword(username, password);
 
         // httpNodeRoot is the root url for nodes that provide HTTP endpoints. If set to false, all node-based HTTP endpoints are disabled. 
         if (this._httpNodeRoot !== false) {

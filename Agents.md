@@ -18,7 +18,7 @@ Data flow: Google → HTTPS webhook → Node-RED config node → individual devi
 ## 3. Key Directories & Files
 - `google-smarthome.js`, `google-mgmt.js`, `devices/`: Main runtime nodes registered via `package.json`.
 - `lib/`: Helpers such as HTTP handlers, auth, state storage, and Google API wrappers.
-- `docs/`: Setup instructions, Google Sign-In guide, troubleshooting, and error references—consult before changing onboarding flows.
+- `docs/`: Setup instructions, troubleshooting, and error references—consult before changing onboarding flows.
 - `examples/` and `examples/Spoken Notifications/`: Reference payloads and sample flows.
 - `test/`: Mocha + `node-red-node-test-helper` specs, plus `test/sh/flows.json` used for integration-style simulations.
 - `local-execution/`: Discovery and local-fulfillment utilities.
