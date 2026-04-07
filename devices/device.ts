@@ -294,6 +294,9 @@ export class DeviceNode {
     private nicknames: string;
     private room_hint: string;
 
+    /**
+     * Initialize the device node.
+     */
     constructor(config: DeviceNodeConfig) {
         RED.nodes.createNode(this, config);
 
@@ -2387,7 +2390,8 @@ export class DeviceNode {
     }
 
     /**
-     * respond to inputs from NodeRED
+     * Respond to inputs from Node-RED.
+     * This method is called when the user sends a message into this node.
      *
      * @param msgi - The incoming message
      * @param send - Function to send outgoing messages
