@@ -291,8 +291,6 @@ export class DeviceNode {
     public  config: DeviceNodeConfig;
     private device_type: string;
     private lang: string;
-    private nicknames: string;
-    private room_hint: string;
 
     /**
      * Initialize the device node.
@@ -304,7 +302,6 @@ export class DeviceNode {
         this.device = {};
         this.name = config.name || config.id;
         this.device_type = config.device_type;
-        this.nicknames = config.nicknames;
         this.clientConn = RED.nodes.getNode(this.config.client) as GoogleSmartHomeNode;
         this._debug(".constructor config " + JSON.stringify(config));
 
@@ -643,7 +640,6 @@ export class DeviceNode {
 
         this.topic_filter = config.topic_filter || false;
         this.persistent_state = config.persistent_state || false;
-        this.room_hint = config.room_hint;
 
         // AppSelector
         this.appselector_file = config.appselector_file;
@@ -769,7 +765,6 @@ export class DeviceNode {
         this.supports_continuous_rotation = config.supports_continuous_rotation;
         // RunCycle
         // SensorState
-        this.sensor_states_supported = config.sensor_states_supported;
         // SoftwareUpdate
         // StartStop
         this.available_zones = config.available_zones;
@@ -803,81 +798,13 @@ export class DeviceNode {
         this.volume_max_level = parseInt(config.volume_max_level) || 100;
         this.volume_default_percentage = parseInt(config.volume_default_percentage) || 40;
         this.level_step_size = parseInt(config.level_step_size) || 1;
-        // Secondary User Verification
-        this.ct_appselector = config.ct_appselector || '';
-        this.pin_appselector = config.pin_appselector || '';
-        this.ct_armdisarm = config.ct_armdisarm || '';
-        this.pin_armdisarm = config.pin_armdisarm || '';
-        this.ct_brightness = config.ct_brightness || '';
-        this.pin_brightness = config.pin_brightness || '';
-        this.ct_camerastream = config.ct_camerastream || '';
-        this.pin_camerastream = config.pin_camerastream || '';
-        this.ct_channel = config.ct_channel || '';
-        this.pin_channel = config.pin_channel || '';
-        this.ct_colorsetting = config.ct_colorsetting || '';
-        this.pin_colorsetting = config.pin_colorsetting || '';
-        this.ct_cook = config.ct_cook || '';
-        this.pin_cook = config.pin_cook || '';
-        this.ct_dispense = config.ct_dispense || '';
-        this.pin_dispense = config.pin_dispense || '';
-        this.ct_dock = config.ct_dock || '';
-        this.pin_dock = config.pin_dock || '';
-        this.ct_energystorage = config.ct_energystorage || '';
-        this.pin_energystorage = config.pin_energystorage || '';
-        this.ct_fanspeed = config.ct_fanspeed || '';
-        this.pin_fanspeed = config.pin_fanspeed || '';
-        this.ct_fill = config.ct_fill || '';
-        this.pin_fill = config.pin_fill || '';
-        this.ct_humiditysetting = config.ct_humiditysetting || '';
-        this.pin_humiditysetting = config.pin_humiditysetting || '';
-        this.ct_inputselector = config.ct_inputselector || '';
-        this.pin_inputselector = config.pin_inputselector || '';
-        this.ct_lighteffects = config.ct_lighteffects || '';
-        this.pin_lighteffects = config.pin_lighteffects || '';
-        this.ct_locator = config.ct_locator || '';
-        this.pin_locator = config.pin_locator || '';
-        this.ct_lockunlock = config.ct_lockunlock || '';
-        this.pin_lockunlock = config.pin_lockunlock || '';
-        this.ct_mediastate = config.ct_mediastate || '';
-        this.pin_mediastate = config.pin_mediastate || '';
-        this.ct_modes = config.ct_modes || '';
-        this.pin_modes = config.pin_modes || '';
-        this.ct_networkcontrol = config.ct_networkcontrol || '';
-        this.pin_networkcontrol = config.pin_networkcontrol || '';
-        this.ct_objectdetection = config.ct_objectdetection || '';
-        this.pin_objectdetection = config.pin_objectdetection || '';
-        this.ct_onoff = config.ct_onoff || '';
-        this.pin_onoff = config.pin_onoff || '';
-        this.ct_openclose = config.ct_openclose || '';
-        this.pin_openclose = config.pin_openclose || '';
-        this.ct_reboot = config.ct_reboot || '';
-        this.pin_reboot = config.pin_reboot || '';
-        this.ct_rotation = config.ct_rotation || '';
-        this.pin_rotation = config.pin_rotation || '';
-        this.ct_runcycle = config.ct_runcycle || '';
-        this.pin_runcycle = config.pin_runcycle || '';
-        this.ct_scene = config.ct_scene || '';
-        this.pin_scene = config.pin_scene || '';
-        this.ct_sensorstate = config.ct_sensorstate || '';
-        this.pin_sensorstate = config.pin_sensorstate || '';
-        this.ct_softwareupdate = config.ct_softwareupdate || '';
-        this.pin_softwareupdate = config.pin_softwareupdate || '';
-        this.ct_startstop = config.ct_startstop || '';
-        this.pin_startstop = config.pin_startstop || '';
-        this.ct_statusreport = config.ct_statusreport || '';
-        this.pin_statusreport = config.pin_statusreport || '';
-        this.ct_temperaturecontrol = config.ct_temperaturecontrol || '';
-        this.pin_temperaturecontrol = config.pin_temperaturecontrol || '';
-        this.ct_temperaturesetting = config.ct_temperaturesetting || '';
-        this.pin_temperaturesetting = config.pin_temperaturesetting || '';
-        this.ct_timer = config.ct_timer || '';
-        this.pin_timer = config.pin_timer || '';
-        this.ct_toggles = config.ct_toggles || '';
-        this.pin_toggles = config.pin_toggles || '';
-        this.ct_transportcontrol = config.ct_transportcontrol || '';
-        this.pin_transportcontrol = config.pin_transportcontrol || '';
-        this.ct_volume = config.ct_volume || '';
-        this.pin_volume = config.pin_volume || '';
+        
+        // Secondary User Verification: Set all challenge types (ct) and PINs to empty string if not configured
+        Object.keys(this.config)
+            .filter(key => key.startsWith('ct_') || key.startsWith('pin_'))
+            .forEach(key => {
+                (this.config as any)[key] = (this.config as any)[key] || '';
+            });
 
         if (this.config.trait_appselector) {
             if (this.appselector_type !== 'json') {
@@ -969,7 +896,7 @@ export class DeviceNode {
         const default_name = RED._('device.device_type.' + this.device_type);
         const default_name_type = default_name.replace(/[_ ()/]+/g, '-').toLowerCase();
         // Google uses first nickname as the "real" name of the device. Therefore, report device name as the first nickname
-        const nicknames = this.nicknames ? [this.name].concat(this.nicknames.split(',')) : [];
+        const nicknames = this.config.nicknames ? [this.name].concat(this.config.nicknames.split(',')) : [];
 
         this.states = {
             online: config.online != false
@@ -985,7 +912,7 @@ export class DeviceNode {
                     name: this.name,
                     nicknames: nicknames,
                 },
-                roomHint: this.room_hint,
+                roomHint: this.config.room_hint,
                 willReportState: true,
                 notificationSupportedByAgent: this.config.trait_objectdetection || this.config.trait_runcycle || this.config.trait_sensorstate
                     || this.config.trait_lockunlock || this.config.trait_networkcontrol || this.config.trait_openclose,
@@ -2833,117 +2760,117 @@ export class DeviceNode {
                     case 'action.devices.commands.appInstall':
                     case 'action.devices.commands.appSearch':
                     case 'action.devices.commands.appSelect':
-                        this.pin_appselector = pin;
+                        this.config.pin_appselector = pin;
                         break;
                     case 'action.devices.commands.ArmDisarm':
-                        this.pin_armdisarm = pin;
+                        this.config.pin_armdisarm = pin;
                         break;
                     case 'action.devices.commands.BrightnessAbsolute':
                     case 'action.devices.commands.BrightnessRelative':
-                        this.pin_brightness = pin;
+                        this.config.pin_brightness = pin;
                         break;
                     case 'action.devices.commands.GetCameraStream':
-                        this.pin_camerastream = pin;
+                        this.config.pin_camerastream = pin;
                         break;
                     case 'action.devices.commands.selectChannel':
                     case 'action.devices.commands.relativeChannel':
                     case 'action.devices.commands.returnChannel':
-                        this.pin_channel = pin;
+                        this.config.pin_channel = pin;
                         break;
                     case 'action.devices.commands.ColorAbsolute':
-                        this.pin_colorsetting = pin;
+                        this.config.pin_colorsetting = pin;
                         break;
                     case 'action.devices.commands.Cook':
-                        this.pin_cook = pin;
+                        this.config.pin_cook = pin;
                         break;
                     case 'action.devices.commands.Dispense':
-                        this.pin_dispense = pin;
+                        this.config.pin_dispense = pin;
                         break;
                     case 'action.devices.commands.Dock':
-                        this.pin_dock = pin;
+                        this.config.pin_dock = pin;
                         break;
                     case 'action.devices.commands.Charge':
-                        this.pin_energystorage = pin;
+                        this.config.pin_energystorage = pin;
                         break;
                     case 'action.devices.commands.SetFanSpeed':
                     case 'action.devices.commands.SetFanSpeedRelative':
                     case 'action.devices.commands.Reverse':
-                        this.pin_fanspeed = pin;
+                        this.config.pin_fanspeed = pin;
                         break;
                     case 'action.devices.commands.Fill':
-                        this.pin_fill = pin;
+                        this.config.pin_fill = pin;
                         break;
                     case 'action.devices.commands.SetHumidity':
                     case 'action.devices.commands.HumidityRelative':
-                        this.pin_humiditysetting = pin;
+                        this.config.pin_humiditysetting = pin;
                         break;
                     case 'action.devices.commands.SetInput':
                     case 'action.devices.commands.NextInput':
                     case 'action.devices.commands.PreviousInput':
-                        this.pin_inputselector = pin;
+                        this.config.pin_inputselector = pin;
                         break;
                     case 'action.devices.commands.ColorLoop':
                     case 'action.devices.commands.Sleep':
                     case 'action.devices.commands.StopEffect':
                     case 'action.devices.commands.Wake':
-                        this.pin_colorsetting = pin;
+                        this.config.pin_colorsetting = pin;
                         break;
                     case 'action.devices.commands.Locate':
-                        this.pin_locator = pin;
+                        this.config.pin_locator = pin;
                         break;
                     case 'action.devices.commands.LockUnlock':
-                        this.pin_lockunlock = pin;
+                        this.config.pin_lockunlock = pin;
                         break;
                     case 'action.devices.commands.SetModes':
-                        this.pin_modes = pin;
+                        this.config.pin_modes = pin;
                         break;
                     case 'action.devices.commands.EnableDisableGuestNetwork':
                     case 'action.devices.commands.EnableDisableNetworkProfile':
                     case 'action.devices.commands.GetGuestNetworkPassword':
                     case 'action.devices.commands.TestNetworkSpeed':
-                        this.pin_networkcontrol = pin;
+                        this.config.pin_networkcontrol = pin;
                         break;
                     case 'action.devices.commands.OnOff':
-                        this.pin_onoff = pin;
+                        this.config.pin_onoff = pin;
                         break;
                     case 'action.devices.commands.OpenClose':
                     case 'action.devices.commands.OpenCloseRelative':
-                        this.pin_openclose = pin;
+                        this.config.pin_openclose = pin;
                         break;
                     case 'action.devices.commands.Reboot':
-                        this.pin_reboot = pin;
+                        this.config.pin_reboot = pin;
                         break;
                     case 'action.devices.commands.RotateAbsolute':
-                        this.pin_rotation = pin;
+                        this.config.pin_rotation = pin;
                         break;
                     case 'action.devices.commands.ActivateScene':
-                        this.pin_scene = pin;
+                        this.config.pin_scene = pin;
                         break;
                     case 'action.devices.commands.SoftwareUpdate':
-                        this.pin_softwareupdate = pin;
+                        this.config.pin_softwareupdate = pin;
                         break;
                     case 'action.devices.commands.StartStop':
                     case 'action.devices.commands.PauseUnpause':
-                        this.pin_startstop = pin;
+                        this.config.pin_startstop = pin;
                         break;
                     case 'action.devices.commands.SetTemperature':
-                        this.pin_temperaturecontrol = pin;
+                        this.config.pin_temperaturecontrol = pin;
                         break;
                     case 'action.devices.commands.ThermostatTemperatureSetpoint':
                     case 'action.devices.commands.ThermostatTemperatureSetRange':
                     case 'action.devices.commands.ThermostatSetMode':
                     case 'action.devices.commands.TemperatureRelative':
-                        this.pin_temperaturesetting = pin;
+                        this.config.pin_temperaturesetting = pin;
                         break;
                     case 'action.devices.commands.TimerStart':
                     case 'action.devices.commands.TimerAdjust':
                     case 'action.devices.commands.TimerPause':
                     case 'action.devices.commands.TimerResume':
                     case 'action.devices.commands.TimerCancel':
-                        this.pin_timer = pin;
+                        this.config.pin_timer = pin;
                         break;
                     case 'action.devices.commands.SetToggles':
-                        this.pin_toggles = pin;
+                        this.config.pin_toggles = pin;
                         break;
                     case 'action.devices.commands.mediaStop':
                     case 'action.devices.commands.mediaNext':
@@ -2956,12 +2883,12 @@ export class DeviceNode {
                     case 'action.devices.commands.mediaShuffle':
                     case 'action.devices.commands.mediaClosedCaptioningOn':
                     case 'action.devices.commands.mediaClosedCaptioningOff':
-                        this.pin_transportcontrol = pin;
+                        this.config.pin_transportcontrol = pin;
                         break;
                     case 'action.devices.commands.mute':
                     case 'action.devices.commands.setVolume':
                     case 'action.devices.commands.volumeRelative':
-                        this.pin_volume = pin;
+                        this.config.pin_volume = pin;
                         break;
                 }
             } else {
@@ -3938,147 +3865,147 @@ export class DeviceNode {
             case 'action.devices.commands.appInstall':
             case 'action.devices.commands.appSearch':
             case 'action.devices.commands.appSelect':
-                challenge_type = this.ct_appselector;
-                challenge_pin = this.pin_appselector;
+                challenge_type = this.config.ct_appselector;
+                challenge_pin = this.config.pin_appselector;
                 break;
             case 'action.devices.commands.ArmDisarm':
-                challenge_type = this.ct_armdisarm;
-                challenge_pin = this.pin_armdisarm;
+                challenge_type = this.config.ct_armdisarm;
+                challenge_pin = this.config.pin_armdisarm;
                 break;
             case 'action.devices.commands.BrightnessAbsolute':
             case 'action.devices.commands.BrightnessRelative':
-                challenge_type = this.ct_brightness;
-                challenge_pin = this.pin_brightness;
+                challenge_type = this.config.ct_brightness;
+                challenge_pin = this.config.pin_brightness;
                 break;
             case 'action.devices.commands.GetCameraStream':
-                challenge_type = this.ct_camerastream;
-                challenge_pin = this.pin_camerastream;
+                challenge_type = this.config.ct_camerastream;
+                challenge_pin = this.config.pin_camerastream;
                 break;
             case 'action.devices.commands.selectChannel':
             case 'action.devices.commands.relativeChannel':
             case 'action.devices.commands.returnChannel':
-                challenge_type = this.ct_channel;
-                challenge_pin = this.pin_channel;
+                challenge_type = this.config.ct_channel;
+                challenge_pin = this.config.pin_channel;
                 break;
             case 'action.devices.commands.ColorAbsolute':
-                challenge_type = this.ct_colorsetting;
-                challenge_pin = this.pin_colorsetting;
+                challenge_type = this.config.ct_colorsetting;
+                challenge_pin = this.config.pin_colorsetting;
                 break;
             case 'action.devices.commands.Cook':
-                challenge_type = this.ct_cook;
-                challenge_pin = this.pin_cook;
+                challenge_type = this.config.ct_cook;
+                challenge_pin = this.config.pin_cook;
                 break;
             case 'action.devices.commands.Dispense':
-                challenge_type = this.ct_dispense;
-                challenge_pin = this.pin_dispense;
+                challenge_type = this.config.ct_dispense;
+                challenge_pin = this.config.pin_dispense;
                 break;
             case 'action.devices.commands.Dock':
-                challenge_type = this.ct_dock;
-                challenge_pin = this.pin_dock;
+                challenge_type = this.config.ct_dock;
+                challenge_pin = this.config.pin_dock;
                 break;
             case 'action.devices.commands.Charge':
-                challenge_type = this.ct_energystorage;
-                challenge_pin = this.pin_energystorage;
+                challenge_type = this.config.ct_energystorage;
+                challenge_pin = this.config.pin_energystorage;
                 break;
             case 'action.devices.commands.SetFanSpeed':
             case 'action.devices.commands.SetFanSpeedRelative':
             case 'action.devices.commands.Reverse':
-                challenge_type = this.ct_fanspeed;
-                challenge_pin = this.pin_fanspeed;
+                challenge_type = this.config.ct_fanspeed;
+                challenge_pin = this.config.pin_fanspeed;
                 break;
             case 'action.devices.commands.Fill':
-                challenge_type = this.ct_fill;
-                challenge_pin = this.pin_fill;
+                challenge_type = this.config.ct_fill;
+                challenge_pin = this.config.pin_fill;
                 break;
             case 'action.devices.commands.SetHumidity':
             case 'action.devices.commands.HumidityRelative':
-                challenge_type = this.ct_humiditysetting;
-                challenge_pin = this.pin_humiditysetting;
+                challenge_type = this.config.ct_humiditysetting;
+                challenge_pin = this.config.pin_humiditysetting;
                 break;
             case 'action.devices.commands.SetInput':
             case 'action.devices.commands.NextInput':
             case 'action.devices.commands.PreviousInput':
-                challenge_type = this.ct_inputselector;
-                challenge_pin = this.pin_inputselector;
+                challenge_type = this.config.ct_inputselector;
+                challenge_pin = this.config.pin_inputselector;
                 break;
             case 'action.devices.commands.ColorLoop':
             case 'action.devices.commands.Sleep':
             case 'action.devices.commands.StopEffect':
             case 'action.devices.commands.Wake':
-                challenge_type = this.ct_colorsetting;
-                challenge_pin = this.pin_colorsetting;
+                challenge_type = this.config.ct_colorsetting;
+                challenge_pin = this.config.pin_colorsetting;
                 break;
             case 'action.devices.commands.Locate':
-                challenge_type = this.ct_locator;
-                challenge_pin = this.pin_locator;
+                challenge_type = this.config.ct_locator;
+                challenge_pin = this.config.pin_locator;
                 break;
             case 'action.devices.commands.LockUnlock':
-                challenge_type = this.ct_lockunlock;
-                challenge_pin = this.pin_lockunlock;
+                challenge_type = this.config.ct_lockunlock;
+                challenge_pin = this.config.pin_lockunlock;
                 break;
             case 'action.devices.commands.SetModes':
-                challenge_type = this.ct_modes;
-                challenge_pin = this.pin_modes;
+                challenge_type = this.config.ct_modes;
+                challenge_pin = this.config.pin_modes;
                 break;
             case 'action.devices.commands.EnableDisableGuestNetwork':
             case 'action.devices.commands.EnableDisableNetworkProfile':
             case 'action.devices.commands.GetGuestNetworkPassword':
             case 'action.devices.commands.TestNetworkSpeed':
-                challenge_type = this.ct_networkcontrol;
-                challenge_pin = this.pin_networkcontrol;
+                challenge_type = this.config.ct_networkcontrol;
+                challenge_pin = this.config.pin_networkcontrol;
                 break;
             case 'action.devices.commands.OnOff':
-                challenge_type = this.ct_onoff;
-                challenge_pin = this.pin_onoff;
+                challenge_type = this.config.ct_onoff;
+                challenge_pin = this.config.pin_onoff;
                 break;
             case 'action.devices.commands.OpenClose':
             case 'action.devices.commands.OpenCloseRelative':
-                challenge_type = this.ct_openclose;
-                challenge_pin = this.pin_openclose;
+                challenge_type = this.config.ct_openclose;
+                challenge_pin = this.config.pin_openclose;
                 break;
             case 'action.devices.commands.Reboot':
-                challenge_type = this.ct_reboot;
-                challenge_pin = this.pin_reboot;
+                challenge_type = this.config.ct_reboot;
+                challenge_pin = this.config.pin_reboot;
                 break;
             case 'action.devices.commands.RotateAbsolute':
-                challenge_type = this.ct_rotation;
-                challenge_pin = this.pin_rotation;
+                challenge_type = this.config.ct_rotation;
+                challenge_pin = this.config.pin_rotation;
                 break;
             case 'action.devices.commands.ActivateScene':
-                challenge_type = this.ct_scene;
-                challenge_pin = this.pin_scene;
+                challenge_type = this.config.ct_scene;
+                challenge_pin = this.config.pin_scene;
                 break;
             case 'action.devices.commands.SoftwareUpdate':
-                challenge_type = this.ct_softwareupdate;
-                challenge_pin = this.pin_softwareupdate;
+                challenge_type = this.config.ct_softwareupdate;
+                challenge_pin = this.config.pin_softwareupdate;
                 break;
             case 'action.devices.commands.StartStop':
             case 'action.devices.commands.PauseUnpause':
-                challenge_type = this.ct_startstop;
-                challenge_pin = this.pin_startstop;
+                challenge_type = this.config.ct_startstop;
+                challenge_pin = this.config.pin_startstop;
                 break;
             case 'action.devices.commands.SetTemperature':
-                challenge_type = this.ct_temperaturecontrol;
-                challenge_pin = this.pin_temperaturecontrol;
+                challenge_type = this.config.ct_temperaturecontrol;
+                challenge_pin = this.config.pin_temperaturecontrol;
                 break;
             case 'action.devices.commands.ThermostatTemperatureSetpoint':
             case 'action.devices.commands.ThermostatTemperatureSetRange':
             case 'action.devices.commands.ThermostatSetMode':
             case 'action.devices.commands.TemperatureRelative':
-                challenge_type = this.ct_temperaturesetting;
-                challenge_pin = this.pin_temperaturesetting;
+                challenge_type = this.config.ct_temperaturesetting;
+                challenge_pin = this.config.pin_temperaturesetting;
                 break;
             case 'action.devices.commands.TimerStart':
             case 'action.devices.commands.TimerAdjust':
             case 'action.devices.commands.TimerPause':
             case 'action.devices.commands.TimerResume':
             case 'action.devices.commands.TimerCancel':
-                challenge_type = this.ct_timer;
-                challenge_pin = this.pin_timer;
+                challenge_type = this.config.ct_timer;
+                challenge_pin = this.config.pin_timer;
                 break;
             case 'action.devices.commands.SetToggles':
-                challenge_type = this.ct_toggles;
-                challenge_pin = this.pin_toggles;
+                challenge_type = this.config.ct_toggles;
+                challenge_pin = this.config.pin_toggles;
                 break;
             case 'action.devices.commands.mediaStop':
             case 'action.devices.commands.mediaNext':
@@ -4091,14 +4018,14 @@ export class DeviceNode {
             case 'action.devices.commands.mediaShuffle':
             case 'action.devices.commands.mediaClosedCaptioningOn':
             case 'action.devices.commands.mediaClosedCaptioningOff':
-                challenge_type = this.ct_transportcontrol;
-                challenge_pin = this.pin_transportcontrol;
+                challenge_type = this.config.ct_transportcontrol;
+                challenge_pin = this.config.pin_transportcontrol;
                 break;
             case 'action.devices.commands.mute':
             case 'action.devices.commands.setVolume':
             case 'action.devices.commands.volumeRelative':
-                challenge_type = this.ct_volume;
-                challenge_pin = this.pin_volume;
+                challenge_type = this.config.ct_volume;
+                challenge_pin = this.config.pin_volume;
                 break;
         }
         const challenge = command.challenge || {};
