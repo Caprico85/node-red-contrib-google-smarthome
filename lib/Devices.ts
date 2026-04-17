@@ -189,7 +189,7 @@ export default class Devices {
      *     }
      * }
      *
-     * @param {object} states - States to set
+     * @param states - States to set
      */
     setStates(states) {
         this._smarthome.debug('Device:setStates()');
