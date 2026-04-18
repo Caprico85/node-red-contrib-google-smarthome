@@ -74,6 +74,7 @@
   "optionalDependencies": {
     "fsevents": "*"
   },
+  "packageManager": "npm@10.9.8",
   "maintainers": [
     {
       "name": "mikejac",
